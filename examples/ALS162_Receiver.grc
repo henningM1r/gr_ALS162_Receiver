@@ -1,0 +1,3562 @@
+options:
+  parameters:
+    author: henningM1r
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: ALS162
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: ALS162_Receiver
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: bits
+  id: variable
+  parameters:
+    comment: ''
+    value: '1000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 92.0]
+    rotation: 0
+    state: true
+- name: decimation
+  id: variable
+  parameters:
+    comment: ''
+    value: '8'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 92.0]
+    rotation: 0
+    state: true
+- name: diff_gain
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (1,0)
+    label: diff_gain
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '1'
+    step: '1'
+    stop: '300'
+    value: '70'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [648, 12.0]
+    rotation: 0
+    state: true
+- name: freq_ALS162
+  id: variable
+  parameters:
+    comment: ''
+    value: '162000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 12.0]
+    rotation: 0
+    state: true
+- name: fun_prob
+  id: variable_function_probe
+  parameters:
+    block_id: probe_signal
+    comment: ''
+    function_args: ''
+    function_name: level
+    poll_rate: shift_poll_freq
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3192, 572.0]
+    rotation: 0
+    state: enabled
+- name: gain
+  id: variable_qtgui_range
+  parameters:
+    comment: 'Amplify receving
+
+      signal power'
+    gui_hint: (0,0)
+    label: Receiver Gain
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '1'
+    step: '1'
+    stop: '1000'
+    value: '750'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 12.0]
+    rotation: 0
+    state: true
+- name: one_lower_hi
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (8,0)
+    label: one_lower_hi
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '1150'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1296, 12.0]
+    rotation: 0
+    state: true
+- name: one_lower_lo
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (7,0)
+    label: one_lower_lo
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '1100'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 12.0]
+    rotation: 0
+    state: true
+- name: one_upper_hi
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (10,0)
+    label: one_upper_hi
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '5150'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1560, 12.0]
+    rotation: 0
+    state: true
+- name: one_upper_lo
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (9,0)
+    label: one_upper_lo
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '4885'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 12.0]
+    rotation: 0
+    state: true
+- name: phase_shift
+  id: variable
+  parameters:
+    comment: ''
+    value: phase_shift_fct.shift_freq(fun_prob)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3192, 780.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '192000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 12.0]
+    rotation: 0
+    state: enabled
+- name: shift_poll_freq
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: shift_poll_freq
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '100'
+    stop: samp_rate
+    value: '4000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3216, 172.0]
+    rotation: 0
+    state: enabled
+- name: shift_step
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: shift_step
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0.00000'
+    step: '0.00001'
+    stop: '0.00150'
+    value: '0.00075'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3080, 172.0]
+    rotation: 0
+    state: enabled
+- name: threshold_spike
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (13,0)
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '100'
+    stop: '25000'
+    value: '15000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1936, 12.0]
+    rotation: 0
+    state: enabled
+- name: two_hi
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (12,0)
+    label: two_hi
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '6000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1816, 12.0]
+    rotation: 0
+    state: true
+- name: two_lo
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (11,0)
+    label: two_lo
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '4800'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1688, 12.0]
+    rotation: 0
+    state: true
+- name: variable_low_pass_filter_taps
+  id: variable_low_pass_filter_taps
+  parameters:
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '1000'
+    gain: '750'
+    samp_rate: samp_rate
+    width: '250'
+    win: window.WIN_BLACKMAN
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [416, 548.0]
+    rotation: 0
+    state: enabled
+- name: zero_hi
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (6,0)
+    label: zero_hi
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '1750'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 12.0]
+    rotation: 0
+    state: true
+- name: zero_lo
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (5,0)
+    label: zero_lo
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10000'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 12.0]
+    rotation: 0
+    state: true
+- name: zoom
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: (3,0)
+    label: zoom
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '10'
+    stop: '25000'
+    value: '8000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 12.0]
+    rotation: 0
+    state: true
+- name: analog_agc2_xx_0
+  id: analog_agc2_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    attack_rate: 1e-1
+    comment: ''
+    decay_rate: 1e-2
+    gain: '1.0'
+    max_gain: gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    reference: '1.0'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 444.0]
+    rotation: 0
+    state: enabled
+- name: analog_const_source_x_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: zero_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1500.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: zero_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1564.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_0_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: one_lower_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1436.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_0_0_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: one_upper_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1308.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_0_0_1
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: two_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1180.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_1
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: one_lower_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1372.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_1_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: one_upper_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1244.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_1_0_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: threshold_spike
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1628.0]
+    rotation: 0
+    state: disabled
+- name: analog_const_source_x_0_1_1
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: two_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 1116.0]
+    rotation: 0
+    state: disabled
+- name: blocks_add_const_vxx_0
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended!'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1584, 620.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_const_vxx_0_0
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended!'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2240, 1996.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_const_vxx_0_0_0
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended!'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2280, 724.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_const_vxx_0_0_0_0
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended!'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 724.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_const_vxx_0_0_0_1
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended!'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1592, 492.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_const_vxx_1
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'needed, but unclear
+
+      why logical AND-gate
+
+      provides something
+
+      different than 0 or 1'
+    const: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1824, 1316.0]
+    rotation: 0
+    state: true
+- name: blocks_and_xx_0
+  id: blocks_and_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: get 0 value
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 1304.0]
+    rotation: 0
+    state: true
+- name: blocks_and_xx_0_0
+  id: blocks_and_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: get +2 value
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '3'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 888.0]
+    rotation: 0
+    state: enabled
+- name: blocks_and_xx_0_0_0
+  id: blocks_and_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: get -2 value
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '3'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 1688.0]
+    rotation: 0
+    state: enabled
+- name: blocks_and_xx_0_1
+  id: blocks_and_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: get +1 value
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '3'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 1080.0]
+    rotation: 0
+    state: enabled
+- name: blocks_and_xx_0_1_0
+  id: blocks_and_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: get -1 value
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '3'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 1496.0]
+    rotation: 0
+    state: enabled
+- name: blocks_char_to_float_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 1316.0]
+    rotation: 0
+    state: true
+- name: blocks_char_to_float_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 916.0]
+    rotation: 0
+    state: enabled
+- name: blocks_char_to_float_0_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 1716.0]
+    rotation: 0
+    state: enabled
+- name: blocks_char_to_float_0_0_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 1108.0]
+    rotation: 0
+    state: enabled
+- name: blocks_char_to_float_0_0_0_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 1524.0]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_arg_0_0
+  id: blocks_complex_to_arg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to obtain the
+
+      phase of the
+
+      complex signal'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1152, 496.0]
+    rotation: 0
+    state: true
+- name: blocks_float_to_char_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1380.0]
+    rotation: 0
+    state: true
+- name: blocks_float_to_char_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1252.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 916.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 820.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1028.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_0_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1140.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_0_0_0_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1492.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_0_0_1
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1604.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_1
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1828.0]
+    rotation: 0
+    state: enabled
+- name: blocks_float_to_char_0_0_0_1_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 1716.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 2184.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: compute average phase
+    length: '500000'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/500000
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2736, 388.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to remove glitches
+
+      from a noisy
+
+      derivation of the phase'
+    length: '500'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/500
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2056, 468.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to remove glitches
+
+      from a noisy phase'
+    length: '1000'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/1000
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1360, 468.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'just to be visible
+
+      in the (non-normalized)
+
+      plot'
+    const: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 1996.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: positive values
+    const: '+1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [816, 1252.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: positive values
+    const: diff_gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 1316.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0_0_0_0_1_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: bits
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1316.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: bits+300
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2232, 916.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: -bits-300
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1716.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: bits+200
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2232, 1108.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: -bits-200
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1524.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_2
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: negative values
+    const: '-1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [816, 1380.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_3
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'just to be visible
+
+      in the (non-normalized)
+
+      plot'
+    const: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2280, 620.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_4
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1500.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1564.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1436.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_0_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1308.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_0_0_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1180.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1372.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_1_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1244.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_1_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1628.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_4_1_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 1116.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_xx_0
+  id: blocks_multiply_const_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'weighting parameter for
+
+      corrective feedback'
+    const: shift_step
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2960, 484.0]
+    rotation: 0
+    state: true
+- name: blocks_not_xx_0
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 824.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_0
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1832.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1032.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1_0
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1536.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1_0_0
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1584.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1_1
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 960.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1_2
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1256.0]
+    rotation: 0
+    state: enabled
+- name: blocks_not_xx_0_1_2_0
+  id: blocks_not_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1384.0]
+    rotation: 0
+    state: enabled
+- name: blocks_phase_shift_0
+  id: blocks_phase_shift
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'apply phase drift
+
+      correction by shifting
+
+      the phase to the
+
+      opposite direction
+
+      towards zero'
+    is_radians: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    shift: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 480.0]
+    rotation: 0
+    state: true
+- name: blocks_threshold_ff_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: extreme spike upwards
+    high: threshold_spike
+    init: '0'
+    low: threshold_spike
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 804.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: extreme spike downwards
+    high: threshold_spike
+    init: '0'
+    low: threshold_spike
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1812.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'above this value
+
+      is a +2'
+    high: two_hi
+    init: '0'
+    low: two_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 900.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'above this value
+
+      is a -2'
+    high: two_hi
+    init: '0'
+    low: two_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1700.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'above this value
+
+      is a +1'
+    high: one_lower_hi
+    init: '0'
+    low: one_lower_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1124.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_0_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'below this value
+
+      is a +1'
+    high: one_upper_lo
+    init: '0'
+    low: one_upper_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1012.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_0_0_0_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'below this value
+
+      is a -1'
+    high: one_upper_lo
+    init: '0'
+    low: one_upper_hi
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1588.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_0_0_1
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'above this value
+
+      is a -1'
+    high: one_lower_hi
+    init: '0'
+    low: one_lower_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1476.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_1
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'below this value
+
+      is a 0'
+    high: zero_hi
+    init: '0'
+    low: zero_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1236.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0_0_0_0_1_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'below this value
+
+      is a 0'
+    high: zero_hi
+    init: '0'
+    low: zero_lo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 1364.0]
+    rotation: 0
+    state: enabled
+- name: blocks_var_to_msg_0_0
+  id: blocks_var_to_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'get phase shift value
+
+      from probe function'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    msgname: ampl
+    target: phase_shift
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [648, 628.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nimport pmt\n\n\n\n# the detector is initially out of\
+      \ sync\n_in_sync = 0\n\n# counted number of one samples for +1\n_num_ones_p1\
+      \ = 0\n# counted number of one samples for -1\n_num_ones_m1 = 0\n# counted number\
+      \ of one samples for  0\n_num_ones_z0 = 0\n# counted number of one samples for\
+      \ +2\n_num_ones_p2 = 0\n# counted number of one samples for -2\n_num_ones_m2\
+      \ = 0\n\n# counts number of samples after a zero- or\n# one-symbol has been\
+      \ detected\n_skip_count = 0\n# determines how many samples shall be skipped\n\
+      # after the detection of a zero- or one-symbol\n_cur_skipframe = 50000\n_cur_sec\
+      \ = 0\n\n\nclass blk(gr.sync_block):  # other base classes are basic_block,\
+      \ decim_block, interp_block\n\n    def __init__(self, scaling=8, sample_rate=192000,\
+      \ tolerance=0.002, debug=False):\n        gr.sync_block.__init__(\n        \
+      \    self,\n            name='Bit-Detector ALS162',\n            in_sig=[np.float32,\
+      \ np.float32, np.float32, np.float32, np.float32],\n            out_sig=[np.float32]\n\
+      \        )\n\n        self.scaling     = scaling\n        self.sample_rate =\
+      \ sample_rate\n        self._tolerance  = self.sample_rate/self.scaling*tolerance\n\
+      \n        # True: display status-tags\n        self.debug = debug\n        \n\
+      \        # messaging port\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
+      \n        # values from slope signal computed by derivative FIR filter\n   \
+      \     # symbols are constructed by a sequence of clocked sub-frames\n      \
+      \  # Zero-Symbol:\n        # 0, +1, -1, -1, +1, 0, 0, 0, 0\n        #\n    \
+      \    # One-Symbol:\n        # 0, +1, -1, -1, +1, +1, -1, -1, +1\n        # \n\
+      \        # New-Minute-Symbol:\n        # 1275 ms a sequence 0 values only\n\n\
+      \        # each subframe lasts approx. 25ms\n        self._subframe_lo = int(0.025\
+      \ * self.sample_rate/self.scaling - self._tolerance)\n        self._subframe_hi\
+      \ = int(0.025 * self.sample_rate/self.scaling + self._tolerance)\n\n       \
+      \ # lasts roughly 1275 ms\n        self._reinit_zero_lo = int(1.275*self.sample_rate/self.scaling\
+      \ - 4*self._tolerance)\n        self._reinit_zero_hi = int(1.275*self.sample_rate/self.scaling\
+      \ + 4*self._tolerance)\n\n        # after a successful zero or one-symbol has\
+      \ been detected\n        # ignore the signal for almost the rest of the second\n\
+      \        self._skipframe_zero = int(0.8*self.sample_rate/self.scaling - self._tolerance)\n\
+      \        self._skipframe_one  = int(0.7*self.sample_rate/self.scaling - self._tolerance)\n\
+      \        #self._skipframe_last_sec = int(0.25*self.sample_rate/self.scaling\
+      \ - self._tolerance)\n\n        print(\"zero_reinit_length\", (self._reinit_zero_hi\
+      \ + self._reinit_zero_lo)/2)\n        print(\"subframe_length: \", (self._subframe_hi\
+      \ + self._subframe_lo)/2)\n        print(\"skipframe_zero_length: \", self._skipframe_zero)\n\
+      \        print(\"skipframe_one_length: \", self._skipframe_one)\n        print(\"\
+      tolerance_length: \", self._tolerance)\n\n\n    def work(self, input_items,\
+      \ output_items):\n        inp_p1 = input_items[0] # +1\n        inp_m1 = input_items[1]\
+      \ # -1\n        inp_z0 = input_items[2] #  0\n        inp_p2 = input_items[3]\
+      \ # +2\n        inp_m2 = input_items[4] # -2\n\n        out = output_items[0]\n\
+      \        \n        out[:] = self.extract_bits(inp_p1, inp_m1, inp_z0, inp_p2,\
+      \ inp_m2)\n        \n        # forward input tagged signal\n        return len(output_items[0])\n\
+      \n\n    def clear_counters(self):\n        global _num_ones_p1\n        global\
+      \ _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n \
+      \       global _num_ones_m2\n        \n        _num_ones_p1 = 0\n        _num_ones_m1\
+      \ = 0\n        _num_ones_z0 = 0\n        _num_ones_p2 = 0\n        _num_ones_m2\
+      \ = 0\n\n        _cur_sec = 0\n\n\n    def extract_bits(self, inp_p1, inp_m1,\
+      \ inp_z0, inp_p2, inp_m2):\n        global _in_sync\n        global _skip_count\n\
+      \        global _cur_skipframe\n        global _cur_sec\n\n        global _num_ones_p1\n\
+      \        global _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n\
+      \        global _num_ones_m2\n\n        # -1 => represents no relevant output\n\
+      \        out = -np.ones(len(inp_p1))\n\n        # iterate through all three\
+      \ (parallel) input streams concurrently\n        for idx in range(len(inp_p1)):\n\
+      \            # get symbol values at same idx for each input stream\n       \
+      \     ch_p1 = inp_p1[idx]\n            ch_m1 = inp_m1[idx]\n            ch_z0\
+      \ = inp_z0[idx]\n            ch_p2 = inp_p2[idx]\n            ch_m2 = inp_m2[idx]\n\
+      \n            if ch_z0 == 1:\n                _num_ones_z0 += 1\n\n        \
+      \    if _cur_sec > 59:\n                _cur_sec = 0\n            \n       \
+      \     # to avoid an overflow of _skip_count\n            # stop counting after\
+      \ given limit and hold the value\n            if _skip_count < _cur_skipframe\
+      \ +1:\n                # after a zero or one has been detected\n           \
+      \     # the next bit should not be detected earlier\n                # than\
+      \ the duration of the skip frame\n                # (slightly less than a second)\n\
+      \                _skip_count += 1\n\n            else:\n                _skip_count\
+      \ = _cur_skipframe + 15\n\n                # increment current counters of ones\
+      \ per input stream, correspondingly\n                if ch_p1 == 1:\n      \
+      \              _num_ones_p1 += 1\n\n                if ch_m1 == 1:\n       \
+      \             _num_ones_m1 += 1\n\n                # any p2-symbol will trigger\
+      \ a de-sync\n                if ch_p2 == 1:\n                    _num_ones_p2\
+      \ += 1\n                    _in_sync = 0\n\n                # any m2-symbol\
+      \ will trigger a de-sync\n                if ch_m2 == 1:\n                 \
+      \   _num_ones_m2 += 1\n                    _in_sync = 0\n\n                #\
+      \ 1st step of synchronization\n                if _in_sync == 0:\n         \
+      \           if (_num_ones_z0 >= self._reinit_zero_lo and\n                 \
+      \       _num_ones_z0 <= self._reinit_zero_hi):\n\n                        self.clear_counters()\n\
+      \n                        # marking detected new minute\n                  \
+      \      key = pmt.intern(\"b\")\n                        value = pmt.intern(\"\
+      new minute\")\n                        self.add_item_tag(0,\n              \
+      \              self.nitems_written(0) + idx,\n                            key,\n\
+      \                            value\n                        )\n\n          \
+      \              # new minute-symbol for ALS162-decoder\n                    \
+      \    self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"2\"))\n\n \
+      \                       out[idx] = 3\n\n                        _cur_sec = 0\n\
+      \n                    if (ch_p1 == 1 and \n                        _num_ones_z0\
+      \ >= self._subframe_lo):\n                        _in_sync = 1\n\n         \
+      \               self.clear_counters()\n                        _num_ones_p1\
+      \ = 1\n                        \n                        if self.debug == True:\n\
+      \                            key = pmt.intern(\"s\")\n                     \
+      \       value = pmt.intern(\"1\")\n                            self.add_item_tag(0,\n\
+      \                                self.nitems_written(0) + idx,\n           \
+      \                     key,\n                                value\n        \
+      \                    )\n                \n                    # do not (yet)\
+      \ synchronize\n                    elif ch_p1 == 0:\n                      \
+      \  _num_ones_p1 = 0\n                        _num_ones_m1 = 0\n            \
+      \            #_num_ones_z0 = 0\n                        _num_ones_p2 = 0\n \
+      \                       _num_ones_m2 = 0\n\n                elif _in_sync ==\
+      \ 1:\n                    # detect end of subframe 2        \n             \
+      \       if (ch_p1 == 0 and \n                         (_num_ones_p1 >= self._subframe_lo\
+      \ and\n                          _num_ones_p1 <= self._subframe_hi)):\n    \
+      \                    _in_sync = 2\n\n                        self.clear_counters()\n\
+      \n                        if self.debug == True:\n                         \
+      \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      2\")\n                            self.add_item_tag(0,\n                   \
+      \             self.nitems_written(0) + idx,\n                              \
+      \  key,\n                                value\n                           \
+      \ )\n\n                    # out of sync\n                    elif (ch_p1 ==\
+      \ 0 and \n                          (_num_ones_p1 < self._subframe_lo or\n \
+      \                          _num_ones_p1 > self._subframe_hi)):\n           \
+      \             _in_sync = 0\n\n                        self.clear_counters()\n\
+      \n                elif _in_sync == 2:\n                    # detect end of subframe\
+      \ 3\n                    if (_num_ones_m1 >= 2*self._subframe_lo and\n     \
+      \                   _num_ones_m1 <= 2*self._subframe_hi):\n                \
+      \        _in_sync = 3\n\n                        self.clear_counters()\n\n \
+      \                       if self.debug == True:\n                           \
+      \ key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      3\")\n                            self.add_item_tag(0,\n                   \
+      \             self.nitems_written(0) + idx,\n                              \
+      \  key,\n                                value\n                           \
+      \ )\n                    \n                    # out of sync\n             \
+      \       elif _num_ones_m1 > 2*self._subframe_hi:\n                        _in_sync\
+      \ = 0\n\n                        self.clear_counters()\n\n                 \
+      \   elif _num_ones_z0 >= 2*self._tolerance:\n                        _in_sync\
+      \ = 0\n\n                        self.clear_counters()\n\n                elif\
+      \ _in_sync == 3:\n                    # detect end of subframe 5\n         \
+      \           if (_num_ones_p1 > self._subframe_lo and\n                     \
+      \   _num_ones_p1 < self._subframe_hi and ch_p1 == 0):\n                    \
+      \    _in_sync = 5\n\n                        self.clear_counters()\n\n     \
+      \                   if self.debug == True:\n                            key\
+      \ = pmt.intern(\"s\")\n                            value = pmt.intern(\"5\"\
+      )\n                            self.add_item_tag(0,\n                      \
+      \          self.nitems_written(0) + idx,\n                                key,\n\
+      \                                value\n                            )\n\n  \
+      \                  # detect end of subframe 6\n                    if (_num_ones_p1\
+      \ >= 2*self._subframe_lo and\n                        _num_ones_p1 <= 2*self._subframe_hi):\n\
+      \                        _in_sync = 6\n\n                        self.clear_counters()\n\
+      \n                        if self.debug == True:\n                         \
+      \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      6\")\n                            self.add_item_tag(0,\n                   \
+      \             self.nitems_written(0) + idx,\n                              \
+      \  key,\n                                value\n                           \
+      \ )\n\n                    # out of sync\n                    elif _num_ones_p1\
+      \ > 2*self._subframe_hi:\n                        _in_sync = 0\n\n         \
+      \               self.clear_counters()\n\n                    elif _num_ones_z0\
+      \ > 2*self._tolerance:\n                        _in_sync = 0\n\n           \
+      \             self.clear_counters()\n                \n                elif\
+      \ _in_sync == 5:\n                    # detect subframe 6\n                \
+      \    if (_num_ones_z0 >= 1*self._subframe_lo and\n                        _skip_count\
+      \ >= _cur_skipframe):\n                        _in_sync = 0\n\n            \
+      \            self.clear_counters()\n\n                        # marking detected\
+      \ zero-symbol\n                        key = pmt.intern(\"b\")\n           \
+      \             value = pmt.intern(\"0\")\n                        self.add_item_tag(0,\n\
+      \                            self.nitems_written(0) + idx,\n               \
+      \             key,\n                            value\n                    \
+      \    )\n\n                        # successfully detected a zero symbol\n  \
+      \                      #print(\"Sec: \", _cur_sec) \n                      \
+      \  self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"0\"))\n     \
+      \                   out[idx] = 1\n\n                        _cur_sec += 1\n\n\
+      \                        # reset skip counter\n                        _skip_count\
+      \ = 0\n                        _cur_skipframe = self._skipframe_zero\n\n   \
+      \                 elif _num_ones_p1 >= 2*self._tolerance:\n                \
+      \        _in_sync = 0\n\n                        self.clear_counters()  \n\n\
+      \                elif _in_sync == 6:\n                    # detect end of subframe\
+      \ 7\n                    if (_num_ones_m1 >= 2*self._subframe_lo and\n     \
+      \                   _num_ones_m1 <= 2*self._subframe_hi):\n                \
+      \        _in_sync = 7\n\n                        self.clear_counters()\n\n \
+      \                       if self.debug == True:\n                           \
+      \ key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      7\")\n                            self.add_item_tag(0,\n                   \
+      \             self.nitems_written(0) + idx,\n                              \
+      \  key,\n                                value\n                           \
+      \ )\n\n                    # out of sync\n                    elif (_num_ones_z0\
+      \ > self._subframe_hi):\n                        _in_sync = 0\n\n          \
+      \              self.clear_counters()\n\n                elif _in_sync == 7:\n\
+      \                    if (_num_ones_p1 >= self._subframe_lo and\n           \
+      \             _num_ones_p1 <= self._subframe_hi and\n                      \
+      \  _skip_count >= _cur_skipframe):\n                        _in_sync = 0\n\n\
+      \                        self.clear_counters()\n\n                        #\
+      \ marking detected zero-symbol\n                        key = pmt.intern(\"\
+      b\")\n                        value = pmt.intern(\"1\")\n                  \
+      \      self.add_item_tag(0,\n                            self.nitems_written(0)\
+      \ + idx,\n                            key,\n                            value\n\
+      \                        )\n\n                        # successfully detected\
+      \ a one symbol\n                        #print(\"Sec: \", _cur_sec) \n     \
+      \                   self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"\
+      1\"))\n                        out[idx] = 2\n\n                        _cur_sec\
+      \ += 1\n\n                        # reset skip counter\n                   \
+      \     _skip_count = 0\n                        _cur_skipframe = self._skipframe_one\n\
+      \n                    elif _num_ones_z0 >= 2*self._tolerance:\n            \
+      \            _in_sync = 0\n\n                        self.clear_counters()\n\
+      \n        return out\n"
+    affinity: ''
+    alias: ''
+    comment: 'detects:
+
+      * Zero-Symbol
+
+      * One-Symbol
+
+      * Minute-Symbol'
+    debug: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: '192000'
+    scaling: '8'
+    tolerance: '0.002'
+  states:
+    _io_cache: ('Bit-Detector ALS162', 'blk', [('scaling', '8'), ('sample_rate', '192000'),
+      ('tolerance', '0.002'), ('debug', 'False')], [('0', 'float', 1), ('1', 'float',
+      1), ('2', 'float', 1), ('3', 'float', 1), ('4', 'float', 1)], [('0', 'float',
+      1), ('msg_out', 'message', 1)], '', ['debug', 'sample_rate', 'scaling'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 1952.0]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: '0'
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: variable_low_pass_filter_taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 452.0]
+    rotation: 0
+    state: true
+- name: iir_filter_xxx_0
+  id: iir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: Differentiator
+    comment: 'An averaging FIR differentiator
+
+      to obtain the derivative of the
+
+      phase signal'
+    fbtaps: (0)
+    fftaps: '(+4,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,+1,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      +0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,+0,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+
+      -1,-1,-4)'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    oldstyle: 'False'
+    type: ffd
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1776, 484.0]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import math
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12.0]
+    rotation: 0
+    state: true
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: 'supportive lines for
+
+      adjusting the
+
+      threshold levels'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3336, 1108.0]
+    rotation: 0
+    state: disabled
+- name: note_1
+  id: note
+  parameters:
+    alias: ''
+    comment: Phase drift compensation block
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2704, 188.0]
+    rotation: 0
+    state: true
+- name: osmosdr_source_0
+  id: osmosdr_source
+  parameters:
+    affinity: ''
+    alias: ''
+    ant0: ''
+    ant1: ''
+    ant10: ''
+    ant11: ''
+    ant12: ''
+    ant13: ''
+    ant14: ''
+    ant15: ''
+    ant16: ''
+    ant17: ''
+    ant18: ''
+    ant19: ''
+    ant2: ''
+    ant20: ''
+    ant21: ''
+    ant22: ''
+    ant23: ''
+    ant24: ''
+    ant25: ''
+    ant26: ''
+    ant27: ''
+    ant28: ''
+    ant29: ''
+    ant3: ''
+    ant30: ''
+    ant31: ''
+    ant4: ''
+    ant5: ''
+    ant6: ''
+    ant7: ''
+    ant8: ''
+    ant9: ''
+    args: airspyhf=0
+    bb_gain0: '0'
+    bb_gain1: '20'
+    bb_gain10: '20'
+    bb_gain11: '20'
+    bb_gain12: '20'
+    bb_gain13: '20'
+    bb_gain14: '20'
+    bb_gain15: '20'
+    bb_gain16: '20'
+    bb_gain17: '20'
+    bb_gain18: '20'
+    bb_gain19: '20'
+    bb_gain2: '20'
+    bb_gain20: '20'
+    bb_gain21: '20'
+    bb_gain22: '20'
+    bb_gain23: '20'
+    bb_gain24: '20'
+    bb_gain25: '20'
+    bb_gain26: '20'
+    bb_gain27: '20'
+    bb_gain28: '20'
+    bb_gain29: '20'
+    bb_gain3: '20'
+    bb_gain30: '20'
+    bb_gain31: '20'
+    bb_gain4: '20'
+    bb_gain5: '20'
+    bb_gain6: '20'
+    bb_gain7: '20'
+    bb_gain8: '20'
+    bb_gain9: '20'
+    bw0: '4000'
+    bw1: '0'
+    bw10: '0'
+    bw11: '0'
+    bw12: '0'
+    bw13: '0'
+    bw14: '0'
+    bw15: '0'
+    bw16: '0'
+    bw17: '0'
+    bw18: '0'
+    bw19: '0'
+    bw2: '0'
+    bw20: '0'
+    bw21: '0'
+    bw22: '0'
+    bw23: '0'
+    bw24: '0'
+    bw25: '0'
+    bw26: '0'
+    bw27: '0'
+    bw28: '0'
+    bw29: '0'
+    bw3: '0'
+    bw30: '0'
+    bw31: '0'
+    bw4: '0'
+    bw5: '0'
+    bw6: '0'
+    bw7: '0'
+    bw8: '0'
+    bw9: '0'
+    clock_source0: ''
+    clock_source1: ''
+    clock_source2: ''
+    clock_source3: ''
+    clock_source4: ''
+    clock_source5: ''
+    clock_source6: ''
+    clock_source7: ''
+    comment: 'frame is localized on the
+
+      center frequency of the
+
+      TDF ALS 162 signal'
+    corr0: '0'
+    corr1: '0'
+    corr10: '0'
+    corr11: '0'
+    corr12: '0'
+    corr13: '0'
+    corr14: '0'
+    corr15: '0'
+    corr16: '0'
+    corr17: '0'
+    corr18: '0'
+    corr19: '0'
+    corr2: '0'
+    corr20: '0'
+    corr21: '0'
+    corr22: '0'
+    corr23: '0'
+    corr24: '0'
+    corr25: '0'
+    corr26: '0'
+    corr27: '0'
+    corr28: '0'
+    corr29: '0'
+    corr3: '0'
+    corr30: '0'
+    corr31: '0'
+    corr4: '0'
+    corr5: '0'
+    corr6: '0'
+    corr7: '0'
+    corr8: '0'
+    corr9: '0'
+    dc_offset_mode0: '2'
+    dc_offset_mode1: '0'
+    dc_offset_mode10: '0'
+    dc_offset_mode11: '0'
+    dc_offset_mode12: '0'
+    dc_offset_mode13: '0'
+    dc_offset_mode14: '0'
+    dc_offset_mode15: '0'
+    dc_offset_mode16: '0'
+    dc_offset_mode17: '0'
+    dc_offset_mode18: '0'
+    dc_offset_mode19: '0'
+    dc_offset_mode2: '0'
+    dc_offset_mode20: '0'
+    dc_offset_mode21: '0'
+    dc_offset_mode22: '0'
+    dc_offset_mode23: '0'
+    dc_offset_mode24: '0'
+    dc_offset_mode25: '0'
+    dc_offset_mode26: '0'
+    dc_offset_mode27: '0'
+    dc_offset_mode28: '0'
+    dc_offset_mode29: '0'
+    dc_offset_mode3: '0'
+    dc_offset_mode30: '0'
+    dc_offset_mode31: '0'
+    dc_offset_mode4: '0'
+    dc_offset_mode5: '0'
+    dc_offset_mode6: '0'
+    dc_offset_mode7: '0'
+    dc_offset_mode8: '0'
+    dc_offset_mode9: '0'
+    freq0: freq_ALS162
+    freq1: 100e6
+    freq10: 100e6
+    freq11: 100e6
+    freq12: 100e6
+    freq13: 100e6
+    freq14: 100e6
+    freq15: 100e6
+    freq16: 100e6
+    freq17: 100e6
+    freq18: 100e6
+    freq19: 100e6
+    freq2: 100e6
+    freq20: 100e6
+    freq21: 100e6
+    freq22: 100e6
+    freq23: 100e6
+    freq24: 100e6
+    freq25: 100e6
+    freq26: 100e6
+    freq27: 100e6
+    freq28: 100e6
+    freq29: 100e6
+    freq3: 100e6
+    freq30: 100e6
+    freq31: 100e6
+    freq4: 100e6
+    freq5: 100e6
+    freq6: 100e6
+    freq7: 100e6
+    freq8: 100e6
+    freq9: 100e6
+    gain0: '30'
+    gain1: '10'
+    gain10: '10'
+    gain11: '10'
+    gain12: '10'
+    gain13: '10'
+    gain14: '10'
+    gain15: '10'
+    gain16: '10'
+    gain17: '10'
+    gain18: '10'
+    gain19: '10'
+    gain2: '10'
+    gain20: '10'
+    gain21: '10'
+    gain22: '10'
+    gain23: '10'
+    gain24: '10'
+    gain25: '10'
+    gain26: '10'
+    gain27: '10'
+    gain28: '10'
+    gain29: '10'
+    gain3: '10'
+    gain30: '10'
+    gain31: '10'
+    gain4: '10'
+    gain5: '10'
+    gain6: '10'
+    gain7: '10'
+    gain8: '10'
+    gain9: '10'
+    gain_mode0: 'False'
+    gain_mode1: 'False'
+    gain_mode10: 'False'
+    gain_mode11: 'False'
+    gain_mode12: 'False'
+    gain_mode13: 'False'
+    gain_mode14: 'False'
+    gain_mode15: 'False'
+    gain_mode16: 'False'
+    gain_mode17: 'False'
+    gain_mode18: 'False'
+    gain_mode19: 'False'
+    gain_mode2: 'False'
+    gain_mode20: 'False'
+    gain_mode21: 'False'
+    gain_mode22: 'False'
+    gain_mode23: 'False'
+    gain_mode24: 'False'
+    gain_mode25: 'False'
+    gain_mode26: 'False'
+    gain_mode27: 'False'
+    gain_mode28: 'False'
+    gain_mode29: 'False'
+    gain_mode3: 'False'
+    gain_mode30: 'False'
+    gain_mode31: 'False'
+    gain_mode4: 'False'
+    gain_mode5: 'False'
+    gain_mode6: 'False'
+    gain_mode7: 'False'
+    gain_mode8: 'False'
+    gain_mode9: 'False'
+    if_gain0: '30'
+    if_gain1: '20'
+    if_gain10: '20'
+    if_gain11: '20'
+    if_gain12: '20'
+    if_gain13: '20'
+    if_gain14: '20'
+    if_gain15: '20'
+    if_gain16: '20'
+    if_gain17: '20'
+    if_gain18: '20'
+    if_gain19: '20'
+    if_gain2: '20'
+    if_gain20: '20'
+    if_gain21: '20'
+    if_gain22: '20'
+    if_gain23: '20'
+    if_gain24: '20'
+    if_gain25: '20'
+    if_gain26: '20'
+    if_gain27: '20'
+    if_gain28: '20'
+    if_gain29: '20'
+    if_gain3: '20'
+    if_gain30: '20'
+    if_gain31: '20'
+    if_gain4: '20'
+    if_gain5: '20'
+    if_gain6: '20'
+    if_gain7: '20'
+    if_gain8: '20'
+    if_gain9: '20'
+    iq_balance_mode0: '0'
+    iq_balance_mode1: '0'
+    iq_balance_mode10: '0'
+    iq_balance_mode11: '0'
+    iq_balance_mode12: '0'
+    iq_balance_mode13: '0'
+    iq_balance_mode14: '0'
+    iq_balance_mode15: '0'
+    iq_balance_mode16: '0'
+    iq_balance_mode17: '0'
+    iq_balance_mode18: '0'
+    iq_balance_mode19: '0'
+    iq_balance_mode2: '0'
+    iq_balance_mode20: '0'
+    iq_balance_mode21: '0'
+    iq_balance_mode22: '0'
+    iq_balance_mode23: '0'
+    iq_balance_mode24: '0'
+    iq_balance_mode25: '0'
+    iq_balance_mode26: '0'
+    iq_balance_mode27: '0'
+    iq_balance_mode28: '0'
+    iq_balance_mode29: '0'
+    iq_balance_mode3: '0'
+    iq_balance_mode30: '0'
+    iq_balance_mode31: '0'
+    iq_balance_mode4: '0'
+    iq_balance_mode5: '0'
+    iq_balance_mode6: '0'
+    iq_balance_mode7: '0'
+    iq_balance_mode8: '0'
+    iq_balance_mode9: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    num_mboards: '1'
+    sample_rate: samp_rate
+    sync: none
+    time_source0: ''
+    time_source1: ''
+    time_source2: ''
+    time_source3: ''
+    time_source4: ''
+    time_source5: ''
+    time_source6: ''
+    time_source7: ''
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [72, 364.0]
+    rotation: 0
+    state: enabled
+- name: phase_shift_fct
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: "phase rotates from pi to -pi\nfor given poll frequency and \ngiven weight\
+      \ to countereffect\nthe phase drift"
+    source_code: "# this module will be imported in the into your flowgraph\n\n\n\
+      import math\n\n\n\nf1 = -math.pi\nf2 = +math.pi\n\nf = 0\n\ndef shift_freq(weighted_trigger):\n\
+      \    global f1, f2, f\n    \n    if weighted_trigger:\n        f = f - weighted_trigger\n\
+      \    \n    if f <= f1:\n        f = f2\n    \n    return f\n"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3192, 676.0]
+    rotation: 0
+    state: enabled
+- name: probe_signal
+  id: blocks_probe_signal_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'weighted poll signal
+
+      for phase shift correction'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3200, 484.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0_1
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: '12000'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: freq_ALS162
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: original spectrum
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 308.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'True'
+    gui_hint: ''
+    label1: cur. phase
+    label10: Signal 10
+    label2: avg. phase
+    label3: corrected phase
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: Phase Drift Compensation
+    nconnections: '2'
+    size: 3*samp_rate
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.025'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: math.pi+0.25
+    ymin: -math.pi-0.25
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3120, 332.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: dark red
+    color8: dark green
+    color9: dark blue
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'True'
+    gui_hint: (4,0)
+    label1: Phase
+    label10: one_lower_lo
+    label2: Derivative
+    label3: '+2'
+    label4: '+1'
+    label5: '0'
+    label6: '-1'
+    label7: '-2'
+    label8: Symbols
+    label9: avg. Phase
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Phase Signal Decoder"'
+    nconnections: '9'
+    size: int(samp_rate*1/(decimation))
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.5'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: zoom
+    ymin: -zoom
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2544, 1144.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'False'
+    grid: 'True'
+    gui_hint: (2,0)
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"received complex signal"'
+    nconnections: '1'
+    size: samp_rate*2
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2.5'
+    ymin: '-2.5'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 308.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_0_0_2
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: dark red
+    color8: dark green
+    color9: dark blue
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'False'
+    grid: 'True'
+    gui_hint: (4,1)
+    label1: two_hi
+    label10: one_lower_lo
+    label2: two_lo
+    label3: one_upper_hi
+    label4: one_upper_lo
+    label5: one_lower_hi
+    label6: one_lower_lo
+    label7: zero_hi
+    label8: zero_lo
+    label9: spike_thres
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Phase Signal Decoder"'
+    nconnections: '10'
+    size: int(samp_rate*1/(decimation))
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.5'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: zoom
+    ymin: -zoom
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3312, 1232.0]
+    rotation: 0
+    state: disabled
+- name: rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to reduce overall
+
+      time critical
+
+      computational
+
+      effort of the
+
+      decoder'
+    decim: decimation
+    fbw: '0'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 1292.0]
+    rotation: 0
+    state: true
+- name: rational_resampler_xxx_0_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to reduce overall computational
+
+      complexity of the decoder'
+    decim: decimation
+    fbw: '0'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1776, 596.0]
+    rotation: 0
+    state: true
+- name: rational_resampler_xxx_0_0_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to reduce overall computational
+
+      complexity of the decoder'
+    decim: decimation
+    fbw: '0'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2928, 676.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: 'to thresholders of the
+
+      differentiated signal'
+    stream_id: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2288, 492.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_1
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: to ALS162 bit detector
+    stream_id: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2232, 1156.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_1_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: to ALS162 bit detector
+    stream_id: '3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1572.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_1_1
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: to ALS162 bit detector
+    stream_id: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1364.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_1_2
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: to ALS162 bit detector
+    stream_id: '5'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2232, 964.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_1_2_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: to ALS162 bit detector
+    stream_id: '6'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2224, 1764.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_2
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: 'to compute phase
+
+      compensation'
+    stream_id: '7'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1592, 396.0]
+    rotation: 0
+    state: true
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: 'from differentiated
+
+      phase signal'
+    stream_id: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [128, 1316.0]
+    rotation: 0
+    state: true
+- name: virtual_source_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: +1 values
+    stream_id: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 1876.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_1_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: -1 values
+    stream_id: '3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 1940.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_1_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: 0 values
+    stream_id: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 2004.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_1_2
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: +2 values
+    stream_id: '5'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 2068.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_1_2_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: -2 values
+    stream_id: '6'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 2132.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_2
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: from phase
+    stream_id: '7'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2528, 340.0]
+    rotation: 0
+    state: true
+- name: zeromq_push_msg_sink_1
+  id: zeromq_push_msg_sink
+  parameters:
+    address: tcp://127.0.0.1:55555
+    affinity: ''
+    alias: ''
+    bind: 'True'
+    comment: 'provide signal to a ZMQ server
+
+      to futher decode the bits
+
+      to human-readible
+
+      date & time information'
+    timeout: '900'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 2044.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_agc2_xx_0, '0', blocks_phase_shift_0, '0']
+- [analog_const_source_x_0, '0', blocks_multiply_const_vxx_4, '0']
+- [analog_const_source_x_0_0, '0', blocks_multiply_const_vxx_4_0, '0']
+- [analog_const_source_x_0_0_0, '0', blocks_multiply_const_vxx_4_0_0, '0']
+- [analog_const_source_x_0_0_0_0, '0', blocks_multiply_const_vxx_4_0_0_0, '0']
+- [analog_const_source_x_0_0_0_1, '0', blocks_multiply_const_vxx_4_0_0_1, '0']
+- [analog_const_source_x_0_1, '0', blocks_multiply_const_vxx_4_1, '0']
+- [analog_const_source_x_0_1_0, '0', blocks_multiply_const_vxx_4_1_0, '0']
+- [analog_const_source_x_0_1_0_0, '0', blocks_multiply_const_vxx_4_1_0_0, '0']
+- [analog_const_source_x_0_1_1, '0', blocks_multiply_const_vxx_4_1_1, '0']
+- [blocks_add_const_vxx_0, '0', rational_resampler_xxx_0_0, '0']
+- [blocks_add_const_vxx_0_0, '0', qtgui_time_sink_x_0_0, '7']
+- [blocks_add_const_vxx_0_0_0, '0', qtgui_time_sink_x_0_0, '1']
+- [blocks_add_const_vxx_0_0_0, '0', qtgui_time_sink_x_0_0_2, '9']
+- [blocks_add_const_vxx_0_0_0_0, '0', blocks_add_const_vxx_0_0_0, '0']
+- [blocks_add_const_vxx_0_0_0_1, '0', iir_filter_xxx_0, '0']
+- [blocks_add_const_vxx_1, '0', blocks_char_to_float_0, '0']
+- [blocks_and_xx_0, '0', blocks_add_const_vxx_1, '0']
+- [blocks_and_xx_0_0, '0', blocks_char_to_float_0_0, '0']
+- [blocks_and_xx_0_0_0, '0', blocks_char_to_float_0_0_0, '0']
+- [blocks_and_xx_0_1, '0', blocks_char_to_float_0_0_0_0, '0']
+- [blocks_and_xx_0_1_0, '0', blocks_char_to_float_0_0_0_0_0, '0']
+- [blocks_char_to_float_0, '0', blocks_multiply_const_vxx_1_0_0_0_0_1_1, '0']
+- [blocks_char_to_float_0, '0', virtual_sink_1_1, '0']
+- [blocks_char_to_float_0_0, '0', blocks_multiply_const_vxx_1_0_0_0_0_1_1_0, '0']
+- [blocks_char_to_float_0_0, '0', virtual_sink_1_2, '0']
+- [blocks_char_to_float_0_0_0, '0', blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0, '0']
+- [blocks_char_to_float_0_0_0, '0', virtual_sink_1_2_0, '0']
+- [blocks_char_to_float_0_0_0_0, '0', blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0,
+  '0']
+- [blocks_char_to_float_0_0_0_0, '0', virtual_sink_1, '0']
+- [blocks_char_to_float_0_0_0_0_0, '0', blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0_0,
+  '0']
+- [blocks_char_to_float_0_0_0_0_0, '0', virtual_sink_1_0, '0']
+- [blocks_complex_to_arg_0_0, '0', blocks_moving_average_xx_0_0_0, '0']
+- [blocks_float_to_char_0, '0', blocks_not_xx_0_1_2_0, '0']
+- [blocks_float_to_char_0_0, '0', blocks_not_xx_0_1_2, '0']
+- [blocks_float_to_char_0_0_0, '0', blocks_and_xx_0_0, '1']
+- [blocks_float_to_char_0_0_0, '0', blocks_not_xx_0_1_1, '0']
+- [blocks_float_to_char_0_0_0_0, '0', blocks_not_xx_0, '0']
+- [blocks_float_to_char_0_0_0_0_0, '0', blocks_not_xx_0_1, '0']
+- [blocks_float_to_char_0_0_0_0_0_0, '0', blocks_and_xx_0_1, '2']
+- [blocks_float_to_char_0_0_0_0_0_0_0, '0', blocks_and_xx_0_1_0, '0']
+- [blocks_float_to_char_0_0_0_0_0_1, '0', blocks_not_xx_0_1_0, '0']
+- [blocks_float_to_char_0_0_0_1, '0', blocks_not_xx_0_0, '0']
+- [blocks_float_to_char_0_0_0_1_0, '0', blocks_and_xx_0_0_0, '1']
+- [blocks_float_to_char_0_0_0_1_0, '0', blocks_not_xx_0_1_0_0, '0']
+- [blocks_moving_average_xx_0, '0', blocks_multiply_const_xx_0, '0']
+- [blocks_moving_average_xx_0, '0', qtgui_time_sink_x_0, '1']
+- [blocks_moving_average_xx_0, '0', rational_resampler_xxx_0_0_0, '0']
+- [blocks_moving_average_xx_0_0, '0', virtual_sink_0, '0']
+- [blocks_moving_average_xx_0_0_0, '0', blocks_add_const_vxx_0, '0']
+- [blocks_moving_average_xx_0_0_0, '0', blocks_add_const_vxx_0_0_0_1, '0']
+- [blocks_moving_average_xx_0_0_0, '0', virtual_sink_2, '0']
+- [blocks_multiply_const_vxx_0, '0', blocks_add_const_vxx_0_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_add_const_vxx_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_threshold_ff_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_threshold_ff_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_threshold_ff_0_0_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_threshold_ff_0_0_0_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_1, '0', blocks_threshold_ff_0_0_0_0_1, '0']
+- [blocks_multiply_const_vxx_1_0, '0', blocks_multiply_const_vxx_1, '0']
+- [blocks_multiply_const_vxx_1_0, '0', blocks_multiply_const_vxx_2, '0']
+- [blocks_multiply_const_vxx_1_0_0_0_0_1_1, '0', qtgui_time_sink_x_0_0, '4']
+- [blocks_multiply_const_vxx_1_0_0_0_0_1_1_0, '0', qtgui_time_sink_x_0_0, '2']
+- [blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0, '0', qtgui_time_sink_x_0_0, '6']
+- [blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0, '0', qtgui_time_sink_x_0_0, '3']
+- [blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0_0, '0', qtgui_time_sink_x_0_0, '5']
+- [blocks_multiply_const_vxx_2, '0', blocks_threshold_ff_0_0, '0']
+- [blocks_multiply_const_vxx_2, '0', blocks_threshold_ff_0_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_2, '0', blocks_threshold_ff_0_0_0_0_0_0_0_0, '0']
+- [blocks_multiply_const_vxx_2, '0', blocks_threshold_ff_0_0_0_0_0_0_1, '0']
+- [blocks_multiply_const_vxx_2, '0', blocks_threshold_ff_0_0_0_0_1_0, '0']
+- [blocks_multiply_const_vxx_3, '0', qtgui_time_sink_x_0_0, '0']
+- [blocks_multiply_const_vxx_4, '0', qtgui_time_sink_x_0_0_2, '6']
+- [blocks_multiply_const_vxx_4_0, '0', qtgui_time_sink_x_0_0_2, '7']
+- [blocks_multiply_const_vxx_4_0_0, '0', qtgui_time_sink_x_0_0_2, '5']
+- [blocks_multiply_const_vxx_4_0_0_0, '0', qtgui_time_sink_x_0_0_2, '3']
+- [blocks_multiply_const_vxx_4_0_0_1, '0', qtgui_time_sink_x_0_0_2, '1']
+- [blocks_multiply_const_vxx_4_1, '0', qtgui_time_sink_x_0_0_2, '4']
+- [blocks_multiply_const_vxx_4_1_0, '0', qtgui_time_sink_x_0_0_2, '2']
+- [blocks_multiply_const_vxx_4_1_0_0, '0', qtgui_time_sink_x_0_0_2, '8']
+- [blocks_multiply_const_vxx_4_1_1, '0', qtgui_time_sink_x_0_0_2, '0']
+- [blocks_multiply_const_xx_0, '0', probe_signal, '0']
+- [blocks_not_xx_0, '0', blocks_and_xx_0_0, '0']
+- [blocks_not_xx_0, '0', blocks_and_xx_0_0_0, '0']
+- [blocks_not_xx_0_0, '0', blocks_and_xx_0_0, '2']
+- [blocks_not_xx_0_0, '0', blocks_and_xx_0_0_0, '2']
+- [blocks_not_xx_0_1, '0', blocks_and_xx_0_1, '1']
+- [blocks_not_xx_0_1_0, '0', blocks_and_xx_0_1_0, '1']
+- [blocks_not_xx_0_1_0_0, '0', blocks_and_xx_0_1_0, '2']
+- [blocks_not_xx_0_1_1, '0', blocks_and_xx_0_1, '0']
+- [blocks_not_xx_0_1_2, '0', blocks_and_xx_0, '0']
+- [blocks_not_xx_0_1_2_0, '0', blocks_and_xx_0, '1']
+- [blocks_phase_shift_0, '0', blocks_complex_to_arg_0_0, '0']
+- [blocks_threshold_ff_0, '0', blocks_float_to_char_0_0_0_0, '0']
+- [blocks_threshold_ff_0_0, '0', blocks_float_to_char_0_0_0_1, '0']
+- [blocks_threshold_ff_0_0_0_0, '0', blocks_float_to_char_0_0_0, '0']
+- [blocks_threshold_ff_0_0_0_0_0, '0', blocks_float_to_char_0_0_0_1_0, '0']
+- [blocks_threshold_ff_0_0_0_0_0_0, '0', blocks_float_to_char_0_0_0_0_0_0, '0']
+- [blocks_threshold_ff_0_0_0_0_0_0_0, '0', blocks_float_to_char_0_0_0_0_0, '0']
+- [blocks_threshold_ff_0_0_0_0_0_0_0_0, '0', blocks_float_to_char_0_0_0_0_0_1, '0']
+- [blocks_threshold_ff_0_0_0_0_0_0_1, '0', blocks_float_to_char_0_0_0_0_0_0_0, '0']
+- [blocks_threshold_ff_0_0_0_0_1, '0', blocks_float_to_char_0_0, '0']
+- [blocks_threshold_ff_0_0_0_0_1_0, '0', blocks_float_to_char_0, '0']
+- [blocks_var_to_msg_0_0, msgout, blocks_phase_shift_0, shift]
+- [epy_block_1, '0', blocks_multiply_const_vxx_0, '0']
+- [epy_block_1, msg_out, blocks_message_debug_0, print]
+- [epy_block_1, msg_out, zeromq_push_msg_sink_1, in]
+- [freq_xlating_fir_filter_xxx_0, '0', analog_agc2_xx_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', qtgui_time_sink_x_0_0_0, '0']
+- [iir_filter_xxx_0, '0', blocks_moving_average_xx_0_0, '0']
+- [osmosdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [osmosdr_source_0, '0', qtgui_freq_sink_x_0_1, '0']
+- [rational_resampler_xxx_0, '0', blocks_multiply_const_vxx_1_0, '0']
+- [rational_resampler_xxx_0_0, '0', blocks_multiply_const_vxx_3, '0']
+- [rational_resampler_xxx_0_0_0, '0', qtgui_time_sink_x_0_0, '8']
+- [virtual_source_0, '0', rational_resampler_xxx_0, '0']
+- [virtual_source_1, '0', epy_block_1, '0']
+- [virtual_source_1_0, '0', epy_block_1, '1']
+- [virtual_source_1_1, '0', epy_block_1, '2']
+- [virtual_source_1_2, '0', epy_block_1, '3']
+- [virtual_source_1_2_0, '0', epy_block_1, '4']
+- [virtual_source_2, '0', blocks_moving_average_xx_0, '0']
+- [virtual_source_2, '0', qtgui_time_sink_x_0, '0']
+
+metadata:
+  file_format: 1
