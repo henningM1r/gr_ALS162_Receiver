@@ -2,6 +2,8 @@
 This is a basic ALS162 time signal receiver for GNURadio, containing:
 1. signal demodulation and detection of the ALS162 signal with an SDR using GNURadio (and Python modules)
 2. a simple live decoder of received bits provided by the GNURadio ALS162 receiver
+ALS162 was also formerly known as TDF:
++ https://en.wikipedia.org/wiki/ALS162_time_signal
 
 
 ### Overview
@@ -26,6 +28,7 @@ The ALS162 receiver was tested with:
 + The user might also need some antenna cables and adapters to connect the SDR with the antenna.
 + This project has been successfully tested in:
     + Ubuntu 22.04.2 LTS
+    + Windows 11
 
 
 ### Instructions/Setup
