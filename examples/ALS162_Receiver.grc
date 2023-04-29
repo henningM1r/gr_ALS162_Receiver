@@ -103,7 +103,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [3192, 572.0]
+    coordinate: [3200, 572.0]
     rotation: 0
     state: enabled
 - name: gain
@@ -222,7 +222,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [3192, 780.0]
+    coordinate: [3200, 780.0]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -1111,7 +1111,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2736, 388.0]
+    coordinate: [2664, 388.0]
     rotation: 0
     state: enabled
 - name: blocks_moving_average_xx_0_0
@@ -1527,7 +1527,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2960, 484.0]
+    coordinate: [2920, 484.0]
     rotation: 0
     state: true
 - name: blocks_not_xx_0
@@ -1905,7 +1905,7 @@ blocks:
       \ GRC will instantiate the first class it finds\nto get ports and parameters\
       \ of your block. The arguments to __init__  will\nbe the parameters. All of\
       \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\nimport pmt\n\n\n\n# the detector is initially out of\
+      from gnuradio import gr\nimport pmt\n\n\n# the detector is initially out of\
       \ sync\n_in_sync = 0\n\n# counted number of one samples for +1\n_num_ones_p1\
       \ = 0\n# counted number of one samples for -1\n_num_ones_m1 = 0\n# counted number\
       \ of one samples for  0\n_num_ones_z0 = 0\n# counted number of one samples for\
@@ -1913,183 +1913,185 @@ blocks:
       \ = 0\n\n# counts number of samples after a zero- or\n# one-symbol has been\
       \ detected\n_skip_count = 0\n# determines how many samples shall be skipped\n\
       # after the detection of a zero- or one-symbol\n_cur_skipframe = 50000\n_cur_sec\
-      \ = 0\n\n\nclass blk(gr.sync_block):  # other base classes are basic_block,\
-      \ decim_block, interp_block\n\n    def __init__(self, scaling=8, sample_rate=192000,\
-      \ tolerance=0.002, debug=False):\n        gr.sync_block.__init__(\n        \
-      \    self,\n            name='Bit-Detector ALS162',\n            in_sig=[np.float32,\
-      \ np.float32, np.float32, np.float32, np.float32],\n            out_sig=[np.float32]\n\
-      \        )\n\n        self.scaling     = scaling\n        self.sample_rate =\
-      \ sample_rate\n        self._tolerance  = self.sample_rate/self.scaling*tolerance\n\
-      \n        # True: display status-tags\n        self.debug = debug\n        \n\
-      \        # messaging port\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
-      \n        # values from slope signal computed by derivative FIR filter\n   \
-      \     # symbols are constructed by a sequence of clocked sub-frames\n      \
-      \  # Zero-Symbol:\n        # 0, +1, -1, -1, +1, 0, 0, 0, 0\n        #\n    \
-      \    # One-Symbol:\n        # 0, +1, -1, -1, +1, +1, -1, -1, +1\n        # \n\
-      \        # New-Minute-Symbol:\n        # 1275 ms a sequence 0 values only\n\n\
-      \        # each subframe lasts approx. 25ms\n        self._subframe_lo = int(0.025\
-      \ * self.sample_rate/self.scaling - self._tolerance)\n        self._subframe_hi\
-      \ = int(0.025 * self.sample_rate/self.scaling + self._tolerance)\n\n       \
-      \ # lasts roughly 1275 ms\n        self._reinit_zero_lo = int(1.275*self.sample_rate/self.scaling\
-      \ - 4*self._tolerance)\n        self._reinit_zero_hi = int(1.275*self.sample_rate/self.scaling\
-      \ + 4*self._tolerance)\n\n        # after a successful zero or one-symbol has\
-      \ been detected\n        # ignore the signal for almost the rest of the second\n\
-      \        self._skipframe_zero = int(0.8*self.sample_rate/self.scaling - self._tolerance)\n\
-      \        self._skipframe_one  = int(0.7*self.sample_rate/self.scaling - self._tolerance)\n\
-      \        #self._skipframe_last_sec = int(0.25*self.sample_rate/self.scaling\
-      \ - self._tolerance)\n\n        print(\"zero_reinit_length\", (self._reinit_zero_hi\
-      \ + self._reinit_zero_lo)/2)\n        print(\"subframe_length: \", (self._subframe_hi\
-      \ + self._subframe_lo)/2)\n        print(\"skipframe_zero_length: \", self._skipframe_zero)\n\
-      \        print(\"skipframe_one_length: \", self._skipframe_one)\n        print(\"\
-      tolerance_length: \", self._tolerance)\n\n\n    def work(self, input_items,\
-      \ output_items):\n        inp_p1 = input_items[0] # +1\n        inp_m1 = input_items[1]\
-      \ # -1\n        inp_z0 = input_items[2] #  0\n        inp_p2 = input_items[3]\
-      \ # +2\n        inp_m2 = input_items[4] # -2\n\n        out = output_items[0]\n\
-      \        \n        out[:] = self.extract_bits(inp_p1, inp_m1, inp_z0, inp_p2,\
-      \ inp_m2)\n        \n        # forward input tagged signal\n        return len(output_items[0])\n\
-      \n\n    def clear_counters(self):\n        global _num_ones_p1\n        global\
-      \ _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n \
-      \       global _num_ones_m2\n        \n        _num_ones_p1 = 0\n        _num_ones_m1\
-      \ = 0\n        _num_ones_z0 = 0\n        _num_ones_p2 = 0\n        _num_ones_m2\
-      \ = 0\n\n        _cur_sec = 0\n\n\n    def extract_bits(self, inp_p1, inp_m1,\
-      \ inp_z0, inp_p2, inp_m2):\n        global _in_sync\n        global _skip_count\n\
-      \        global _cur_skipframe\n        global _cur_sec\n\n        global _num_ones_p1\n\
-      \        global _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n\
-      \        global _num_ones_m2\n\n        # -1 => represents no relevant output\n\
-      \        out = -np.ones(len(inp_p1))\n\n        # iterate through all three\
-      \ (parallel) input streams concurrently\n        for idx in range(len(inp_p1)):\n\
-      \            # get symbol values at same idx for each input stream\n       \
-      \     ch_p1 = inp_p1[idx]\n            ch_m1 = inp_m1[idx]\n            ch_z0\
-      \ = inp_z0[idx]\n            ch_p2 = inp_p2[idx]\n            ch_m2 = inp_m2[idx]\n\
-      \n            if ch_z0 == 1:\n                _num_ones_z0 += 1\n\n        \
-      \    if _cur_sec > 59:\n                _cur_sec = 0\n            \n       \
-      \     # to avoid an overflow of _skip_count\n            # stop counting after\
-      \ given limit and hold the value\n            if _skip_count < _cur_skipframe\
-      \ +1:\n                # after a zero or one has been detected\n           \
-      \     # the next bit should not be detected earlier\n                # than\
-      \ the duration of the skip frame\n                # (slightly less than a second)\n\
-      \                _skip_count += 1\n\n            else:\n                _skip_count\
-      \ = _cur_skipframe + 15\n\n                # increment current counters of ones\
-      \ per input stream, correspondingly\n                if ch_p1 == 1:\n      \
-      \              _num_ones_p1 += 1\n\n                if ch_m1 == 1:\n       \
-      \             _num_ones_m1 += 1\n\n                # any p2-symbol will trigger\
-      \ a de-sync\n                if ch_p2 == 1:\n                    _num_ones_p2\
-      \ += 1\n                    _in_sync = 0\n\n                # any m2-symbol\
-      \ will trigger a de-sync\n                if ch_m2 == 1:\n                 \
-      \   _num_ones_m2 += 1\n                    _in_sync = 0\n\n                #\
-      \ 1st step of synchronization\n                if _in_sync == 0:\n         \
-      \           if (_num_ones_z0 >= self._reinit_zero_lo and\n                 \
-      \       _num_ones_z0 <= self._reinit_zero_hi):\n\n                        self.clear_counters()\n\
-      \n                        # marking detected new minute\n                  \
-      \      key = pmt.intern(\"b\")\n                        value = pmt.intern(\"\
-      new minute\")\n                        self.add_item_tag(0,\n              \
-      \              self.nitems_written(0) + idx,\n                            key,\n\
-      \                            value\n                        )\n\n          \
-      \              # new minute-symbol for ALS162-decoder\n                    \
-      \    self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"2\"))\n\n \
-      \                       out[idx] = 3\n\n                        _cur_sec = 0\n\
-      \n                    if (ch_p1 == 1 and \n                        _num_ones_z0\
-      \ >= self._subframe_lo):\n                        _in_sync = 1\n\n         \
-      \               self.clear_counters()\n                        _num_ones_p1\
-      \ = 1\n                        \n                        if self.debug == True:\n\
-      \                            key = pmt.intern(\"s\")\n                     \
-      \       value = pmt.intern(\"1\")\n                            self.add_item_tag(0,\n\
-      \                                self.nitems_written(0) + idx,\n           \
-      \                     key,\n                                value\n        \
-      \                    )\n                \n                    # do not (yet)\
-      \ synchronize\n                    elif ch_p1 == 0:\n                      \
-      \  _num_ones_p1 = 0\n                        _num_ones_m1 = 0\n            \
-      \            #_num_ones_z0 = 0\n                        _num_ones_p2 = 0\n \
-      \                       _num_ones_m2 = 0\n\n                elif _in_sync ==\
-      \ 1:\n                    # detect end of subframe 2        \n             \
-      \       if (ch_p1 == 0 and \n                         (_num_ones_p1 >= self._subframe_lo\
-      \ and\n                          _num_ones_p1 <= self._subframe_hi)):\n    \
-      \                    _in_sync = 2\n\n                        self.clear_counters()\n\
-      \n                        if self.debug == True:\n                         \
-      \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
-      2\")\n                            self.add_item_tag(0,\n                   \
-      \             self.nitems_written(0) + idx,\n                              \
-      \  key,\n                                value\n                           \
-      \ )\n\n                    # out of sync\n                    elif (ch_p1 ==\
-      \ 0 and \n                          (_num_ones_p1 < self._subframe_lo or\n \
-      \                          _num_ones_p1 > self._subframe_hi)):\n           \
-      \             _in_sync = 0\n\n                        self.clear_counters()\n\
-      \n                elif _in_sync == 2:\n                    # detect end of subframe\
+      \ = 0\n\n\nclass blk(gr.sync_block):\n\n    def __init__(self, scaling=8, sample_rate=192000,\n\
+      \                 tolerance=0.002, debug=False):\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Bit-Detector ALS162',\n            in_sig=[np.float32,\
+      \ np.float32, np.float32,\n                    np.float32, np.float32],\n  \
+      \          out_sig=[np.float32]\n        )\n\n        self.scaling = scaling\n\
+      \        self.sample_rate = sample_rate\n        self._tolerance = self.sample_rate/self.scaling*tolerance\n\
+      \n        # True: display status-tags\n        self.debug = debug\n\n      \
+      \  # messaging port\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
+      \n        \"\"\"\n        values from slope signal computed by derivative FIR\
+      \ filter\n        symbols are constructed by a sequence of clocked sub-frames\n\
+      \        Zero-Symbol:\n        0, +1, -1, -1, +1, 0, 0, 0, 0\n\n        One-Symbol:\n\
+      \        0, +1, -1, -1, +1, +1, -1, -1, +1\n\n        New-Minute-Symbol:\n \
+      \       1275 ms a sequence 0 values only\n        \"\"\"\n\n        # each subframe\
+      \ lasts approx. 25ms\n        self._subframe_lo = int(0.025 * self.sample_rate/self.scaling\n\
+      \                                - self._tolerance)\n        self._subframe_hi\
+      \ = int(0.025 * self.sample_rate/self.scaling\n                            \
+      \    + self._tolerance)\n\n        # lasts roughly 1275 ms\n        self._reinit_zero_lo\
+      \ = int(1.275*self.sample_rate/self.scaling\n                              \
+      \     - 4*self._tolerance)\n        self._reinit_zero_hi = int(1.275*self.sample_rate/self.scaling\n\
+      \                                   + 4*self._tolerance)\n\n        # after\
+      \ a successful zero or one-symbol has been detected\n        # ignore the signal\
+      \ for almost the rest of the second\n        self._skipframe_zero = int(0.8*self.sample_rate/self.scaling\n\
+      \                                   - self._tolerance)\n        self._skipframe_one\
+      \ = int(0.7*self.sample_rate/self.scaling\n                                \
+      \  - self._tolerance)\n\n        print(\"zero_reinit_length\", (self._reinit_zero_hi\n\
+      \                                     + self._reinit_zero_lo)/2)\n        print(\"\
+      subframe_length: \", (self._subframe_hi + self._subframe_lo)/2)\n        print(\"\
+      skipframe_zero_length: \", self._skipframe_zero)\n        print(\"skipframe_one_length:\
+      \ \", self._skipframe_one)\n        print(\"tolerance_length: \", self._tolerance)\n\
+      \n    def work(self, input_items, output_items):\n        inp_p1 = input_items[0]\
+      \     # +1\n        inp_m1 = input_items[1]     # -1\n        inp_z0 = input_items[2]\
+      \     # 0\n        inp_p2 = input_items[3]     # +2\n        inp_m2 = input_items[4]\
+      \     # -2\n\n        out = output_items[0]\n\n        out[:] = self.extract_bits(inp_p1,\
+      \ inp_m1, inp_z0, inp_p2, inp_m2)\n\n        # forward input tagged signal\n\
+      \        return len(output_items[0])\n\n    def clear_counters(self):\n    \
+      \    global _num_ones_p1\n        global _num_ones_m1\n        global _num_ones_z0\n\
+      \        global _num_ones_p2\n        global _num_ones_m2\n\n        _num_ones_p1\
+      \ = 0\n        _num_ones_m1 = 0\n        _num_ones_z0 = 0\n        _num_ones_p2\
+      \ = 0\n        _num_ones_m2 = 0\n\n        # _cur_sec = 0\n\n    def extract_bits(self,\
+      \ inp_p1, inp_m1, inp_z0, inp_p2, inp_m2):\n        global _in_sync\n      \
+      \  global _skip_count\n        global _cur_skipframe\n        global _cur_sec\n\
+      \n        global _num_ones_p1\n        global _num_ones_m1\n        global _num_ones_z0\n\
+      \        global _num_ones_p2\n        global _num_ones_m2\n\n        # -1 =>\
+      \ represents no relevant output\n        out = -np.ones(len(inp_p1))\n\n   \
+      \     # iterate through all three (parallel) input streams concurrently\n  \
+      \      for idx in range(len(inp_p1)):\n            # get symbol values at same\
+      \ idx for each input stream\n            ch_p1 = inp_p1[idx]\n            ch_m1\
+      \ = inp_m1[idx]\n            ch_z0 = inp_z0[idx]\n            ch_p2 = inp_p2[idx]\n\
+      \            ch_m2 = inp_m2[idx]\n\n            if ch_z0 == 1:\n           \
+      \     _num_ones_z0 += 1\n\n            if _cur_sec > 59:\n                _cur_sec\
+      \ = 0\n\n            # to avoid an overflow of _skip_count\n            # stop\
+      \ counting after given limit and hold the value\n            if _skip_count\
+      \ < _cur_skipframe + 1:\n                # after a zero or one has been detected\n\
+      \                # the next bit should not be detected earlier\n           \
+      \     # than the duration of the skip frame\n                # (slightly less\
+      \ than a second)\n                _skip_count += 1\n\n            else:\n  \
+      \              _skip_count = _cur_skipframe + 15\n\n                # increment\
+      \ current counters of ones per\n                # input stream, correspondingly\n\
+      \                if ch_p1 == 1:\n                    _num_ones_p1 += 1\n\n \
+      \               if ch_m1 == 1:\n                    _num_ones_m1 += 1\n\n  \
+      \              # any p2-symbol will trigger a de-sync\n                if ch_p2\
+      \ == 1:\n                    _num_ones_p2 += 1\n                    _in_sync\
+      \ = 0\n\n                # any m2-symbol will trigger a de-sync\n          \
+      \      if ch_m2 == 1:\n                    _num_ones_m2 += 1\n             \
+      \       _in_sync = 0\n\n                # 1st step of synchronization\n    \
+      \            if _in_sync == 0:\n                    if (_num_ones_z0 >= self._reinit_zero_lo\
+      \ and\n                            _num_ones_z0 <= self._reinit_zero_hi):\n\n\
+      \                        self.clear_counters()\n\n                        #\
+      \ marking detected new minute\n                        key = pmt.intern(\"b\"\
+      )\n                        value = pmt.intern(\"new minute\")\n            \
+      \            self.add_item_tag(0,\n                                        \
+      \  self.nitems_written(0) + idx,\n                                         \
+      \ key,\n                                          value)\n\n               \
+      \         # new minute-symbol for ALS162-decoder\n                        self.message_port_pub(pmt.intern(\"\
+      msg_out\"),\n                                              pmt.intern(\"2\"\
+      ))\n\n                        out[idx] = 3\n\n                        _cur_sec\
+      \ = 0\n\n                    if (ch_p1 == 1 and\n                          \
+      \  _num_ones_z0 >= self._subframe_lo):\n                        _in_sync = 1\n\
+      \n                        self.clear_counters()\n                        _num_ones_p1\
+      \ = 1\n\n                        if self.debug is True:\n                  \
+      \          key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      1\")\n                            self.add_item_tag(0,\n                   \
+      \                           self.nitems_written(0) + idx,\n                \
+      \                              key,\n                                      \
+      \        value)\n\n                    # do not (yet) synchronize\n        \
+      \            elif ch_p1 == 0:\n                        _num_ones_p1 = 0\n  \
+      \                      _num_ones_m1 = 0\n                        # _num_ones_z0\
+      \ = 0\n                        _num_ones_p2 = 0\n                        _num_ones_m2\
+      \ = 0\n\n                elif _in_sync == 1:\n                    # detect end\
+      \ of subframe 2\n                    if (ch_p1 == 0 and\n                  \
+      \          (_num_ones_p1 >= self._subframe_lo and\n                        \
+      \     _num_ones_p1 <= self._subframe_hi)):\n                        _in_sync\
+      \ = 2\n\n                        self.clear_counters()\n\n                 \
+      \       if self.debug is True:\n                            key = pmt.intern(\"\
+      s\")\n                            value = pmt.intern(\"2\")\n              \
+      \              self.add_item_tag(0,\n                                      \
+      \        self.nitems_written(0) + idx,\n                                   \
+      \           key,\n                                              value)\n\n \
+      \                   # out of sync\n                    elif (ch_p1 == 0 and\n\
+      \                            (_num_ones_p1 < self._subframe_lo or\n        \
+      \                     _num_ones_p1 > self._subframe_hi)):\n                \
+      \        _in_sync = 0\n\n                        self.clear_counters()\n\n \
+      \               elif _in_sync == 2:\n                    # detect end of subframe\
       \ 3\n                    if (_num_ones_m1 >= 2*self._subframe_lo and\n     \
-      \                   _num_ones_m1 <= 2*self._subframe_hi):\n                \
-      \        _in_sync = 3\n\n                        self.clear_counters()\n\n \
-      \                       if self.debug == True:\n                           \
-      \ key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      \                       _num_ones_m1 <= 2*self._subframe_hi):\n            \
+      \            _in_sync = 3\n\n                        self.clear_counters()\n\
+      \n                        if self.debug is True:\n                         \
+      \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
       3\")\n                            self.add_item_tag(0,\n                   \
-      \             self.nitems_written(0) + idx,\n                              \
-      \  key,\n                                value\n                           \
-      \ )\n                    \n                    # out of sync\n             \
-      \       elif _num_ones_m1 > 2*self._subframe_hi:\n                        _in_sync\
-      \ = 0\n\n                        self.clear_counters()\n\n                 \
-      \   elif _num_ones_z0 >= 2*self._tolerance:\n                        _in_sync\
-      \ = 0\n\n                        self.clear_counters()\n\n                elif\
-      \ _in_sync == 3:\n                    # detect end of subframe 5\n         \
-      \           if (_num_ones_p1 > self._subframe_lo and\n                     \
-      \   _num_ones_p1 < self._subframe_hi and ch_p1 == 0):\n                    \
-      \    _in_sync = 5\n\n                        self.clear_counters()\n\n     \
-      \                   if self.debug == True:\n                            key\
-      \ = pmt.intern(\"s\")\n                            value = pmt.intern(\"5\"\
-      )\n                            self.add_item_tag(0,\n                      \
-      \          self.nitems_written(0) + idx,\n                                key,\n\
-      \                                value\n                            )\n\n  \
-      \                  # detect end of subframe 6\n                    if (_num_ones_p1\
-      \ >= 2*self._subframe_lo and\n                        _num_ones_p1 <= 2*self._subframe_hi):\n\
+      \                           self.nitems_written(0) + idx,\n                \
+      \                              key,\n                                      \
+      \        value)\n\n                    # out of sync\n                    elif\
+      \ _num_ones_m1 > 2*self._subframe_hi:\n                        _in_sync = 0\n\
+      \n                        self.clear_counters()\n\n                    elif\
+      \ _num_ones_z0 >= 2*self._tolerance:\n                        _in_sync = 0\n\
+      \n                        self.clear_counters()\n\n                elif _in_sync\
+      \ == 3:\n                    # detect end of subframe 5\n                  \
+      \  if (_num_ones_p1 > self._subframe_lo and\n                            _num_ones_p1\
+      \ < self._subframe_hi and ch_p1 == 0):\n                        _in_sync = 5\n\
+      \n                        self.clear_counters()\n\n                        if\
+      \ self.debug is True:\n                            key = pmt.intern(\"s\")\n\
+      \                            value = pmt.intern(\"5\")\n                   \
+      \         self.add_item_tag(0,\n                                           \
+      \   self.nitems_written(0) + idx,\n                                        \
+      \      key,\n                                              value)\n\n      \
+      \              # detect end of subframe 6\n                    if (_num_ones_p1\
+      \ >= 2*self._subframe_lo and\n                            _num_ones_p1 <= 2*self._subframe_hi):\n\
       \                        _in_sync = 6\n\n                        self.clear_counters()\n\
-      \n                        if self.debug == True:\n                         \
+      \n                        if self.debug is True:\n                         \
       \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
       6\")\n                            self.add_item_tag(0,\n                   \
-      \             self.nitems_written(0) + idx,\n                              \
-      \  key,\n                                value\n                           \
-      \ )\n\n                    # out of sync\n                    elif _num_ones_p1\
-      \ > 2*self._subframe_hi:\n                        _in_sync = 0\n\n         \
-      \               self.clear_counters()\n\n                    elif _num_ones_z0\
-      \ > 2*self._tolerance:\n                        _in_sync = 0\n\n           \
-      \             self.clear_counters()\n                \n                elif\
-      \ _in_sync == 5:\n                    # detect subframe 6\n                \
-      \    if (_num_ones_z0 >= 1*self._subframe_lo and\n                        _skip_count\
-      \ >= _cur_skipframe):\n                        _in_sync = 0\n\n            \
-      \            self.clear_counters()\n\n                        # marking detected\
-      \ zero-symbol\n                        key = pmt.intern(\"b\")\n           \
-      \             value = pmt.intern(\"0\")\n                        self.add_item_tag(0,\n\
-      \                            self.nitems_written(0) + idx,\n               \
-      \             key,\n                            value\n                    \
-      \    )\n\n                        # successfully detected a zero symbol\n  \
-      \                      #print(\"Sec: \", _cur_sec) \n                      \
-      \  self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"0\"))\n     \
-      \                   out[idx] = 1\n\n                        _cur_sec += 1\n\n\
-      \                        # reset skip counter\n                        _skip_count\
-      \ = 0\n                        _cur_skipframe = self._skipframe_zero\n\n   \
-      \                 elif _num_ones_p1 >= 2*self._tolerance:\n                \
-      \        _in_sync = 0\n\n                        self.clear_counters()  \n\n\
-      \                elif _in_sync == 6:\n                    # detect end of subframe\
+      \                           self.nitems_written(0) + idx,\n                \
+      \                              key,\n                                      \
+      \        value)\n\n                    # out of sync\n                    elif\
+      \ _num_ones_p1 > 2*self._subframe_hi:\n                        _in_sync = 0\n\
+      \n                        self.clear_counters()\n\n                    elif\
+      \ _num_ones_z0 > 2*self._tolerance:\n                        _in_sync = 0\n\n\
+      \                        self.clear_counters()\n\n                elif _in_sync\
+      \ == 5:\n                    # detect subframe 6\n                    if (_num_ones_z0\
+      \ >= 1*self._subframe_lo and\n                            _skip_count >= _cur_skipframe):\n\
+      \                        _in_sync = 0\n\n                        self.clear_counters()\n\
+      \n                        # marking detected zero-symbol\n                 \
+      \       key = pmt.intern(\"b\")\n                        value = pmt.intern(\"\
+      0\")\n                        self.add_item_tag(0,\n                       \
+      \                   self.nitems_written(0) + idx,\n                        \
+      \                  key,\n                                          value)\n\n\
+      \                        # successfully detected a zero symbol\n           \
+      \             # print(\"Sec: \", _cur_sec)\n                        self.message_port_pub(pmt.intern(\"\
+      msg_out\"),\n                                              pmt.intern(\"0\"\
+      ))\n                        out[idx] = 1\n\n                        _cur_sec\
+      \ += 1\n\n                        # reset skip counter\n                   \
+      \     _skip_count = 0\n                        _cur_skipframe = self._skipframe_zero\n\
+      \n                    elif _num_ones_p1 >= 2*self._tolerance:\n            \
+      \            _in_sync = 0\n\n                        self.clear_counters()\n\
+      \n                elif _in_sync == 6:\n                    # detect end of subframe\
       \ 7\n                    if (_num_ones_m1 >= 2*self._subframe_lo and\n     \
-      \                   _num_ones_m1 <= 2*self._subframe_hi):\n                \
-      \        _in_sync = 7\n\n                        self.clear_counters()\n\n \
-      \                       if self.debug == True:\n                           \
-      \ key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
+      \                       _num_ones_m1 <= 2*self._subframe_hi):\n            \
+      \            _in_sync = 7\n\n                        self.clear_counters()\n\
+      \n                        if self.debug is True:\n                         \
+      \   key = pmt.intern(\"s\")\n                            value = pmt.intern(\"\
       7\")\n                            self.add_item_tag(0,\n                   \
+      \                           self.nitems_written(0) + idx,\n                \
+      \                              key,\n                                      \
+      \        value)\n\n                    # out of sync\n                    elif\
+      \ (_num_ones_z0 > self._subframe_hi):\n                        _in_sync = 0\n\
+      \n                        self.clear_counters()\n\n                elif _in_sync\
+      \ == 7:\n                    if (_num_ones_p1 >= self._subframe_lo and\n   \
+      \                         _num_ones_p1 <= self._subframe_hi and\n          \
+      \                  _skip_count >= _cur_skipframe):\n                       \
+      \ _in_sync = 0\n\n                        self.clear_counters()\n\n        \
+      \                # marking detected zero-symbol\n                        key\
+      \ = pmt.intern(\"b\")\n                        value = pmt.intern(\"1\")\n \
+      \                       self.add_item_tag(0,\n                             \
       \             self.nitems_written(0) + idx,\n                              \
-      \  key,\n                                value\n                           \
-      \ )\n\n                    # out of sync\n                    elif (_num_ones_z0\
-      \ > self._subframe_hi):\n                        _in_sync = 0\n\n          \
-      \              self.clear_counters()\n\n                elif _in_sync == 7:\n\
-      \                    if (_num_ones_p1 >= self._subframe_lo and\n           \
-      \             _num_ones_p1 <= self._subframe_hi and\n                      \
-      \  _skip_count >= _cur_skipframe):\n                        _in_sync = 0\n\n\
-      \                        self.clear_counters()\n\n                        #\
-      \ marking detected zero-symbol\n                        key = pmt.intern(\"\
-      b\")\n                        value = pmt.intern(\"1\")\n                  \
-      \      self.add_item_tag(0,\n                            self.nitems_written(0)\
-      \ + idx,\n                            key,\n                            value\n\
-      \                        )\n\n                        # successfully detected\
-      \ a one symbol\n                        #print(\"Sec: \", _cur_sec) \n     \
-      \                   self.message_port_pub(pmt.intern(\"msg_out\"), pmt.intern(\"\
-      1\"))\n                        out[idx] = 2\n\n                        _cur_sec\
+      \            key,\n                                          value)\n\n    \
+      \                    # successfully detected a one symbol\n                \
+      \        # print(\"Sec: \", _cur_sec)\n                        self.message_port_pub(pmt.intern(\"\
+      msg_out\"),\n                                              pmt.intern(\"1\"\
+      ))\n                        out[idx] = 2\n\n                        _cur_sec\
       \ += 1\n\n                        # reset skip counter\n                   \
       \     _skip_count = 0\n                        _cur_skipframe = self._skipframe_one\n\
       \n                    elif _num_ones_z0 >= 2*self._tolerance:\n            \
@@ -2653,14 +2655,14 @@ blocks:
     comment: "phase rotates from pi to -pi\nfor given poll frequency and \ngiven weight\
       \ to countereffect\nthe phase drift"
     source_code: "# this module will be imported in the into your flowgraph\n\n\n\
-      import math\n\n\n\nf1 = -math.pi\nf2 = +math.pi\n\nf = 0\n\ndef shift_freq(weighted_trigger):\n\
-      \    global f1, f2, f\n    \n    if weighted_trigger:\n        f = f - weighted_trigger\n\
-      \    \n    if f <= f1:\n        f = f2\n    \n    return f\n"
+      import math\n\n\nf1 = -math.pi\nf2 = +math.pi\n\nf = 0\n\n\ndef shift_freq(weighted_trigger):\n\
+      \    global f1, f2, f\n\n    if weighted_trigger:\n        f = f - weighted_trigger\n\
+      \n    if f <= f1:\n        f = f2\n\n    return f\n"
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [3192, 676.0]
+    coordinate: [3200, 676.0]
     rotation: 0
     state: enabled
 - name: probe_signal
@@ -3217,7 +3219,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2928, 676.0]
+    coordinate: [2912, 676.0]
     rotation: 0
     state: true
 - name: virtual_sink_0
@@ -3405,7 +3407,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2528, 340.0]
+    coordinate: [2456, 340.0]
     rotation: 0
     state: true
 - name: zeromq_push_msg_sink_1
