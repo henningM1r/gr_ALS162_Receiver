@@ -10,7 +10,7 @@ ALS162 was also formerly known as TDF:
 ### Overview
 The __flowgraph__ is provided in the `examples` folder:
 + `ALS162_receiver.grc`
-    + for both SDR reception
+    + for SDR reception
 
 Supplementary tools are provided in the `python` folder:
 + `DecodeALS162.py` decodes the received bits from a specified ZMQ server upon receiving them. It shows the current time, date, weekday, etc. at each new minute.
