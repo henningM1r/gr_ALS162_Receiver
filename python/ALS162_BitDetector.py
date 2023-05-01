@@ -60,7 +60,7 @@ class blk(gr.sync_block):
         values from slope signal computed by derivative FIR filter
         symbols are constructed by a sequence of clocked sub-frames
         Zero-Symbol:
-        0, +1, -1, -1, +1, 0, 0, 0, 0
+        0, +1, -1, -1, +1, 0
 
         One-Symbol:
         0, +1, -1, -1, +1, +1, -1, -1, +1
