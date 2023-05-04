@@ -98,7 +98,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 1228.0]
+    coordinate: [40, 1204.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_2
@@ -122,7 +122,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 1092.0]
+    coordinate: [504, 1068.0]
     rotation: 0
     state: enabled
 - name: blocks_magphase_to_complex_0
@@ -130,9 +130,9 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: 'as the ALS162 signal
+    comment: 'as the ALS162 signal is
 
-      is mainly defined by the phase'
+      mainly defined by its phase'
     maxoutbuf: '0'
     minoutbuf: '0'
     vlen: '1'
@@ -140,7 +140,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 1288.0]
+    coordinate: [272, 1240.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0
@@ -178,7 +178,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [768, 1272.0]
+    coordinate: [760, 1224.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -342,6 +342,8 @@ blocks:
       element must be a 2
 
       ===
+
+      here:
 
       time: 17:43
 
@@ -531,7 +533,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 1276.0]
+    coordinate: [936, 1228.0]
     rotation: 0
     state: enabled
 - name: note_0
@@ -631,7 +633,98 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 1060.0]
+    coordinate: [936, 1012.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_freq_sink_x_0_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: 'The bandwidth of the complex
+
+      baseband signal (main lobe) is
+
+      roughly 2 kHz. Higher harmonic
+
+      frequencies at approx. x*25kHz
+
+      mainly contribute to the triangular
+
+      shaped signal peaks.'
+    ctrlpanel: 'False'
+    fc: '0'
+    fftsize: '2048'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: (4,0)
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: Baseband_ALS162_signal_frequency
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 1300.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0
@@ -728,7 +821,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 1164.0]
+    coordinate: [936, 1116.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_0
@@ -974,7 +1067,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 1316.0]
+    coordinate: [40, 1268.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1
@@ -1024,7 +1117,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 476.0]
+    coordinate: [32, 492.0]
     rotation: 0
     state: disabled
 
@@ -1032,6 +1125,7 @@ connections:
 - [analog_const_source_x_0, '0', blocks_magphase_to_complex_0, '0']
 - [analog_sig_source_x_2, '0', blocks_multiply_xx_0, '0']
 - [blocks_magphase_to_complex_0, '0', blocks_multiply_xx_0, '1']
+- [blocks_magphase_to_complex_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_0_0_0, '0']
 - [blocks_multiply_const_vxx_0, '0', virtual_sink_0, '0']
 - [blocks_multiply_xx_0, '0', network_tcp_sink_0, '0']
