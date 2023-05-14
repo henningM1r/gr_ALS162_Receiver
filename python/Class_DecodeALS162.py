@@ -33,6 +33,7 @@ class Class_DecodeALS162():
         list1 = [bits[0], bits[1], bits[2]]
         if 3 in list1:
             return "?"
+
         str1 = ''.join(str(e) for e in list1)
         val = int(str1, 2)
 

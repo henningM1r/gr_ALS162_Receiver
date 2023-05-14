@@ -399,7 +399,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 300.0]
+    coordinate: [464, 300.0]
     rotation: 0
     state: enabled
 - name: blocks_short_to_float_0
@@ -820,7 +820,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 212.0]
+    coordinate: [480, 196.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
