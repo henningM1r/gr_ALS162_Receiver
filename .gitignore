@@ -4,3 +4,6 @@ examples/ALS162_epy_block_0.py
 examples/ALS162_epy_block_1.py
 examples/ALS162_phase_shift_fct.py
 python/.idea/
+python/__pycache__/
+python/htmlcov/
+python/.coverage
