@@ -80,7 +80,7 @@ class Class_DecodeALS162():
         elif bitstream[17] == 1 and bitstream[18] == 0:
             output += "17-18: CEST - summer time\n"
         else:
-            output += "17-18: Neither CET nor CEST set!\n"
+            output += "17-18: Error: Neither CET nor CEST set!\n"
 
         if bitstream[19] == 1:
             output += "19: Is 1 instead of 0!\n"
@@ -127,37 +127,37 @@ class Class_DecodeALS162():
         # check minute values
         if min_dec0 != "?" and min_dec10 != "?":
             if min_dec0 > 9 and min_dec10 <= 5:
-                output += "1*digit of minute is > 9!\n"
+                output += "Error: 1*digit of minute is > 9!\n"
                 min_dec0 = "?"
 
             elif min_dec10 > 5 and min_dec0 <= 9:
-                output += "10*digit of minute is > 5!\n"
+                output += "Error: 10*digit of minute is > 5!\n"
                 min_dec10 = "?"
 
             elif min_dec10 > 5 and min_dec0 > 9:
-                output += "10*digit of minute is > 5!\n"
-                output += "1*digit of minute is > 9!\n"
+                output += "Error: 10*digit of minute is > 5!\n"
+                output += "Error: 1*digit of minute is > 9!\n"
                 min_dec0 = "?"
                 min_dec10 = "?"
 
         # check hour values
         if hour_dec0 != "?" and hour_dec10 != "?":
             if hour_dec10 == 2 and hour_dec0 > 3:
-                output += "Hours are greater than 23!\n"
+                output += "Error: Hours are greater than 23!\n"
                 hour_dec0 = "?"
                 hour_dec10 = "?"
 
             elif (hour_dec0 > 9 and hour_dec10 <= 2):
-                output += "1*digit of hour is > 9!\n"
+                output += "Error: 1*digit of hour is > 9!\n"
                 hour_dec0 = "?"
 
             elif (hour_dec10 > 2 and hour_dec0 <= 9):
-                output += "10*digit of hour is > 2!\n"
+                output += "Error: 10*digit of hour is > 2!\n"
                 hour_dec10 = "?"
 
             elif (hour_dec10 > 2 and hour_dec0 > 9):
-                output += "1*digit of hour is > 9!\n"
-                output += "10*digit of hour is > 2!\n"
+                output += "Error: 1*digit of hour is > 9!\n"
+                output += "Error: 10*digit of hour is > 2!\n"
                 hour_dec0 = "?"
                 hour_dec10 = "?"
 
@@ -180,14 +180,66 @@ class Class_DecodeALS162():
         year_dec10 = self.decode_BCD4([bitstream[57], bitstream[56],
                                       bitstream[55], bitstream[54]])
 
-        # TBD check date values (day, month, year)
+        # check date values day
+        if day_dec0 != "?" and day_dec10 != "?":
+            if day_dec0 == 0 and day_dec10 == 0:
+                output += "Error: Day is 00!\n"
+                day_dec0 = "?"
+                day_dec10 = "?"
+
+            elif day_dec0 > 9 and day_dec10 < 3:
+                output += "Error: 1*digit of day is > 9!\n"
+                day_dec0 = "?"
+
+            elif day_dec10 == 3 and day_dec0 >= 2:
+                output += "Error: Day is > 31!\n"
+                day_dec0 = "?"
+                day_dec10 = "?"
+        else:
+            output += "Error: Day is ?\n"
+
+        # check date values month
+        if month_dec0 != "?" and month_dec10 != "?":
+            if month_dec0 == 0 and month_dec10 == 0:
+                output += "Error: Month is 00!\n"
+                month_dec0 = "?"
+                month_dec10 = "?"
+
+            elif month_dec0 > 9 and month_dec10 < 1:
+                output += "Error: 1*digit of month is > 9!\n"
+                month_dec0 = "?"
+
+            elif month_dec10 == 1 and month_dec0 >= 3:
+                output += "Error: Month is > 12!\n"
+                month_dec0 = "?"
+                month_dec10 = "?"
+        else:
+            output += "Error: Month is ?\n"
+
+        # check date values year
+        if year_dec0 != "?" and year_dec10 != "?":
+            if year_dec0 > 9 and year_dec10 <=9:
+                output += "Error: 1*digit of year is > 9!\n"
+                year_dec0 = "?"
+
+            if year_dec10 > 9 and year_dec0 <=1:
+                output += "Error: 10*digit of year is > 9!\n"
+                year_dec10 = "?"
+
+            elif year_dec10 > 9 and year_dec0 > 9:
+                output += "Error: Year is > 99!\n"
+                year_dec0 = "?"
+                year_dec10 = "?"
+        else:
+            output += "Error: Year is ?\n"
+
         output += f"36-41 & 45-57: Date: {day_dec10}{day_dec0}." +\
                   f"{month_dec10}{month_dec0}.{year_dec10}{year_dec0}\n"
 
         if weekday != "?":
             output += f"42-44: Weekday: {self.weekdays[weekday-1]}\n"
         else:
-            output += "42-44: Weekday is ?\n"
+            output += "42-44: Error: Weekday is ?\n"
 
         # check parity for the date and weekday values
         if 3 not in bitstream[36:58]:
@@ -222,7 +274,7 @@ class Class_DecodeALS162():
             received_msg = data.decode('ascii')[3:]
 
             count += 1
-            print(f"decoded bit at {count}: {received_msg[0]} " +
+            print(f"decoded bit at {count:02}: {received_msg[0]} " +
                   f"at position: {received_msg[3:5]}")
             position = int(received_msg[3:5], 10)
 

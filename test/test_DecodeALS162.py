@@ -1,10 +1,8 @@
+
 import sys
-sys.path.append('..')
-
-from python import Class_DecodeALS162 as ALS162
-
 import unittest
-import os
+sys.path.append('..')
+from python import Class_DecodeALS162 as ALS162
 
 
 class Test_Class_DecodeALS162(unittest.TestCase):
@@ -44,6 +42,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "?"
         self.assertEqual(objective, result)
 
+        # TBD negative test - too many bits
+        # TBD negative test - too few bits
+
     def test_decode_BCD2(self):
         # positive test
         bits = [0, 0]
@@ -75,6 +76,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "?"
         self.assertEqual(objective, result)
 
+        # TBD negative test - too many bits
+        # TBD negative test - too few bits
+
     def test_decode_BCD3(self):
         # positive test
         bits = [0, 0, 0]
@@ -100,11 +104,20 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "?"
         self.assertEqual(objective, result)
 
+        # TBD negative test - too many bits
+        # TBD negative test - too few bits
+
     def test_decode_bitstream(self):
-        # negative test
+        # negative test - too many bits
         bitstream = [0]*61
         result = self.my_decoder.decode_bitstream(bitstream, 61)
         objective = "Decoding error\nReceived bits: 61\n"
+        self.assertEqual(objective, result)
+
+        # negative test - too few bits
+        bitstream = [0]*59
+        result = self.my_decoder.decode_bitstream(bitstream, 61)
+        objective = "Decoding error\nReceived bits: 59\n"
         self.assertEqual(objective, result)
 
         # positive test - 20 is wrongly zero
@@ -113,12 +126,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 0\n" + \
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -129,12 +144,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 1 instead of 0!\n" + \
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -145,12 +162,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 0\n" + \
                     "07-12: At least one bit is 1 instead of 0!\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -162,12 +181,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "13: The following day is a holiday\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -179,12 +200,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "14: The current day is a holiday\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -195,12 +218,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 0\n" + \
                     "07-12: Always zero\n" + \
                     "16: Clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -216,7 +241,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -232,7 +259,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -243,13 +272,15 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 0\n" + \
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "19: Is 1 instead of 0!\n" + \
                     "20: Is 0 instead of 1!\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -260,12 +291,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = "\n00: Start-bit is 0\n" + \
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
-                    "17-18: Neither CET nor CEST set!\n" + \
+                    "17-18: Error: Neither CET nor CEST set!\n" + \
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
-                    "36-41 & 45-57: Date: 00.00.00\n" + \
+                    "Error: Day is 00!\n" + \
+                    "Error: Month is 00!\n" + \
+                    "36-41 & 45-57: Date: ??.??.00\n" + \
                     "42-44: Weekday: Sunday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
@@ -288,7 +321,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
-        
+
         # positive test - wrong parity at minutes
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,1,0,0,1,0,1] + [0] + [1,0,0,0,1,0] + [0] + \
@@ -327,7 +360,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test - invalid hour 1*digits and 10*digits
+        # negative test - invalid hour 1*digit and 10*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,1,1,1,1,1] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -340,15 +373,15 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "1*digit of hour is > 9!\n" + \
-                    "10*digit of hour is > 2!\n" + \
+                    "Error: 1*digit of hour is > 9!\n" + \
+                    "Error: 10*digit of hour is > 2!\n" + \
                     "21-27 & 29-34: Time: ??:52h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test - invalid hour 1*digits 
+        # negative test - invalid hour 1*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,1,1,1,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -361,14 +394,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "1*digit of hour is > 9!\n" + \
+                    "Error: 1*digit of hour is > 9!\n" + \
                     "21-27 & 29-34: Time: 0?:52h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test - invalid hour 10*digits 
+        # negative test - invalid hour 10*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,1,0,0,1,0,1] + [1] + [0,0,0,0,1,1] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -381,7 +414,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "10*digit of hour is > 2!\n" + \
+                    "Error: 10*digit of hour is > 2!\n" + \
                     "21-27 & 29-34: Time: ?0:52h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
@@ -401,14 +434,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "Hours are greater than 23!\n" + \
+                    "Error: Hours are greater than 23!\n" + \
                     "21-27 & 29-34: Time: ??:52h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test: - invalid minute 1*digits
+        # negative test: - invalid minute 1*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [1,1,1,1,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -421,14 +454,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "1*digit of minute is > 9!\n" + \
+                    "Error: 1*digit of minute is > 9!\n" + \
                     "21-27 & 29-34: Time: 00:0?h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test: - invalid minute 10*digits
+        # negative test: - invalid minute 10*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,0,0,0,1,1,1] + [1] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -441,14 +474,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "10*digit of minute is > 5!\n" + \
+                    "Error: 10*digit of minute is > 5!\n" + \
                     "21-27 & 29-34: Time: 00:?0h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
 
-        # negative test: - invalid minute 10*digits
+        # negative test: - invalid minute 10*digit
         bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
                     [1] + [0,1,0,1,1,1,1] + [1] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
@@ -461,8 +494,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "20: Beginn of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
-                    "10*digit of minute is > 5!\n" + \
-                    "1*digit of minute is > 9!\n" + \
+                    "Error: 10*digit of minute is > 5!\n" + \
+                    "Error: 1*digit of minute is > 9!\n" + \
                     "21-27 & 29-34: Time: 00:??h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
                     "42-44: Weekday: Saturday\n" + \
@@ -484,7 +517,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
                     "36-41 & 45-57: Date: 13.05.23\n" + \
-                    "42-44: Weekday is ?\n" + \
+                    "42-44: Error: Weekday is ?\n" + \
                     "58: Parity of date and weekdays is ?\n"
         self.assertEqual(objective, result)
 
@@ -563,6 +596,147 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "42-44: Weekday: Saturday\n" + \
                     "58: Parity of date and weekdays successful\n"
         self.assertEqual(objective, result)
+
+        # negative test: - invalid day 1*digit
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,1,1,1,0,0] + [0,1,1] + [1,0,1,0,0] + \
+                    [1,1,0,0,0,1,0,0] + [1]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: 1*digit of day is > 9!\n" + \
+                    "36-41 & 45-57: Date: 0?.05.23\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid day > 33
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,1,1,1,1,1] + [0,1,1] + [1,0,1,0,0] + \
+                    [1,1,0,0,0,1,0,0] + [1]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: Day is > 31!\n" + \
+                    "36-41 & 45-57: Date: ??.05.23\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid month 1*digit
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,0,0,0,0,0] + [0,1,1] + [1,1,1,1,0] + \
+                    [1,1,0,0,0,1,0,0] + [0]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: 1*digit of month is > 9!\n" + \
+                    "36-41 & 45-57: Date: 01.0?.23\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid month > 12
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,0,0,0,0,0] + [0,1,1] + [1,1,1,1,1] + \
+                    [1,1,0,0,0,1,0,0] + [1]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: Month is > 12!\n" + \
+                    "36-41 & 45-57: Date: 01.??.23\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid year 1*digit
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
+                    [1,1,1,1,0,0,0,0] + [0]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: 1*digit of year is > 9!\n" + \
+                    "36-41 & 45-57: Date: 01.01.0?\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid year 10*digit
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
+                    [0,0,0,0,1,1,1,1] + [0]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: 10*digit of year is > 9!\n" + \
+                    "36-41 & 45-57: Date: 01.01.?0\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
+        # negative test: - invalid year 10*digit
+        bitstream = [0] + 2*[0] + 4*[1] + 6*[0] + 3*[0] + [0,1,0] + [0] + \
+                    [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
+                    [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
+                    [1,1,1,1,1,1,1,1] + [0]
+        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        objective = "\n00: Start-bit is 0\n" + \
+                    "07-12: Always zero\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time\n" + \
+                    "20: Beginn of time information\n" + \
+                    "28: Even parity of minutes successful\n" + \
+                    "35: Even parity of hours successful\n" + \
+                    "21-27 & 29-34: Time: 00:00h\n" + \
+                    "Error: Year is > 99!\n" + \
+                    "36-41 & 45-57: Date: 01.01.??\n" + \
+                    "42-44: Weekday: Saturday\n" + \
+                    "58: Parity of date and weekdays successful\n"
+        self.assertEqual(objective, result)
+
 
 if __name__ == '__main__':
     testInstance = Test_Class_DecodeALS162()
