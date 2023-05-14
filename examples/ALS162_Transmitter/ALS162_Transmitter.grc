@@ -84,6 +84,115 @@ blocks:
     coordinate: [400, 12.0]
     rotation: 0
     state: true
+- name: ALS162_codes
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: "\nposition_code_dict = {\n    \"00\": ( 0, 0, 0, 0, 0, 0, 0, 0,\
+      \ 0, 0, 0, 0, 0, 0, 0, 0,\n            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+      \ 0, 0, 0),\n    \"01\": ( 0,+1,-1, 0, 0, 0,+1,-1, 0, 0, 0, 0, 0, 0, 0,-1,\n\
+      \            0,+2, 0,-2, 0,+2, 0,-2, 0,+1, 0, 0, 0, 0, 0, 0),\n    \"02\": (+1,\
+      \ 0,-2, 0,+2,-1,-1,+1,+1,-1,-1,+1, 0,+1, 0,-2,\n           +1, 0, 0,+1,-2, 0,+1,\
+      \ 0,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"03\": (+1,-1, 0, 0,-1,+2, 0,-1,-1, 0,+2,-1,-1,+2,\
+      \ 0,-1,\n           -1, 0,+2,-1,-1,+2, 0,-1,-1, 0,+1, 0, 0, 0, 0, 0),\n    \"\
+      04\": (+1,-1,-1,+1,+1, 0,-1,-1,+1, 0,-1,+1, 0, 0, 0,+1,\n            0,-2,+1,+1,-1,-1,\
+      \ 0,+1,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"05\": (+1,-1, 0,+1,-2, 0,+1, 0,+1, 0,-1,-1,\
+      \ 0,+2, 0,-1,\n           -1, 0,+1,+1,-1,-1,+2,-1,-1,+1, 0, 0, 0, 0, 0, 0),\n\
+      \    \"06\": (+1,-1,-1,+1,+1, 0,-1,-1, 0,+1, 0,+1, 0,-2, 0,+2,\n           \
+      \ 0,-2,+1,+1,-1,-1, 0,+2,-1,-1,+1, 0, 0, 0, 0, 0),\n    \"07\": ( 0, 0, 0, 0,+1,\
+      \ 0,-1, 0,-1, 0,+1,+1, 0,-1,-1,+1,\n            0, 0, 0,-1,+1,+1, 0,-1,-1, 0,+1,\
+      \ 0, 0, 0, 0, 0),\n    \"08\": ( 0, 0,+1, 0,-1, 0, 0, 0, 0,-1, 0,+1, 0, 0, 0,\
+      \ 0,\n            0, 0, 0, 0, 0,+1,-1,-1,+2,-1,-1,+1, 0, 0, 0, 0),\n    \"09\"\
+      : (+1,-1, 0,+1,-2,+1, 0,-1,+1,+1,-1,-1,+1,+1, 0,-1,\n           -1, 0,+1,+1,\
+      \ 0,-1,-1, 0,+1, 0, 0, 0, 0, 0, 0, 0),\n    \"10\": ( 0,+1, 0,-1,-1, 0,+1,+1,\
+      \ 0,-1,-1, 0,+2,-1,-1,+1,\n           +1, 0,-1,-1,+1,+1,-2, 0,+1, 0, 0, 0, 0,\
+      \ 0, 0, 0),\n    \"11\": ( 0,+1, 0,-1,-1,+1,+1,-2,+1, 0,-1,+1, 0,+1,-1, 0,\n\
+      \           +1,-1, 0,-1, 0,+2,-1, 0, 0,-1,+1, 0, 0, 0, 0, 0),\n    \"12\": (\
+      \ 0,+1, 0,-1, 0, 0,-1, 0,+2,-1,-1,+1,+1, 0,-1, 0,\n           -1, 0,+1, 0, 0,\
+      \ 0, 0, 0,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"13\": (+1,-1,-1,+2, 0,-1,-1, 0,+1,+1,-1,\
+      \ 0,+1,-2, 0,+1,\n           +1,-1,-1,+1, 0, 0,+1, 0,-1,-1, 0,+1, 0, 0, 0, 0),\n\
+      \    \"14\": (+1, 0,-2,+1,+1,-2,+1, 0,-1,+2, 0,-2, 0,+1,+1,-1,\n           \
+      \ 0, 0,-1,+1,+1,-1,-1,+2, 0,-2, 0,+1, 0, 0, 0, 0),\n    \"15\": ( 0,+1,-1,-1,+1,+1,\
+      \ 0,-1, 0,-1, 0,+2, 0,-1, 0,-1,\n            0,+2,-1, 0,+1,-2, 0,+2,-1,-1,+1,\
+      \ 0, 0, 0, 0, 0),\n    \"16\": ( 0, 0,+1, 0,-2,+1,+1,-1, 0, 0,-1,+1, 0,-1,+1,\
+      \ 0,\n            0, 0, 0,+1, 0,-2,+1,+1,-1,-1, 0,+1, 0, 0, 0, 0),\n    \"17\"\
+      : (+1, 0,-2, 0,+2,-1, 0,+1,-1, 0, 0,-1,+1,+1,-1, 0,\n            0,-1,+1,+1,-2,+1,+1,-2,\
+      \ 0,+1, 0, 0, 0, 0, 0, 0),\n    \"18\": (+1,-1, 0,+1,-2, 0,+2,-1, 0,+1,-1, 0,\
+      \ 0,-1, 0,+2,\n            0,-1, 0,-1,+1, 0,-1,+1, 0, 0, 0, 0, 0, 0, 0, 0),\n\
+      \    \"19\": (+1, 0,-1, 0,-1, 0,+1,+1,-1, 0,+1,-2, 0,+2,-1,-1,\n           +1,\
+      \ 0, 0,+1,-1,-1,+1, 0, 0, 0, 0, 0, 0, 0, 0, 0),\n    \"20\": (+1,-1,-1,+1, 0,+1,\
+      \ 0,-2, 0,+1, 0,+1,-1, 0,+1,-2,\n            0,+2,-1, 0,+1,-2, 0,+2,-1,-1,+1,\
+      \ 0, 0, 0, 0, 0),\n    \"21\": ( 0, 0,+1,-1,-1,+2,-1, 0,+1,-1, 0,-1, 0,+1,+1,-1,\n\
+      \            0,+1,-2,+1,+1,-1, 0,-1, 0,+1, 0, 0, 0, 0, 0, 0),\n    \"22\": (+1,-1,-1,+2,-1,\
+      \ 0, 0,-1,+1, 0,+1, 0,-1,-1, 0,+2,\n            0,-2, 0,+2, 0,-1, 0,-1,+1, 0,-1,+1,\
+      \ 0, 0, 0, 0),\n    \"23\": ( 0, 0, 0, 0,+1, 0,-1, 0, 0, 0, 0, 0,-1,+1,+1,-2,\n\
+      \           +1, 0, 0,+1,-1,-1, 0,+2, 0,-2, 0,+1, 0, 0, 0, 0),\n    \"24\": (\
+      \ 0, 0, 0, 0,+1,-1, 0, 0, 0,+1,-2,+1, 0,-1,+2, 0,\n           -1,-1,+1,+1,-2,+1,+1,-1,\
+      \ 0,-1, 0,+1, 0, 0, 0, 0),\n    \"25\": (+1, 0,-2, 0,+1, 0, 0, 0,+1, 0,-2, 0,+2,\
+      \ 0,-1, 0,\n            0,-1,+1, 0, 0,+1,-2,+1,+1,-2, 0,+1, 0, 0, 0, 0),\n \
+      \   \"26\": (+1,-1, 0,+1,-2, 0,+2,-1, 0, 0, 0,+1,-2, 0,+2,-1,\n           -1,+1,\
+      \ 0,+1,-1, 0,+1,-1,-1, 0,+1, 0, 0, 0, 0, 0),\n    \"27\": (+1, 0,-2, 0,+1,+1,-1,-1,+1,\
+      \ 0,+1, 0,-2, 0,+2, 0,\n           -1,-1,+1, 0,-1,+1,+1, 0,-2, 0,+1, 0, 0, 0,\
+      \ 0, 0),\n    \"28\": (+1, 0,-1,-1,+1,+1,-2,+1, 0, 0,+1,-2, 0,+1, 0,+1,\n  \
+      \         -1,-1,+2, 0,-1, 0,-1,+1,+1,-2, 0,+1, 0, 0, 0, 0),\n    \"29\": ( 0,+1,-1,-1,+2,\
+      \ 0,-2, 0,+2, 0,-1, 0, 0, 0, 0,-1,\n            0,+2,-1,-1,+1, 0,+1,-1,-1,+1,\
+      \ 0, 0, 0, 0, 0, 0),\n    \"30\": (+1, 0,-2, 0,+2,-1,-1,+1, 0,+1, 0,-2, 0,+2,\
+      \ 0,-2,\n           +1, 0, 0,+1,-2, 0,+1,+1, 0,-2, 0,+1, 0, 0, 0, 0),\n    \"\
+      31\": ( 0,+1,-1, 0,+1,-2, 0,+1,+1, 0,-2,+1,+1,-1, 0,-1,\n            0,+2, 0,-1,-1,\
+      \ 0,+2,-1,-1,+1, 0, 0, 0, 0, 0, 0),\n    \"32\": ( 0, 0,+1, 0,-2,+1,+1,-1,-1,\
+      \ 0,+1,+1, 0,-2, 0,+1,\n            0, 0, 0,+1, 0,-2,+1, 0, 0, 0,-1,+1, 0, 0,\
+      \ 0, 0),\n    \"33\": (+1, 0,-1, 0,-1,+1, 0,-1,+1, 0, 0,+1,-1, 0,+1,-1,\n  \
+      \          0, 0, 0,-1, 0,+1,+1, 0,-2, 0,+1, 0, 0, 0, 0, 0),\n    \"34\": ( 0,\
+      \ 0, 0, 0,+1, 0,-2, 0,+2,-1,-1,+2, 0,-1, 0, 0,\n            0,-1,+1,+1,-1, 0,\
+      \ 0, 0,-1, 0,+1, 0, 0, 0, 0, 0),\n    \"35\": ( 0, 0, 0,+1, 0,-1, 0, 0,-1, 0,+1,\
+      \ 0,+1, 0,-2,+1,\n            0, 0,+1,-1, 0,-1, 0,+1,+1,-1,-1,+1, 0, 0, 0, 0),\n\
+      \    \"36\": (+1,-1, 0,+1,-1, 0, 0, 0,-1, 0,+2,-1, 0, 0, 0, 0,\n           -1,+1,\
+      \ 0, 0, 0,+1,-1, 0, 0,-1,+1, 0, 0, 0, 0, 0),\n    \"37\": (+1,-1,-1,+1, 0,+1,-1,-1,+1,+1,-1,-1,+1,\
+      \ 0,+1, 0,\n           -2,+1, 0, 0,+1,-1,-1, 0,+1, 0, 0, 0, 0, 0, 0, 0),\n \
+      \   \"38\": ( 0,+1, 0,-2,+1,+1,-1, 0, 0, 0,-1, 0,+2,-1,-1,+1,\n           +1,\
+      \ 0,-2, 0,+1,+1,-1,-1,+1, 0, 0, 0, 0, 0, 0, 0),\n    \"39\": ( 0,+1, 0,-1,-1,+1,+1,-2,\
+      \ 0,+2,-1,-1,+1,+1,-1, 0,\n           +1,-1, 0,-1, 0,+2,-1,-1,+1, 0, 0, 0, 0,\
+      \ 0, 0, 0),\n    \"40\": ( 0,+1, 0,-1, 0, 0,-1, 0,+2,-1,-1,+1,+1,-1,-1,+1,\n\
+      \           +1, 0,-1, 0, 0, 0, 0, 0,-1, 0,+1, 0, 0, 0, 0, 0),\n    \"41\": (\
+      \ 0,+1, 0,-1,-1,+1,+1,-2,+1,+1,-1, 0,-1, 0,+2,-1,\n           -1,+1, 0,+1, 0,-2,+1,\
+      \ 0,-1,+1, 0, 0, 0, 0, 0, 0),\n    \"42\": (+1, 0,-1,-1,+1, 0,-1,+2, 0,-1,-1,+1,+1,-2,\
+      \ 0,+2,\n           -1,-1,+2, 0,-2, 0,+2, 0,-1,-1, 0,+1, 0, 0, 0, 0),\n    \"\
+      43\": (+1, 0,-1, 0,-1, 0,+2, 0,-2, 0,+2,-1, 0,+1,-1, 0,\n            0, 0, 0,-1,+1,\
+      \ 0,-1,+1,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"44\": ( 0,+1,-1,-1,+2, 0,-2, 0,+2,-1,\
+      \ 0, 0, 0, 0, 0,+1,\n           -2,+1, 0,-1,+1, 0, 0, 0,+1,-1,-1,+1, 0, 0, 0,\
+      \ 0),\n    \"45\": ( 0,+1, 0,-1, 0, 0,-1,+1,+1,-2,+1, 0,-1,+2, 0,-2,\n     \
+      \       0,+1, 0, 0, 0, 0, 0,+1,-1,-1,+1, 0, 0, 0, 0, 0),\n    \"46\": (+1,-1,-1,+1,+1,-1,-1,+2,\
+      \ 0,-2, 0,+2,-1,-1,+1,+1,\n            0,-2,+1,+1,-2, 0,+2, 0,-2, 0,+1, 0, 0,\
+      \ 0, 0, 0),\n    \"47\": ( 0, 0,+1, 0,-2, 0,+1, 0,+1, 0,-2,+1, 0,-1,+2,-1,\n\
+      \            0, 1,-1,-1,+1,+1,-2,+1,+1,-2, 0,+1, 0, 0, 0, 0),\n    \"48\": (+1,\
+      \ 0,-1,-1,+1, 0, 0,+1,-2,+1, 0,-1,+2, 0,-2,+1,\n            0,-1,+2, 0,-2,+1,\
+      \ 0, 0, 1,-2, 0,+1, 0, 0, 0, 0),\n    \"49\": (+1,-1,-1,+2,-1,-1,+2, 0,-2, 0,+2,\
+      \ 0,-1, 0, 0, 0,\n           -1,+1,+1,-2,+1, 0,-1,+1,+1,-1,-1,+1, 0, 0, 0, 0),\n\
+      \    \"50\": ( 0, 0,+1, 0,-2, 0,+1, 0,+1,-1, 0, 0, 0, 0, 0,+1,\n           -1,\
+      \ 0, 0,-1,+1,+1,-1, 0,-1, 0,+1, 0, 0, 0, 0, 0),\n    \"51\": (+1,-1,-1,+1, 0,\
+      \ 0, 0,+1,-1, 0,+1,-1,-1, 0,+2, 0,\n           -2,+1, 0, 0, 0,-1,+1, 0, 0, 0,\
+      \ 0, 0, 0, 0, 0, 0),\n    \"52\": (+1, 0,-1,-1,+1,+1,-1, 0, 0, 0, 0,-1,+1, 0,-1,+2,\n\
+      \           -1,-1,+2, 0,-1,-1,+1,+1,-1,-1, 0,+1, 0, 0, 0, 0),\n    \"53\": (\
+      \ 0,+1, 0,-1,-1, 0,+2, 0,-2, 0,+1,+1,-1,-1,+1,+1,\n            0,-1, 0,-1,+1,\
+      \ 0,-1,+1,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"54\": (+1, 0,-1,-1, 0,+1,+1, 0,-2,+1,\
+      \ 0, 0, 0, 0, 0, 0,\n            0,-1,+2,-1, 0, 0, 0, 0,-1,+1, 0, 0, 0, 0, 0,\
+      \ 0),\n    \"55\": ( 0, 0,+1,-1, 0,+1,-2, 0,+2,-1,-1,+2,-1, 0, 0, 0,\n     \
+      \       0,-1,+2, 0,-1, 0,-1,+1, 0,-1,+1, 0, 0, 0, 0, 0),\n    \"56\": ( 0, 0,\
+      \ 0, 0, 0, 0, 0,+1,-1,-1,+2, 0,-2, 0,+1, 0,\n            0,+1,-1, 0, 0,-1,+2,-1,\
+      \ 0, 0,-1,+1, 0, 0, 0, 0),\n    \"57\": ( 0, 0,+1, 0,-2,+1, 0, 0,+1,-1,-1,+1,\
+      \ 0, 0,+1,-2,\n           +1,+1,-1,-1, 0,+1, 0,+1, 0,-2, 0,+1, 0, 0, 0, 0),\n\
+      \    \"58\": (+1, 0,-1, 0,-1,+1, 0,-1,+2,-1,-1,+2,-1,-1,+2,-1,\n           \
+      \ 0,+1,-1,-1, 0,+1, 0, 0,+1,-1,-1,+1, 0, 0, 0, 0),\n    \"59\": (+1, 0,-2, 0,+2,\
+      \ 0,-2, 0,+2, 0,-2, 0,+2, 0,-2, 0,\n           +2, 0,-2, 0,+1, 0, 0, 0, 0, 0,\
+      \ 0, 0, 0, 0, 0, 0)\n}\n"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 220.0]
+    rotation: 0
+    state: true
 - name: analog_const_source_x_0
   id: analog_const_source_x
   parameters:
@@ -98,7 +207,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 1204.0]
+    coordinate: [32, 1316.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_2
@@ -122,9 +231,27 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 1068.0]
+    coordinate: [496, 1180.0]
     rotation: 0
     state: enabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: short
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 384.0]
+    rotation: 0
+    state: true
 - name: blocks_magphase_to_complex_0
   id: blocks_magphase_to_complex
   parameters:
@@ -140,7 +267,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 1240.0]
+    coordinate: [264, 1352.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0
@@ -160,7 +287,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 772.0]
+    coordinate: [752, 884.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0
@@ -178,7 +305,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 1224.0]
+    coordinate: [752, 1336.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -195,9 +322,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1136, 184.0]
+    coordinate: [1128, 104.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_null_source_0
   id: blocks_null_source
   parameters:
@@ -214,9 +341,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [744, 184.0]
+    coordinate: [736, 104.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_repeat_0
   id: blocks_repeat
   parameters:
@@ -232,7 +359,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 772.0]
+    coordinate: [264, 884.0]
     rotation: 0
     state: enabled
 - name: blocks_repeat_0_0
@@ -254,7 +381,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 820.0]
+    coordinate: [264, 932.0]
     rotation: 0
     state: enabled
 - name: blocks_repeat_1
@@ -272,7 +399,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 300.0]
+    coordinate: [296, 300.0]
     rotation: 0
     state: enabled
 - name: blocks_short_to_float_0
@@ -289,7 +416,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [888, 396.0]
+    coordinate: [1064, 396.0]
     rotation: 0
     state: enabled
 - name: blocks_short_to_float_1
@@ -306,7 +433,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [888, 460.0]
+    coordinate: [1064, 444.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -318,16 +445,16 @@ blocks:
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_second: '1000'
+    samples_per_second: '1'
     type: short
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 180.0]
+    coordinate: [920, 100.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_vector_source_x_0_0
   id: blocks_vector_source_x
   parameters:
@@ -375,7 +502,7 @@ blocks:
     repeat: 'True'
     tags: '[]'
     type: short
-    vector: list(1*[+1,-1,-1,+1,0,0])+list((subframes_minute-6)*[0])
+    vector: list(1*[+1,-1,-1,+1,0,0,0,0])+list((subframes_minute-8)*[0])
     vlen: '1'
   states:
     bus_sink: false
@@ -426,30 +553,171 @@ blocks:
     coordinate: [408, 564.0]
     rotation: 0
     state: enabled
+- name: blocks_vector_source_x_0_0_0_0_0_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'derivative of waveforms for
+
+      second positions'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: short
+    vector: 'list(8*[0]) + list(ALS162_codes.position_code_dict["01"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["02"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["03"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["04"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["05"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["06"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["07"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["08"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["09"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["10"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["11"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["12"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["13"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["14"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["15"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["16"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["17"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["18"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["19"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["20"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["21"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["22"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["23"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["24"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["25"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["26"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["27"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["28"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["29"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["30"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["31"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["32"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["33"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["34"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["35"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["36"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["37"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["38"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["39"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["40"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["41"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["42"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["43"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["44"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["45"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["46"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["47"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["48"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["49"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["50"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["51"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["52"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["53"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["54"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["55"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["56"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["57"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["58"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["59"]) + \
+
+      list(8*[0]) + list(ALS162_codes.position_code_dict["00"])'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 268.0]
+    rotation: 0
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
     _source_code: "\nimport numpy as np\nfrom gnuradio import gr\n\n\nclass blk(gr.sync_block):\n\
       \n    def __init__(self):\n        gr.sync_block.__init__(\n            self,\n\
       \            name='Waveform Selector',\n            in_sig=[np.short,     #\
-      \ selector\n                    np.short,     # input signal for zero\n    \
-      \                np.short,     # input signal for one\n                    np.short],\
-      \    # input signal for two\n            out_sig=[np.short,    # output signal\n\
-      \                     np.short]    # forwared selector\n        )\n\n    def\
-      \ work(self, input_items, output_items):\n        inp0 = input_items[0]   #\
-      \ selector\n        inp1 = input_items[1]   # input signal for zero\n      \
-      \  inp2 = input_items[2]   # input signal for one\n        inp3 = input_items[3]\
-      \   # input signal for two\n\n        # only as initialization value for output\
-      \ signal\n        output_items[0][:] = inp3\n\n        # forward the selector\n\
-      \        output_items[1][:] = inp0\n\n        # select the input signal to forward\
-      \ it to the output\n        output_items[0][:] = self.selsym_to_bbsig(inp0,\
-      \ inp1, inp2, inp3)\n\n        return len(output_items[0])\n\n    def selsym_to_bbsig(self,\
-      \ inp0, inp1, inp2, inp3):\n        out = inp0\n\n        for idx, ch in enumerate(inp0):\n\
-      \            # forward waveform for zero\n            if (ch == 0):\n      \
-      \          out[idx] = inp1[idx]\n\n            # forward waveform for one\n\
-      \            elif (ch == 1):\n                out[idx] = inp2[idx]\n\n     \
-      \       # forward waveform for two\n            elif (ch == 2):\n          \
-      \      out[idx] = inp3[idx]\n\n        return out\n"
+      \ selector\n                    np.short,     # input signal for symbol zero\n\
+      \                    np.short,     # input signal for symbol one\n         \
+      \           np.short],    # input signal for symbol two\n            out_sig=[np.short,\
+      \    # output signal\n                     np.short]    # forward selector\n\
+      \        )\n\n    def work(self, input_items, output_items):\n        inp0 =\
+      \ input_items[0]   # selector value\n        inp1 = input_items[1]   # input\
+      \ signal for symbol zero\n        inp2 = input_items[2]   # input signal for\
+      \ symbol one\n        inp3 = input_items[3]   # input signal for symbol two\n\
+      \n        # only as initialization value for output signal\n        output_items[0][:]\
+      \ = inp3\n\n        # forward the selector value\n        output_items[1][:]\
+      \ = inp0\n\n        # select the input signal to forward it to the output\n\
+      \        output_items[0][:] = self.selsym_to_bbsig(inp0, inp1, inp2, inp3)\n\
+      \n        return len(output_items[0])\n\n    def selsym_to_bbsig(self, inp0,\
+      \ inp1, inp2, inp3):\n        out = inp0\n\n        for idx, ch in enumerate(inp0):\n\
+      \            # forward waveform for symbol zero\n            if (ch == 0):\n\
+      \                out[idx] = inp1[idx]\n\n            # forward waveform for\
+      \ symbol one\n            elif (ch == 1):\n                out[idx] = inp2[idx]\n\
+      \n            # forward waveform for symbol two\n            elif (ch == 2):\n\
+      \                out[idx] = inp3[idx]\n\n        return out\n"
     affinity: ''
     alias: ''
     comment: 'selects the waveform
@@ -489,7 +757,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 764.0]
+    coordinate: [504, 876.0]
     rotation: 0
     state: true
 - name: import_0
@@ -533,7 +801,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [936, 1228.0]
+    coordinate: [928, 1340.0]
     rotation: 0
     state: enabled
 - name: note_0
@@ -552,7 +820,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 188.0]
+    coordinate: [480, 212.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -633,7 +901,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [936, 1012.0]
+    coordinate: [928, 1124.0]
     rotation: 0
     state: disabled
 - name: qtgui_freq_sink_x_0_0
@@ -724,7 +992,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 1300.0]
+    coordinate: [696, 1412.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0
@@ -821,7 +1089,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [936, 1116.0]
+    coordinate: [928, 1228.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_0
@@ -918,7 +1186,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 884.0]
+    coordinate: [504, 996.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_0
@@ -1015,7 +1283,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1032, 844.0]
+    coordinate: [1024, 956.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1028,7 +1296,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1032, 772.0]
+    coordinate: [1024, 884.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_1
@@ -1041,7 +1309,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1088, 396.0]
+    coordinate: [1264, 396.0]
     rotation: 0
     state: true
 - name: virtual_sink_2
@@ -1054,7 +1322,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1088, 460.0]
+    coordinate: [1264, 444.0]
     rotation: 0
     state: true
 - name: virtual_source_0
@@ -1067,7 +1335,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 1268.0]
+    coordinate: [32, 1380.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1
@@ -1080,7 +1348,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 772.0]
+    coordinate: [56, 884.0]
     rotation: 0
     state: true
 - name: virtual_source_1_0
@@ -1093,7 +1361,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 820.0]
+    coordinate: [56, 932.0]
     rotation: 0
     state: true
 - name: zeromq_sub_source_0
@@ -1124,6 +1392,7 @@ blocks:
 connections:
 - [analog_const_source_x_0, '0', blocks_magphase_to_complex_0, '0']
 - [analog_sig_source_x_2, '0', blocks_multiply_xx_0, '0']
+- [blocks_add_xx_0, '0', blocks_short_to_float_0, '0']
 - [blocks_magphase_to_complex_0, '0', blocks_multiply_xx_0, '1']
 - [blocks_magphase_to_complex_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_0_0_0, '0']
@@ -1143,7 +1412,8 @@ connections:
 - [blocks_vector_source_x_0_0_0, '0', epy_block_0, '1']
 - [blocks_vector_source_x_0_0_0_0, '0', epy_block_0, '2']
 - [blocks_vector_source_x_0_0_0_0_0, '0', epy_block_0, '3']
-- [epy_block_0, '0', blocks_short_to_float_0, '0']
+- [blocks_vector_source_x_0_0_0_0_0_0, '0', blocks_add_xx_0, '0']
+- [epy_block_0, '0', blocks_add_xx_0, '1']
 - [epy_block_0, '1', blocks_short_to_float_1, '0']
 - [iir_filter_xxx_0, '0', blocks_multiply_const_vxx_0, '0']
 - [virtual_source_0, '0', blocks_magphase_to_complex_0, '1']

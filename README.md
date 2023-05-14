@@ -16,8 +16,8 @@ The __flowgraph__ is provided in the `examples` folder:
     + only for simulation
 + `ALS162_Channel.grc`
     + only for simulation
-+ `ALS162_Receiver.grc`
-    + for SDR reception and for simulation
++ `ALS162_Receiver_ExtDetection.grc`
+    + for SDR reception and for simulation, incl. position symbols
 
 Supplementary tools are provided in the `python` folder:
 + `DecodeALS162.py` decodes the received bits from a specified ZMQ server upon receiving them. It shows the current time, date, weekday, etc. at each new minute.
@@ -35,7 +35,7 @@ The ALS162 receiver was tested with:
 + An antenna that provides a sufficiently clear ALS162 signal, e.g. a simple _YouLoop_ loop antenna was used for this project. Indoor reception should probably be possible if you are close enough (<1000 km) to the ALS162 transmitter in Allouis, France. You should mount the antenna close to a window or outside.
 + The user might also need some antenna cables and adapters to connect the SDR with the antenna.
 + This project has been successfully tested in:
-    + Ubuntu 22.04.2 LTS
+    + Ubuntu 22.04.2 LTS (recommended)
     + Windows 11
 
 
@@ -56,7 +56,7 @@ The ALS162 receiver was tested with:
     + It should be run in the 2nd step.
     + A GUI should appear.
 + T3: Go to ```/examples/ALS162_Receiver/```
-+ Run Receiver with: `python3 ALS162_Receiver.py`
++ Run Receiver with: `python3 ALS162_Receiver_ExtDetection.py`
     + It should be run in the 3rd step.
     + A GUI should appear.
 + T4: (compare above) go to ```/examples/ALS162_Receiver/```
@@ -69,7 +69,7 @@ The ALS162 receiver was tested with:
 #### Signal Reception with SDR
 + Set up your SDR with your computer.
 + Ensure that the raw ALS162 signal reception at 162.0 kHz is good enough, e.g. using gqrx or another signal analysis tool.
-+ To start the ALS162 receiver, open the flowchart in `/examples/ALS162_Receiver/ALS162_Receiver.grc` with GNURadio Companion
++ To start the ALS162 receiver, open the flowchart in `/examples/ALS162_Receiver/ALS162_Receiver_ExtDetection.grc` with GNURadio Companion.
     + Press `run` button.
     + First, deactivate the following auxiliary signals in the plot for now (Derivative, +2, +1, 0, -1, -2), and keep the remaining signals (Phase, Symbols, avg. Phase).
     + Wait a few seconds until the Phase signal in the _Phase Drift Compensation_ plot roughly aligns at 0 between the values -1 and 1. If the transient phase of the control loop is still too erratic, reduce the _shift step_ slider slightly (and increase it again later on).
@@ -94,6 +94,5 @@ The ALS162 receiver was tested with:
 + This project has __not__ been tested with other antennas (e.g. a ferrite antenna).
 + A Low Noise Amplifier (LNA) is not needed.
 + Even a single lost bit during reception causes the synchronization of a full minute to fail. Additional resilience of the decoder has __not__ been implemented yet.
-+ The simulated transmitter does __not__ send any other symbols between than the zero and one symbols as specified in publicly available sources. The receiver also ignores any non-public symbols to be observed in the phase plot.
-+ The dedicated bits for leap seconds are detected, but the decoder does __not__ specifically act on it, yet.
-+ The project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds.
++ The simulation of transmitter channel and receiver does __not__ run the same speed as ordinary seconds, but rather a little bit faster.
++ The SDR project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds.
