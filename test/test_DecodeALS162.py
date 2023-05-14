@@ -292,7 +292,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: Error: Neither CET nor CEST set!\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -313,7 +313,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 11:52h\n" + \
@@ -332,7 +332,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes failed\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 11:52h\n" + \
@@ -351,7 +351,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours failed\n" + \
                     "21-27 & 29-34: Time: 11:52h\n" + \
@@ -370,7 +370,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 1*digit of hour is > 9!\n" + \
@@ -391,7 +391,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 1*digit of hour is > 9!\n" + \
@@ -411,7 +411,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 10*digit of hour is > 2!\n" + \
@@ -431,7 +431,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: Hours are greater than 23!\n" + \
@@ -451,7 +451,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 1*digit of minute is > 9!\n" + \
@@ -471,7 +471,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 10*digit of minute is > 5!\n" + \
@@ -491,7 +491,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "Error: 10*digit of minute is > 5!\n" + \
@@ -512,7 +512,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -531,7 +531,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -550,7 +550,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours is ?\n" + \
                     "21-27 & 29-34: Time: 1?:52h\n" + \
@@ -569,7 +569,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes is ?\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 15:5?h\n" + \
@@ -588,7 +588,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes is ?\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 15:5?h\n" + \
@@ -607,7 +607,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -627,7 +627,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -647,7 +647,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -667,7 +667,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -687,7 +687,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -707,7 +707,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \
@@ -727,7 +727,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "07-12: Always zero\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time\n" + \
-                    "20: Beginn of time information\n" + \
+                    "20: Begin of time information\n" + \
                     "28: Even parity of minutes successful\n" + \
                     "35: Even parity of hours successful\n" + \
                     "21-27 & 29-34: Time: 00:00h\n" + \

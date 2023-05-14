@@ -1,6 +1,7 @@
 # -*- coding: iso-8859-1 -*-
 
 import zmq
+import numpy as np
 
 
 class Class_DecodeALS162():
@@ -87,7 +88,7 @@ class Class_DecodeALS162():
             output += "19: Is 1 instead of 0!\n"
 
         if bitstream[20] == 1:
-            output += "20: Beginn of time information\n"
+            output += "20: Begin of time information\n"
 
         elif bitstream[20] == 0:
             output += "20: Is 0 instead of 1!\n"
@@ -140,6 +141,8 @@ class Class_DecodeALS162():
                 output += "Error: 1*digit of minute is > 9!\n"
                 min_dec0 = "?"
                 min_dec10 = "?"
+        else:
+            output += "Error: Minute is ?\n"
 
         # check hour values
         if hour_dec0 != "?" and hour_dec10 != "?":
@@ -161,6 +164,8 @@ class Class_DecodeALS162():
                 output += "Error: 10*digit of hour is > 2!\n"
                 hour_dec0 = "?"
                 hour_dec10 = "?"
+        else:
+            output += "Error: Hour is ?\n"
 
         output += f"21-27 & 29-34: Time: {hour_dec10}{hour_dec0}:" + \
                   f"{min_dec10}{min_dec0}h\n"
@@ -219,11 +224,11 @@ class Class_DecodeALS162():
 
         # check date values year
         if year_dec0 != "?" and year_dec10 != "?":
-            if year_dec0 > 9 and year_dec10 <=9:
+            if year_dec0 > 9 and year_dec10 <= 9:
                 output += "Error: 1*digit of year is > 9!\n"
                 year_dec0 = "?"
 
-            if year_dec10 > 9 and year_dec0 <=1:
+            if year_dec10 > 9 and year_dec0 <= 1:
                 output += "Error: 10*digit of year is > 9!\n"
                 year_dec10 = "?"
 
@@ -258,6 +263,17 @@ class Class_DecodeALS162():
 
         else:
             output += "58: Parity of date and weekdays is ?\n"
+
+        # count number of errors in current bitstream
+        error_list = [1 for idx, val in enumerate(bitstream) if val == 3]
+        num_errors = np.sum(error_list)
+
+        # get index of each error in curent bitstream
+        error_pos = [idx for idx, val in enumerate(bitstream) if val == 3]
+
+        if num_errors > 0:
+            output += f"# Bit errors: {num_errors} =>" + \
+                      f"at postions: {error_pos}\n"
 
         return output
 

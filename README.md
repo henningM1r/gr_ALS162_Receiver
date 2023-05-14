@@ -6,7 +6,7 @@ This is a basic ALS162 time signal receiver for GNURadio, containing:
 + a simulated ALS162 transmitter
 + a simulated ALS162 channel (AWGN)
 
-ALS162 was also formerly known as TDF:
+The __French time signal ALS162__ (ALS = Allouis transmitter, 162 = frequency: 162 kHz) was also formerly known as TéléDiffusion de France (TDF):
 + https://en.wikipedia.org/wiki/ALS162_time_signal
 
 
