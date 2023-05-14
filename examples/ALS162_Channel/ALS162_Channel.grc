@@ -104,6 +104,61 @@ blocks:
     coordinate: [288, 208.0]
     rotation: 0
     state: enabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [888, 120.0]
+    rotation: 0
+    state: enabled
+- name: blocks_null_source_0
+  id: blocks_null_source
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_source: '[[0,],]'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_outputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 120.0]
+    rotation: 0
+    state: enabled
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [680, 116.0]
+    rotation: 0
+    state: enabled
 - name: network_tcp_sink_0
   id: network_tcp_sink
   parameters:
@@ -163,6 +218,8 @@ blocks:
 connections:
 - [analog_fastnoise_source_x_0, '0', blocks_add_xx_0, '1']
 - [blocks_add_xx_0, '0', network_tcp_sink_0, '0']
+- [blocks_null_source_0, '0', blocks_throttle_0, '0']
+- [blocks_throttle_0, '0', blocks_null_sink_0, '0']
 - [network_tcp_source_0, '0', blocks_add_xx_0, '0']
 
 metadata:

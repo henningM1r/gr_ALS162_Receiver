@@ -10,23 +10,23 @@ class blk(gr.sync_block):
             self,
             name='Waveform Selector',
             in_sig=[np.short,     # selector
-                    np.short,     # input signal for zero
-                    np.short,     # input signal for one
-                    np.short],    # input signal for two
+                    np.short,     # input signal for symbol zero
+                    np.short,     # input signal for symbol one
+                    np.short],    # input signal for symbol two
             out_sig=[np.short,    # output signal
-                     np.short]    # forwared selector
+                     np.short]    # forward selector
         )
 
     def work(self, input_items, output_items):
-        inp0 = input_items[0]   # selector
-        inp1 = input_items[1]   # input signal for zero
-        inp2 = input_items[2]   # input signal for one
-        inp3 = input_items[3]   # input signal for two
+        inp0 = input_items[0]   # selector value
+        inp1 = input_items[1]   # input signal for symbol zero
+        inp2 = input_items[2]   # input signal for symbol one
+        inp3 = input_items[3]   # input signal for symbol two
 
         # only as initialization value for output signal
         output_items[0][:] = inp3
 
-        # forward the selector
+        # forward the selector value
         output_items[1][:] = inp0
 
         # select the input signal to forward it to the output
@@ -38,15 +38,15 @@ class blk(gr.sync_block):
         out = inp0
 
         for idx, ch in enumerate(inp0):
-            # forward waveform for zero
+            # forward waveform for symbol zero
             if (ch == 0):
                 out[idx] = inp1[idx]
 
-            # forward waveform for one
+            # forward waveform for symbol one
             elif (ch == 1):
                 out[idx] = inp2[idx]
 
-            # forward waveform for two
+            # forward waveform for symbol two
             elif (ch == 2):
                 out[idx] = inp3[idx]
 
