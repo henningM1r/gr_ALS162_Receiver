@@ -1396,7 +1396,7 @@ blocks:
     bus_structure: null
     coordinate: [584, 828.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_multiply_const_xx_0
   id: blocks_multiply_const_xx
   parameters:
@@ -2146,7 +2146,7 @@ blocks:
     bus_structure: null
     coordinate: [472, 508.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: freq_xlating_fir_filter_xxx_0_0
   id: freq_xlating_fir_filter_xxx
   parameters:
@@ -2168,7 +2168,7 @@ blocks:
     bus_structure: null
     coordinate: [296, 804.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: import_0
   id: import
   parameters:
@@ -2241,7 +2241,7 @@ blocks:
     bus_structure: null
     coordinate: [72, 796.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: note_0
   id: note
   parameters:
@@ -2632,7 +2632,7 @@ blocks:
     bus_structure: null
     coordinate: [136, 420.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: phase_shift_fct
   id: epy_module
   parameters:
@@ -2746,7 +2746,7 @@ blocks:
     bus_structure: null
     coordinate: [296, 932.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_freq_sink_x_0_1_0
   id: qtgui_freq_sink_x
   parameters:
@@ -3116,7 +3116,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 404.0]
+    coordinate: [1008, 428.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_2
@@ -3644,6 +3644,7 @@ connections:
 - [blocks_add_const_vxx_0_0_0_0, '0', blocks_add_const_vxx_0_0_0, '0']
 - [blocks_add_const_vxx_1, '0', blocks_char_to_float_0, '0']
 - [blocks_add_const_vxx_2, '0', analog_pll_carriertracking_cc_0, '0']
+- [blocks_add_const_vxx_2, '0', qtgui_time_sink_x_0_0_0, '0']
 - [blocks_add_const_vxx_2, '0', rational_resampler_xxx_1, '0']
 - [blocks_and_xx_0, '0', blocks_add_const_vxx_1, '0']
 - [blocks_and_xx_0_0, '0', blocks_char_to_float_0_0, '0']
@@ -3707,7 +3708,6 @@ connections:
 - [blocks_multiply_const_vxx_4_1_0_0, '0', qtgui_time_sink_x_0_0_2, '8']
 - [blocks_multiply_const_vxx_4_1_1, '0', qtgui_time_sink_x_0_0_2, '0']
 - [blocks_multiply_const_vxx_5, '0', blocks_add_const_vxx_2, '0']
-- [blocks_multiply_const_vxx_5, '0', qtgui_time_sink_x_0_0_0, '0']
 - [blocks_multiply_const_xx_0, '0', probe_signal, '0']
 - [blocks_not_xx_0, '0', blocks_and_xx_0_0, '0']
 - [blocks_not_xx_0, '0', blocks_and_xx_0_0_0, '0']
@@ -3734,7 +3734,6 @@ connections:
 - [epy_block_2, msg_out, zeromq_push_msg_sink_1, in]
 - [freq_xlating_fir_filter_xxx_0, '0', blocks_add_const_vxx_2, '0']
 - [freq_xlating_fir_filter_xxx_0, '0', blocks_complex_to_mag_squared_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', qtgui_time_sink_x_0_0_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0, '0', blocks_multiply_const_vxx_5, '0']
 - [interp_fir_filter_xxx_0, '0', blocks_moving_average_xx_0_0_1, '0']
 - [network_tcp_source_1, '0', freq_xlating_fir_filter_xxx_0_0, '0']
