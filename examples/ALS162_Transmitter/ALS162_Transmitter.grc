@@ -57,7 +57,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 172.0]
+    coordinate: [64, 164.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -190,7 +190,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 220.0]
+    coordinate: [680, 220.0]
     rotation: 0
     state: true
 - name: analog_const_source_x_0
@@ -239,7 +239,13 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: 'superimpose bit
+
+      position codewords
+
+      into empty 32
+
+      time-slices'
     maxoutbuf: '0'
     minoutbuf: '0'
     num_inputs: '2'
@@ -249,7 +255,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 384.0]
+    coordinate: [904, 336.0]
     rotation: 0
     state: true
 - name: blocks_magphase_to_complex_0
@@ -389,7 +395,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: repeat time bits
     interp: subframes_minute
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -399,7 +405,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 300.0]
+    coordinate: [464, 292.0]
     rotation: 0
     state: enabled
 - name: blocks_short_to_float_0
@@ -488,7 +494,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 284.0]
+    coordinate: [32, 276.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0_0_0
@@ -558,9 +564,9 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: 'derivative of waveforms for
+    comment: 'derivative of waveforms
 
-      second positions'
+      for bit positions'
     maxoutbuf: '0'
     minoutbuf: '0'
     repeat: 'True'
@@ -690,7 +696,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [672, 268.0]
+    coordinate: [656, 268.0]
     rotation: 0
     state: enabled
 - name: epy_block_0
@@ -734,7 +740,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [672, 384.0]
+    coordinate: [664, 384.0]
     rotation: 0
     state: true
 - name: iir_filter_xxx_0
@@ -820,7 +826,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 196.0]
+    coordinate: [376, 84.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
