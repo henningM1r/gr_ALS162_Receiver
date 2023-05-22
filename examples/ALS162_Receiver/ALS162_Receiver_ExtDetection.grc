@@ -69,7 +69,7 @@ blocks:
     start: '1'
     step: '1'
     stop: '800'
-    value: '545'
+    value: '675'
     widget: counter_slider
   states:
     bus_sink: false
@@ -103,7 +103,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 2588.0]
+    coordinate: [832, 2868.0]
     rotation: 0
     state: enabled
 - name: gain
@@ -141,7 +141,7 @@ blocks:
     start: '0'
     step: '1'
     stop: '10000'
-    value: '3500'
+    value: '3000'
     widget: counter_slider
   states:
     bus_sink: false
@@ -154,12 +154,12 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: phase_shift_fct.shift_freq(fun_prob)
+    value: phase_shift_fct.shift_phase(fun_prob)
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 2796.0]
+    coordinate: [832, 3076.0]
     rotation: 0
     state: enabled
 - name: pll_bw
@@ -225,7 +225,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 2588.0]
+    coordinate: [688, 2868.0]
     rotation: 0
     state: enabled
 - name: shift_step
@@ -246,7 +246,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 2588.0]
+    coordinate: [560, 2868.0]
     rotation: 0
     state: enabled
 - name: threshold_spike
@@ -284,7 +284,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 628.0]
+    coordinate: [416, 612.0]
     rotation: 0
     state: enabled
 - name: zero_one
@@ -347,7 +347,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1504, 500.0]
+    coordinate: [1464, 500.0]
     rotation: 0
     state: enabled
 - name: analog_const_source_x_0
@@ -364,7 +364,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1796.0]
+    coordinate: [2216, 1748.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_0
@@ -381,7 +381,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1860.0]
+    coordinate: [2216, 1812.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_0_0
@@ -398,7 +398,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1732.0]
+    coordinate: [2216, 1684.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_0_0_0
@@ -415,7 +415,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1604.0]
+    coordinate: [2216, 1556.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_0_0_1
@@ -432,7 +432,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1476.0]
+    coordinate: [2216, 1428.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_1
@@ -449,7 +449,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1668.0]
+    coordinate: [2216, 1620.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_1_0
@@ -466,7 +466,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1540.0]
+    coordinate: [2216, 1492.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_1_0_0
@@ -483,7 +483,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1924.0]
+    coordinate: [2216, 1876.0]
     rotation: 0
     state: disabled
 - name: analog_const_source_x_0_1_1
@@ -500,7 +500,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2360, 1412.0]
+    coordinate: [2216, 1364.0]
     rotation: 0
     state: disabled
 - name: analog_pll_carriertracking_cc_0
@@ -510,7 +510,14 @@ blocks:
     alias: ''
     comment: 'alternative approach  for
 
-      phase  drift compensation'
+      phase  drift compensation
+
+
+      (the parallel path above  and
+
+      the input to the phase shift  must
+
+      be removed if this block is used)'
     max_freq: 2*math.pi*pll_limit/samp_rate
     maxoutbuf: '0'
     min_freq: -2*math.pi*pll_limit/samp_rate
@@ -560,7 +567,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1760, 1292.0]
+    coordinate: [1632, 1292.0]
     rotation: 0
     state: enabled
 - name: blocks_add_const_vxx_0_0_0_0
@@ -598,9 +605,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1368, 1676.0]
+    coordinate: [1256, 1652.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_add_const_vxx_2
   id: blocks_add_const_vxx
   parameters:
@@ -619,6 +626,44 @@ blocks:
     coordinate: [816, 532.0]
     rotation: 0
     state: true
+- name: blocks_add_const_vxx_4
+  id: blocks_add_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'no function
+
+      intended'
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1440, 2548.0]
+    rotation: 0
+    state: disabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '5'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 2504.0]
+    rotation: 0
+    state: disabled
 - name: blocks_and_xx_0
   id: blocks_and_xx
   parameters:
@@ -633,9 +678,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1232, 1664.0]
+    coordinate: [1152, 1640.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_and_xx_0_0
   id: blocks_and_xx
   parameters:
@@ -650,7 +695,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1232, 1368.0]
+    coordinate: [1152, 1424.0]
     rotation: 0
     state: enabled
 - name: blocks_and_xx_0_0_0
@@ -667,7 +712,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1232, 1968.0]
+    coordinate: [1152, 1816.0]
     rotation: 0
     state: enabled
 - name: blocks_and_xx_0_1
@@ -684,7 +729,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1232, 1520.0]
+    coordinate: [1152, 1544.0]
     rotation: 0
     state: enabled
 - name: blocks_and_xx_0_1_0
@@ -701,7 +746,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1232, 1824.0]
+    coordinate: [1152, 1728.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0
@@ -718,9 +763,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 1676.0]
+    coordinate: [1408, 1652.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_char_to_float_0_0
   id: blocks_char_to_float
   parameters:
@@ -735,7 +780,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 1396.0]
+    coordinate: [1408, 1428.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0
@@ -752,7 +797,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 1996.0]
+    coordinate: [1408, 1876.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0_0
@@ -769,7 +814,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 1532.0]
+    coordinate: [1408, 1540.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0_0_0
@@ -786,7 +831,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 1836.0]
+    coordinate: [1408, 1764.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_arg_0_0
@@ -806,7 +851,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 1024.0]
+    coordinate: [824, 1024.0]
     rotation: 0
     state: true
 - name: blocks_complex_to_mag_squared_0
@@ -839,9 +884,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1748.0]
+    coordinate: [840, 1724.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_float_to_char_0_0
   id: blocks_float_to_char
   parameters:
@@ -856,7 +901,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1636.0]
+    coordinate: [840, 1620.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_char_0_0_0_0
@@ -873,7 +918,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1420.0]
+    coordinate: [840, 1420.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_char_0_0_0_0_0
@@ -890,7 +935,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1524.0]
+    coordinate: [840, 1516.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_char_0_0_0_0_0_1
@@ -907,7 +952,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1860.0]
+    coordinate: [840, 1828.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_char_0_0_0_1
@@ -924,7 +969,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 1972.0]
+    coordinate: [840, 1932.0]
     rotation: 0
     state: enabled
 - name: blocks_message_debug_0_0
@@ -938,7 +983,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [672, 2352.0]
+    coordinate: [840, 2304.0]
     rotation: 0
     state: disabled
 - name: blocks_message_debug_0_0_0
@@ -952,9 +997,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 2352.0]
+    coordinate: [1128, 2304.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_moving_average_xx_0
   id: blocks_moving_average_xx
   parameters:
@@ -974,7 +1019,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384, 2764.0]
+    coordinate: [312, 3044.0]
     rotation: 0
     state: enabled
 - name: blocks_moving_average_xx_0_0_0
@@ -986,6 +1031,7 @@ blocks:
 
       glitches from a noisy phase
 
+
       (Averaging seems sufficent.
 
       A median filter will probably
@@ -995,18 +1041,18 @@ blocks:
       resilience, but seems more
 
       performance-critical)'
-    length: '20'
+    length: '15'
     max_iter: '150'
     maxoutbuf: '0'
     minoutbuf: '0'
-    scale: 1/20
+    scale: 1/15
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 996.0]
+    coordinate: [1032, 996.0]
     rotation: 0
     state: enabled
 - name: blocks_moving_average_xx_0_0_1
@@ -1019,18 +1065,18 @@ blocks:
       from a noisy
 
       derivation of the phase'
-    length: '20'
+    length: '15'
     max_iter: '150'
     maxoutbuf: '0'
     minoutbuf: '0'
-    scale: 1/20
+    scale: 1/15
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1672, 996.0]
+    coordinate: [1552, 996.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0
@@ -1048,7 +1094,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 2196.0]
+    coordinate: [1616, 2148.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1
@@ -1066,7 +1112,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [472, 1668.0]
+    coordinate: [464, 1620.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0
@@ -1084,7 +1130,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 1732.0]
+    coordinate: [248, 1668.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0_0_0_0_1_1
@@ -1102,7 +1148,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1676.0]
+    coordinate: [1624, 1652.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0
@@ -1120,7 +1166,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1396.0]
+    coordinate: [1624, 1428.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0
@@ -1138,7 +1184,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1996.0]
+    coordinate: [1624, 1876.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0
@@ -1156,7 +1202,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1532.0]
+    coordinate: [1624, 1540.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1_0_0_0_0_1_1_0_0_0_0
@@ -1174,7 +1220,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1836.0]
+    coordinate: [1624, 1764.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_2
@@ -1192,9 +1238,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [472, 1796.0]
+    coordinate: [464, 1724.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_multiply_const_vxx_3
   id: blocks_multiply_const_vxx
   parameters:
@@ -1214,7 +1260,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1928, 1148.0]
+    coordinate: [1816, 1148.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_4
@@ -1232,7 +1278,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1796.0]
+    coordinate: [2416, 1748.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_0
@@ -1250,7 +1296,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1860.0]
+    coordinate: [2416, 1812.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_0_0
@@ -1268,7 +1314,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1732.0]
+    coordinate: [2416, 1684.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_0_0_0
@@ -1286,7 +1332,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1604.0]
+    coordinate: [2416, 1556.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_0_0_1
@@ -1304,7 +1350,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1476.0]
+    coordinate: [2416, 1428.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_1
@@ -1322,7 +1368,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1668.0]
+    coordinate: [2416, 1620.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_1_0
@@ -1340,7 +1386,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1540.0]
+    coordinate: [2416, 1492.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_1_0_0
@@ -1358,7 +1404,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1924.0]
+    coordinate: [2416, 1876.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_4_1_1
@@ -1376,7 +1422,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2560, 1412.0]
+    coordinate: [2416, 1364.0]
     rotation: 0
     state: disabled
 - name: blocks_multiply_const_vxx_5
@@ -1394,9 +1440,99 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [584, 828.0]
+    coordinate: [584, 796.0]
     rotation: 0
-    state: enabled
+    state: disabled
+- name: blocks_multiply_const_vxx_6
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 2468.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_6_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '-2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 2660.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_6_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '-1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 2612.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_6_0_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 2564.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_6_0_0_1
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 2516.0]
+    rotation: 0
+    state: disabled
 - name: blocks_multiply_const_xx_0
   id: blocks_multiply_const_xx
   parameters:
@@ -1414,7 +1550,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 2868.0]
+    coordinate: [560, 3148.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0
@@ -1430,7 +1566,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1424.0]
+    coordinate: [1000, 1424.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0_0
@@ -1446,7 +1582,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1976.0]
+    coordinate: [1008, 1936.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0_1_0
@@ -1462,7 +1598,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1864.0]
+    coordinate: [1000, 1864.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0_1_1
@@ -1478,7 +1614,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1528.0]
+    coordinate: [1000, 1528.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0_1_2
@@ -1494,7 +1630,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1640.0]
+    coordinate: [1000, 1640.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0_1_2_0
@@ -1510,7 +1646,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1072, 1752.0]
+    coordinate: [1000, 1752.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -1611,7 +1747,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 1956.0]
+    coordinate: [680, 1916.0]
     rotation: 0
     state: enabled
 - name: blocks_threshold_ff_0_0_0_0
@@ -1631,7 +1767,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 1508.0]
+    coordinate: [680, 1500.0]
     rotation: 0
     state: enabled
 - name: blocks_threshold_ff_0_0_0_0_0
@@ -1651,7 +1787,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 1844.0]
+    coordinate: [680, 1812.0]
     rotation: 0
     state: enabled
 - name: blocks_threshold_ff_0_0_0_0_1
@@ -1671,7 +1807,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 1620.0]
+    coordinate: [680, 1604.0]
     rotation: 0
     state: enabled
 - name: blocks_threshold_ff_0_0_0_0_1_0
@@ -1691,7 +1827,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 1732.0]
+    coordinate: [680, 1708.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -1727,13 +1863,13 @@ blocks:
       tracking is activated)'
     maxoutbuf: '0'
     minoutbuf: '0'
-    msgname: ampl
+    msgname: comp
     target: phase_shift
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1416, 628.0]
+    coordinate: [1408, 620.0]
     rotation: 0
     state: enabled
 - name: epy_block_0
@@ -1745,7 +1881,7 @@ blocks:
       \  0\n_num_ones_z0 = 0\n# counted number of one samples for +2\n_num_ones_p2\
       \ = 0\n# counted number of one samples for -2\n_num_ones_m2 = 0\n\n\nclass blk(gr.sync_block):\n\
       \n    def __init__(self, sample_rate=24000, tolerance=0.003):\n\n        gr.sync_block.__init__(\n\
-      \            self,\n            name='ALS162\\nSymbol detector',\n         \
+      \            self,\n            name='ALS162\\nSymbol Detector',\n         \
       \   in_sig=[np.float32, np.float32, np.float32,\n                    np.float32,\
       \ np.float32],\n            out_sig=[np.float32]\n        )\n\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
       \n        self.sample_rate = sample_rate\n        self._tolerance = self.sample_rate*tolerance\n\
@@ -1798,52 +1934,56 @@ blocks:
       \          # within tolerated chip-size when\n            # slope goes back\
       \ to zero again\n            if (ch_p2 == 0 and\n                    _num_ones_p2\
       \ >= self._subframe_lo2):\n\n                _num = round(_num_ones_p2/self._subframe)\n\
-      \n                key = pmt.intern(\"c\")\n                value = pmt.intern(f\"\
-      +2,{_num}\")\n                self.add_item_tag(0,\n                       \
-      \           self.nitems_written(0) + idx,\n                                \
-      \  key,\n                                  value)\n                out[idx]\
-      \ = 2\n\n                self.send_msg(val=\"+2,\", num=_num)\n            \
-      \    self.clear_counters()\n\n            if (ch_m2 == 0 and\n             \
-      \       _num_ones_m2 >= self._subframe_lo2):\n\n                _num = round(_num_ones_m2/self._subframe)\n\
-      \n                key = pmt.intern(\"c\")\n                value = pmt.intern(f\"\
-      -2,{_num}\")\n                self.add_item_tag(0,\n                       \
-      \           self.nitems_written(0) + idx,\n                                \
-      \  key,\n                                  value)\n                out[idx]\
-      \ = -2\n                self.send_msg(val=\"-2,\", num=_num)\n\n           \
-      \     self.clear_counters()\n\n            if (ch_p1 == 0 and\n            \
-      \        _num_ones_p1 >= self._subframe_lo):\n\n                _num = round(_num_ones_p1/self._subframe)\n\
-      \n                key = pmt.intern(\"c\")\n                value = pmt.intern(f\"\
-      +1,{_num}\")\n                self.add_item_tag(0,\n                       \
-      \           self.nitems_written(0) + idx,\n                                \
-      \  key,\n                                  value)\n                out[idx]\
-      \ = 1\n                self.send_msg(val=\"+1,\", num=_num)\n\n            \
-      \    self.clear_counters()\n\n            if (ch_p1 == 1 and\n             \
-      \       _num_ones_p1 >= self._subframe):\n\n                # will be 1 anyway...\n\
-      \                # _num = round(_num_ones_z0/self._subframe)\n             \
-      \   _num = 1\n\n                key = pmt.intern(\"c\")\n                value\
-      \ = pmt.intern(f\"+1,{_num}\")\n                self.add_item_tag(0,\n     \
-      \                             self.nitems_written(0) + idx,\n              \
-      \                    key,\n                                  value)\n\n    \
-      \            out[idx] = 1\n                self.send_msg(val=\"+1,\", num=_num)\n\
-      \n                self.clear_counters()\n\n            if (ch_m1 == 0 and\n\
-      \                    _num_ones_m1 >= self._subframe_lo):\n\n               \
-      \ _num = round(_num_ones_m1/self._subframe)\n\n                key = pmt.intern(\"\
-      c\")\n                value = pmt.intern(f\"-1,{_num}\")\n                self.add_item_tag(0,\n\
+      \n                key = pmt.intern(\"\")\n                #value = pmt.intern(f\"\
+      +2,{_num}\")\n                value = pmt.intern(f\"+2\")\n                self.add_item_tag(0,\n\
+      \                                  self.nitems_written(0) + idx,\n         \
+      \                         key,\n                                  value)\n \
+      \               out[idx] = 2\n\n                self.send_msg(val=\"+2,\", num=_num)\n\
+      \                self.clear_counters()\n\n            if (ch_m2 == 0 and\n \
+      \                   _num_ones_m2 >= self._subframe_lo2):\n\n               \
+      \ _num = round(_num_ones_m2/self._subframe)\n\n                key = pmt.intern(\"\
+      \")\n                #value = pmt.intern(f\"-2,{_num}\")\n                value\
+      \ = pmt.intern(f\"-2\")\n                self.add_item_tag(0,\n            \
+      \                      self.nitems_written(0) + idx,\n                     \
+      \             key,\n                                  value)\n             \
+      \   out[idx] = -2\n                self.send_msg(val=\"-2,\", num=_num)\n\n\
+      \                self.clear_counters()\n\n            if (ch_p1 == 0 and\n \
+      \                   _num_ones_p1 >= self._subframe_lo):\n\n                _num\
+      \ = round(_num_ones_p1/self._subframe)\n\n                key = pmt.intern(\"\
+      \")\n                #value = pmt.intern(f\"+1,{_num}\")\n                value\
+      \ = pmt.intern(f\"+1\")\n                self.add_item_tag(0,\n            \
+      \                      self.nitems_written(0) + idx,\n                     \
+      \             key,\n                                  value)\n             \
+      \   out[idx] = 1\n                self.send_msg(val=\"+1,\", num=_num)\n\n \
+      \               self.clear_counters()\n\n            if (ch_p1 == 1 and\n  \
+      \                  _num_ones_p1 >= self._subframe):\n\n                # will\
+      \ be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
+      \                _num = 1\n\n                key = pmt.intern(\"\")\n      \
+      \          #value = pmt.intern(f\"+1,{_num}\")\n                value = pmt.intern(f\"\
+      +1\")\n                self.add_item_tag(0,\n                              \
+      \    self.nitems_written(0) + idx,\n                                  key,\n\
+      \                                  value)\n\n                out[idx] = 1\n\
+      \                self.send_msg(val=\"+1,\", num=_num)\n\n                self.clear_counters()\n\
+      \n            if (ch_m1 == 0 and\n                    _num_ones_m1 >= self._subframe_lo):\n\
+      \n                _num = round(_num_ones_m1/self._subframe)\n\n            \
+      \    key = pmt.intern(\"\")\n                #value = pmt.intern(f\"-1,{_num}\"\
+      )\n                value = pmt.intern(f\"-1\")\n                self.add_item_tag(0,\n\
       \                                  self.nitems_written(0) + idx,\n         \
       \                         key,\n                                  value)\n\n\
       \                out[idx] = -1\n                self.send_msg(val=\"-1,\", num=_num)\n\
       \n                self.clear_counters()\n\n            if (ch_m1 == 1 and\n\
       \                    _num_ones_m1 >= self._subframe):\n\n                # will\
       \ be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
-      \                _num = 1\n\n                key = pmt.intern(\"c\")\n     \
-      \           value = pmt.intern(f\"-1,{_num}\")\n                self.add_item_tag(0,\n\
-      \                                  self.nitems_written(0) + idx,\n         \
-      \                         key,\n                                  value)\n\n\
-      \                out[idx] = -1\n                self.send_msg(val=\"-1,\", num=_num)\n\
-      \n                self.clear_counters()\n\n            if (ch_z0 == 0 and\n\
-      \                    _num_ones_z0 >= self._subframe_lo2):\n\n              \
-      \  _num = round(_num_ones_z0/self._subframe)\n\n                key = pmt.intern(\"\
-      c\")\n                value = pmt.intern(f\"0,{_num}\")\n                self.add_item_tag(0,\n\
+      \                _num = 1\n\n                key = pmt.intern(\"\")\n      \
+      \          #value = pmt.intern(f\"-1,{_num}\")\n                value = pmt.intern(f\"\
+      -1\")\n                self.add_item_tag(0,\n                              \
+      \    self.nitems_written(0) + idx,\n                                  key,\n\
+      \                                  value)\n\n                out[idx] = -1\n\
+      \                self.send_msg(val=\"-1,\", num=_num)\n\n                self.clear_counters()\n\
+      \n            if (ch_z0 == 0 and\n                    _num_ones_z0 >= self._subframe_lo2):\n\
+      \n                _num = round(_num_ones_z0/self._subframe)\n\n            \
+      \    key = pmt.intern(\"\")\n                #value = pmt.intern(f\"0,{_num}\"\
+      )\n                value = pmt.intern(f\"0\")\n                self.add_item_tag(0,\n\
       \                                  self.nitems_written(0) + idx,\n         \
       \                         key,\n                                  value)\n\n\
       \                self.send_msg(val=\"0,\", num=_num)\n\n                self.clear_counters()\n\
@@ -1852,6 +1992,152 @@ blocks:
       \     # chunks. Otherwise, successive the decoder might get too\n          \
       \  # many zeros during the minute marker.\n            if (ch_z0 == 1 and\n\
       \                    _num_ones_z0 >= self._subframe):\n\n                # will\
+      \ be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
+      \                _num = 1\n\n                key = pmt.intern(\"\")\n      \
+      \          #value = pmt.intern(f\"0,{_num}\")\n                value = pmt.intern(f\"\
+      0\")\n                self.add_item_tag(0,\n                               \
+      \   self.nitems_written(0) + idx,\n                                  key,\n\
+      \                                  value)\n\n                self.send_msg(val=\"\
+      0,\", num=_num)\n\n                self.clear_counters()\n\n        return out\n"
+    affinity: ''
+    alias: ''
+    comment: 'detects chip symbols
+
+      with the values:
+
+      +/-2, +/-1 and 0
+
+      and provides one
+
+      message per detected
+
+      time-slice'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: int(samp_rate/decimation)
+    tolerance: '0.003'
+  states:
+    _io_cache: ('ALS162\nSymbol Detector', 'blk', [('sample_rate', '24000'), ('tolerance',
+      '0.003')], [('0', 'float', 1), ('1', 'float', 1), ('2', 'float', 1), ('3', 'float',
+      1), ('4', 'float', 1)], [('0', 'float', 1), ('msg_out', 'message', 1)], '',
+      ['sample_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 2104.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\nimport numpy as np\nfrom gnuradio import gr\nimport pmt\n\n\n\
+      # counted number of one samples for +1\n_num_ones_p1 = 0\n# counted number of\
+      \ one samples for -1\n_num_ones_m1 = 0\n# counted number of one samples for\
+      \  0\n_num_ones_z0 = 0\n# counted number of one samples for +2\n_num_ones_p2\
+      \ = 0\n# counted number of one samples for -2\n_num_ones_m2 = 0\n\n# This alternative\
+      \ detector can operate on a single input stream\n# of all 5 symbols (+2,+1,\
+      \ 0,-1,-2) combined.\nclass blk(gr.sync_block):\n\n    def __init__(self, sample_rate=24000,\
+      \ tolerance=0.003):\n\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='ALS162\\nSymbol Detector 2',\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.float32]\n        )\n\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
+      \n        self.sample_rate = sample_rate\n        self._tolerance = self.sample_rate*tolerance\n\
+      \n        # each subframe lasts approx. 25ms\n        self._subframe = int(0.025\
+      \ * self.sample_rate)\n        self._subframe_lo = self._subframe - self._tolerance\n\
+      \        self._subframe_lo2 = self._subframe - self._tolerance*3.0\n\n     \
+      \   print(\"subframe_lo: \", self._subframe_lo)\n        print(\"subframe_lo2:\
+      \ \", self._subframe_lo2)\n        print(\"tolerance_length: \", self._tolerance)\n\
+      \n        # NOTE: Frequently streaming lots of very short messages\n       \
+      \ # within extremely short time frames may lead to occasional\n        # message\
+      \ loss and hence to subsequent decoding errors.\n        # The message queue\
+      \ simply stores multiple successive symbols.\n        # Once the queue is full,\
+      \ concatenated message of the stored\n        # symbols is send.\n        self.queue_len\
+      \ = 20\n        self.queue = gr.msg_queue(self.queue_len)\n\n    def work(self,\
+      \ input_items, output_items):\n        inp = input_items[0]\n\n        output_items[0][:]\
+      \ = self.extract_bits(inp)\n\n        # transmit tagged stream\n        return\
+      \ len(output_items[0])\n\n    def clear_counters(self):\n        global _num_ones_p1\n\
+      \        global _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n\
+      \        global _num_ones_m2\n\n        _num_ones_p1 = 0\n        _num_ones_m1\
+      \ = 0\n        _num_ones_z0 = 0\n        _num_ones_p2 = 0\n        _num_ones_m2\
+      \ = 0\n\n    def send_msg(self, val, num):\n        # handles both the message\
+      \ ouput queue\n        # and the message transmission\n        _msg = \"\"\n\
+      \n        if num > 0:\n            for i in range(0, num):\n               \
+      \ _msg += val\n\n            # convert python string to message\n          \
+      \  msg1_in = gr.message_from_string(_msg)\n\n            # insert message into\
+      \ queue\n            self.queue.insert_tail(msg1_in)\n\n        msg_list = [0]*self.queue_len\n\
+      \n        # send a combination of all messages contained in queue\n        if\
+      \ self.queue.full_p():\n            for idx in range(0, self.queue_len):\n \
+      \               msg_list[idx] = self.queue.delete_head().\\\n              \
+      \                       to_string().decode(\"utf-8\")\n\n            msg1_out\
+      \ = \"\".join(map(str, msg_list))\n            self.message_port_pub(pmt.intern(\"\
+      msg_out\"),\n                                  pmt.intern(msg1_out))\n\n   \
+      \ def extract_bits(self, inp):\n        global _num_ones_p1\n        global\
+      \ _num_ones_m1\n        global _num_ones_z0\n        global _num_ones_p2\n \
+      \       global _num_ones_m2\n\n        out = np.zeros(len(inp))\n\n        #\
+      \ iterate through all five (parallel) input streams concurrently\n        for\
+      \ idx in range(len(inp)):\n            # get symbol value at index for input\
+      \ stream\n            ch = inp[idx]\n\n            # increment current counters\
+      \ of ones per\n            # input stream, correspondingly\n            if ch\
+      \ == 1:\n                _num_ones_p1 += 1\n\n            if ch == -1:\n   \
+      \             _num_ones_m1 += 1\n\n            if ch == 2:\n               \
+      \ _num_ones_p2 += 1\n\n            if ch == -2:\n                _num_ones_m2\
+      \ += 1\n\n            if ch == 0:\n                _num_ones_z0 += 1\n\n   \
+      \         # detect symbols (+/-2, +-1, 0)\n            # within tolerated time-slice\
+      \ when\n            # slope goes back to zero again\n            if (ch != 2\
+      \ and\n                    _num_ones_p2 >= self._subframe_lo2):\n\n        \
+      \        _num = round(_num_ones_p2/self._subframe)\n\n                key =\
+      \ pmt.intern(\"c\")\n                value = pmt.intern(f\"+2,{_num}\")\n  \
+      \              self.add_item_tag(0,\n                                  self.nitems_written(0)\
+      \ + idx,\n                                  key,\n                         \
+      \         value)\n                out[idx] = 2\n\n                self.send_msg(val=\"\
+      +2,\", num=_num)\n                self.clear_counters()\n\n            if (ch\
+      \ != -2 and\n                    _num_ones_m2 >= self._subframe_lo2):\n\n  \
+      \              _num = round(_num_ones_m2/self._subframe)\n\n               \
+      \ key = pmt.intern(\"c\")\n                value = pmt.intern(f\"-2,{_num}\"\
+      )\n                self.add_item_tag(0,\n                                  self.nitems_written(0)\
+      \ + idx,\n                                  key,\n                         \
+      \         value)\n                out[idx] = -2\n                self.send_msg(val=\"\
+      -2,\", num=_num)\n\n                self.clear_counters()\n\n            if\
+      \ (ch != 1 and\n                    _num_ones_p1 >= self._subframe_lo):\n\n\
+      \                _num = round(_num_ones_p1/self._subframe)\n\n             \
+      \   key = pmt.intern(\"c\")\n                value = pmt.intern(f\"+1,{_num}\"\
+      )\n                self.add_item_tag(0,\n                                  self.nitems_written(0)\
+      \ + idx,\n                                  key,\n                         \
+      \         value)\n                out[idx] = 1\n                self.send_msg(val=\"\
+      +1,\", num=_num)\n\n                self.clear_counters()\n\n            if\
+      \ (ch == 1 and\n                    _num_ones_p1 >= self._subframe):\n\n   \
+      \             # will be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
+      \                _num = 1\n\n                key = pmt.intern(\"c\")\n     \
+      \           value = pmt.intern(f\"+1,{_num}\")\n                self.add_item_tag(0,\n\
+      \                                  self.nitems_written(0) + idx,\n         \
+      \                         key,\n                                  value)\n\n\
+      \                out[idx] = 1\n                self.send_msg(val=\"+1,\", num=_num)\n\
+      \n                self.clear_counters()\n\n            if (ch != -1 and\n  \
+      \                  _num_ones_m1 >= self._subframe_lo):\n\n                _num\
+      \ = round(_num_ones_m1/self._subframe)\n\n                key = pmt.intern(\"\
+      c\")\n                value = pmt.intern(f\"-1,{_num}\")\n                self.add_item_tag(0,\n\
+      \                                  self.nitems_written(0) + idx,\n         \
+      \                         key,\n                                  value)\n\n\
+      \                out[idx] = -1\n                self.send_msg(val=\"-1,\", num=_num)\n\
+      \n                self.clear_counters()\n\n            if (ch == -1 and\n  \
+      \                  _num_ones_m1 >= self._subframe):\n\n                # will\
+      \ be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
+      \                _num = 1\n\n                key = pmt.intern(\"c\")\n     \
+      \           value = pmt.intern(f\"-1,{_num}\")\n                self.add_item_tag(0,\n\
+      \                                  self.nitems_written(0) + idx,\n         \
+      \                         key,\n                                  value)\n\n\
+      \                out[idx] = -1\n                self.send_msg(val=\"-1,\", num=_num)\n\
+      \n                self.clear_counters()\n\n            if (ch != 0 and\n   \
+      \                 _num_ones_z0 >= self._subframe_lo2):\n\n                _num\
+      \ = round(_num_ones_z0/self._subframe)\n\n                key = pmt.intern(\"\
+      c\")\n                value = pmt.intern(f\"0,{_num}\")\n                self.add_item_tag(0,\n\
+      \                                  self.nitems_written(0) + idx,\n         \
+      \                         key,\n                                  value)\n\n\
+      \                self.send_msg(val=\"0,\", num=_num)\n\n                self.clear_counters()\n\
+      \n            # In case there is a longer stream of consecutive zeros\n    \
+      \        # it is better to split the symbol stream into manageable\n       \
+      \     # chunks. Otherwise, successive the decoder might get too\n          \
+      \  # many zeros during the minute marker.\n            if (ch == 0 and\n   \
+      \                 _num_ones_z0 >= self._subframe):\n\n                # will\
       \ be 1 anyway...\n                # _num = round(_num_ones_z0/self._subframe)\n\
       \                _num = 1\n\n                key = pmt.intern(\"c\")\n     \
       \           value = pmt.intern(f\"0,{_num}\")\n                self.add_item_tag(0,\n\
@@ -1871,22 +2157,21 @@ blocks:
 
       message per detected
 
-      chip'
+      time-slice'
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_rate: int(samp_rate/decimation)
     tolerance: '0.003'
   states:
-    _io_cache: ('ALS162\nSymbol detector', 'blk', [('sample_rate', '24000'), ('tolerance',
-      '0.003')], [('0', 'float', 1), ('1', 'float', 1), ('2', 'float', 1), ('3', 'float',
-      1), ('4', 'float', 1)], [('0', 'float', 1), ('msg_out', 'message', 1)], '',
-      ['sample_rate'])
+    _io_cache: ('ALS162\nSymbol Detector 2', 'blk', [('sample_rate', '24000'), ('tolerance',
+      '0.003')], [('0', 'float', 1)], [('0', 'float', 1), ('msg_out', 'message', 1)],
+      '', ['sample_rate'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384, 2160.0]
+    coordinate: [520, 2548.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: epy_block_2
   id: epy_block
   parameters:
@@ -2022,34 +2307,35 @@ blocks:
       \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)\n        }\n\n        self.position_code_swap_dict\
       \ = \\\n            {v: k for k, v in self.position_code_dict.items()}\n\n \
       \   def prepare_window(self, msg):\n        global _msg_window\n\n        #\
-      \ message contains whole spread sequence of a received second\n        msg =\
-      \ pmt.to_python(msg)\n\n        # first put each string into an array (separated\
-      \ by comma)\n        received_msg = msg.split(\",\")\n\n        # truncate last\
-      \ element (\"\") from list\n        received_msg = received_msg[:-1]\n\n   \
-      \     # convert to numpy array\n        np_recv_seq = np.array(received_msg)\n\
-      \n        # turn each array element into an integer value\n        np_recv_seq\
-      \ = np.asarray(np_recv_seq, dtype=np.int32)\n\n        _msg_window = np.append(_msg_window,\
-      \ np_recv_seq)\n\n    def rotate_dict(self, dictionary, K):\n        # circular\
-      \ rotation of the dictionary entries\n        keys = list(dictionary.keys())\n\
-      \        vals = list(dictionary.values())\n\n        keys = keys[K:] + keys[:K]\n\
-      \        vals = vals[K:] + vals[:K]\n\n        return dict(zip(keys, vals))\n\
-      \n    def compare_position_code(self, dictionary, msg_window, first_offs=8):\n\
+      \ message contains the whole sequence of a received second\n        msg = pmt.to_python(msg)\n\
+      \n        # first put each string into an array (separated by comma)\n     \
+      \   received_msg = msg.split(\",\")\n\n        # truncate last element (\"\"\
+      ) from list\n        received_msg = received_msg[:-1]\n\n        # convert to\
+      \ numpy-array\n        np_recv_seq = np.array(received_msg)\n\n        # turn\
+      \ each array element into an integer value\n        np_recv_seq = np.asarray(np_recv_seq,\
+      \ dtype=np.int32)\n\n        _msg_window = np.append(_msg_window, np_recv_seq)\n\
+      \n    def rotate_dict(self, dictionary, K):\n        # circular rotation of\
+      \ the dictionary entries\n        keys = list(dictionary.keys())\n        vals\
+      \ = list(dictionary.values())\n\n        keys = keys[K:] + keys[:K]\n      \
+      \  vals = vals[K:] + vals[:K]\n\n        return dict(zip(keys, vals))\n\n  \
+      \  def compare_position_code(self, dictionary, msg_window, first_offs=8):\n\
       \        global _counter\n\n        min_dist = 15\n        min_dist_idx = 0\n\
-      \        pos_key = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n     \
-      \               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)\n\n        for\
-      \ idx, key in enumerate(dictionary):\n            # turn tuple into numpy array\n\
-      \            np_key = np.array(list(key))\n\n            # there must be at\
-      \ least 8 chips offset before\n            # that position codeword containing\
-      \ the time information\n            # (symbol 0 or 1)!\n            for offset\
-      \ in range(first_offs, first_offs + 40):\n                # decision metric:\
-      \ compare window with current codeword\n                # by the (Euclidean\
-      \ distance metric) 2-norm\n                dist = np.linalg.norm(msg_window[offset:offset\
-      \ + 32] - np_key)\n\n                # update current minimum\n            \
-      \    if min_dist > dist:\n                    min_dist = dist\n\n          \
-      \      # check decision threshold for minimum\n                if dist <= self.position_thres:\n\
-      \                    min_dist = dist\n                    min_dist_idx = offset\n\
-      \                    break\n\n            if min_dist <= self.position_thres:\n\
-      \                pos_key = key\n                break\n\n        # to save almost\
+      \        # NOTE: this position key causes the decoder to reset\n        pos_key\
+      \ = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n                    0,\
+      \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)\n\n        for idx, key in enumerate(dictionary):\n\
+      \            # turn tuple into numpy array\n            np_key = np.array(list(key))\n\
+      \n            # there must be at least 8 chips offset before\n            #\
+      \ that position codeword containing the time information\n            # (symbol\
+      \ 0 or 1)!\n            for offset in range(first_offs, first_offs + 40):\n\
+      \                # decision metric: compare window with current codeword\n \
+      \               # by the (Euclidean distance metric) 2-norm\n              \
+      \  dist = np.linalg.norm(msg_window[offset:offset + 32] - np_key)\n\n      \
+      \          # update current minimum\n                if min_dist > dist:\n \
+      \                   min_dist = dist\n\n                # check decision threshold\
+      \ for minimum\n                if dist <= self.position_thres:\n           \
+      \         min_dist = dist\n                    min_dist_idx = offset\n     \
+      \               break\n\n            if min_dist <= self.position_thres:\n \
+      \               pos_key = key\n                break\n\n        # to save almost\
       \ all iterations in the next run\n        # NOTE: unclear if rotating the dict\
       \ is actually\n        # faster than simply iterating over all 60 keys\n   \
       \     # in the worst case (if this step is omitted)?\n        shift_val = int(dictionary[pos_key],\
@@ -2111,7 +2397,7 @@ blocks:
     alias: ''
     comment: 'detects codewords from
 
-      the chip symbols:
+      the time-slice symbols:
 
       * the time symbol
 
@@ -2124,7 +2410,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [648, 2236.0]
+    coordinate: [816, 2180.0]
     rotation: 0
     state: enabled
 - name: freq_xlating_fir_filter_xxx_0
@@ -2146,7 +2432,7 @@ blocks:
     bus_structure: null
     coordinate: [472, 508.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: freq_xlating_fir_filter_xxx_0_0
   id: freq_xlating_fir_filter_xxx
   parameters:
@@ -2166,9 +2452,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 804.0]
+    coordinate: [296, 772.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: import_0
   id: import
   parameters:
@@ -2204,18 +2490,22 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: 'This block perfoms a
+
+      (non-ideal) differentiation
+
+      of the phase signal'
     interp: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_delay: '0'
-    taps: 25*[1]+40*[0]+25*[-1]
+    taps: 20*[1]+40*[0]+20*[-1]
     type: fff
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1360, 1012.0]
+    coordinate: [1312, 1012.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_1
@@ -2239,9 +2529,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [72, 796.0]
+    coordinate: [72, 764.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: note_0
   id: note
   parameters:
@@ -2256,9 +2546,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2904, 1396.0]
+    coordinate: [2768, 1380.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: note_1
   id: note
   parameters:
@@ -2269,9 +2559,87 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 2620.0]
+    coordinate: [320, 2884.0]
     rotation: 0
     state: true
+- name: note_2
+  id: note
+  parameters:
+    alias: ''
+    comment: 'This detector runs on
+
+      5 separate inputs, one
+
+      for each detected level,
+
+      instead of one input
+
+      with all levels combined.'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 1988.0]
+    rotation: 0
+    state: enabled
+- name: note_2_0
+  id: note
+  parameters:
+    alias: ''
+    comment: 'This Alternative detector
+
+      runs on 1 composite input
+
+      signal with all 5 levels
+
+      additively combined.'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 2444.0]
+    rotation: 0
+    state: enabled
+- name: note_2_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: 'These tresholders detect
+
+      the four discrete signal
+
+      levels from the noisy
+
+      input signal'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 1436.0]
+    rotation: 0
+    state: enabled
+- name: note_2_1
+  id: note
+  parameters:
+    alias: ''
+    comment: 'PLL Carrier Tracking is
+
+      an alternative approach
+
+      to the phase drift
+
+      compensation'
+    note: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1208, 652.0]
+    rotation: 0
+    state: enabled
 - name: osmosdr_source_0
   id: osmosdr_source
   parameters:
@@ -2632,7 +3000,7 @@ blocks:
     bus_structure: null
     coordinate: [136, 420.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: phase_shift_fct
   id: epy_module
   parameters:
@@ -2640,14 +3008,14 @@ blocks:
     comment: "phase rotates from pi to -pi\nfor given poll frequency and \ngiven weight\
       \ to countereffect\nthe phase drift"
     source_code: "# this module will be imported in the into your flowgraph\n\nimport\
-      \ math\n\n\nf1 = -math.pi\nf2 = +math.pi\n\nf = 0\n\n\ndef shift_freq(weighted_trigger):\n\
-      \    global f1, f2, f\n\n    if weighted_trigger:\n        f = f - weighted_trigger\n\
-      \n    if f <= f1:\n        f = f2\n\n    return f\n"
+      \ math\n\n\np1 = -math.pi\np2 = +math.pi\n\np = 0\n\n\ndef shift_phase(weighted_trigger):\n\
+      \    global p1, p2, p\n\n    if weighted_trigger:\n        p = p - weighted_trigger\n\
+      \n    if p <= p1:\n        p = p2\n\n    return p\n"
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 2692.0]
+    coordinate: [832, 2972.0]
     rotation: 0
     state: enabled
 - name: probe_signal
@@ -2663,7 +3031,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 2868.0]
+    coordinate: [832, 3148.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_0_1
@@ -2744,9 +3112,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 932.0]
+    coordinate: [296, 900.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_freq_sink_x_0_1_0
   id: qtgui_freq_sink_x
   parameters:
@@ -2922,7 +3290,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 2732.0]
+    coordinate: [560, 3012.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_0
@@ -3019,7 +3387,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2128, 1496.0]
+    coordinate: [2000, 1496.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_0
@@ -3213,7 +3581,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2912, 1528.0]
+    coordinate: [2768, 1480.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_1
@@ -3345,7 +3713,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1944, 1020.0]
+    coordinate: [1824, 1020.0]
     rotation: 0
     state: true
 - name: virtual_sink_1
@@ -3358,9 +3726,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1580.0]
+    coordinate: [1624, 1588.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_1_0
   id: virtual_sink
   parameters:
@@ -3371,9 +3739,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1884.0]
+    coordinate: [1624, 1812.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_1_1
   id: virtual_sink
   parameters:
@@ -3384,9 +3752,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1724.0]
+    coordinate: [1624, 1700.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_1_2
   id: virtual_sink
   parameters:
@@ -3397,9 +3765,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 1444.0]
+    coordinate: [1624, 1476.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_1_2_0
   id: virtual_sink
   parameters:
@@ -3410,9 +3778,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 2044.0]
+    coordinate: [1624, 1924.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_2
   id: virtual_sink
   parameters:
@@ -3440,9 +3808,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1952, 1292.0]
+    coordinate: [1824, 1292.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_4
   id: virtual_sink
   parameters:
@@ -3453,7 +3821,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 2948.0]
+    coordinate: [560, 3228.0]
     rotation: 0
     state: true
 - name: virtual_sink_5
@@ -3473,7 +3841,7 @@ blocks:
   id: virtual_source
   parameters:
     alias: ''
-    comment: 'from differentiated
+    comment: 'from derivative
 
       phase signal'
     stream_id: '1'
@@ -3481,9 +3849,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 1732.0]
+    coordinate: [56, 1668.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_source_1
   id: virtual_source
   parameters:
@@ -3494,7 +3862,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2092.0]
+    coordinate: [200, 2036.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0
@@ -3507,9 +3875,22 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2156.0]
+    coordinate: [200, 2100.0]
     rotation: 0
     state: enabled
+- name: virtual_source_1_0_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: -1 values
+    stream_id: '3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 2628.0]
+    rotation: 0
+    state: disabled
 - name: virtual_source_1_1
   id: virtual_source
   parameters:
@@ -3520,9 +3901,22 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2220.0]
+    coordinate: [200, 2164.0]
     rotation: 0
     state: enabled
+- name: virtual_source_1_1_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: 0 values
+    stream_id: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 2564.0]
+    rotation: 0
+    state: disabled
 - name: virtual_source_1_2
   id: virtual_source
   parameters:
@@ -3533,7 +3927,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2284.0]
+    coordinate: [200, 2228.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_2_0
@@ -3546,9 +3940,48 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2348.0]
+    coordinate: [200, 2292.0]
     rotation: 0
     state: enabled
+- name: virtual_source_1_2_0_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: -2 values
+    stream_id: '6'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 2692.0]
+    rotation: 0
+    state: disabled
+- name: virtual_source_1_2_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: +2 values
+    stream_id: '5'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 2436.0]
+    rotation: 0
+    state: disabled
+- name: virtual_source_1_3
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: +1 values
+    stream_id: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 2500.0]
+    rotation: 0
+    state: disabled
 - name: virtual_source_2
   id: virtual_source
   parameters:
@@ -3559,7 +3992,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 2788.0]
+    coordinate: [112, 3068.0]
     rotation: 0
     state: enabled
 - name: virtual_source_3
@@ -3574,9 +4007,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1752, 2268.0]
+    coordinate: [1616, 2220.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_source_4
   id: virtual_source
   parameters:
@@ -3587,7 +4020,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2568, 1988.0]
+    coordinate: [2424, 1940.0]
     rotation: 0
     state: disabled
 - name: virtual_source_5
@@ -3600,7 +4033,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 1020.0]
+    coordinate: [624, 1020.0]
     rotation: 0
     state: true
 - name: zeromq_push_msg_sink_1
@@ -3622,7 +4055,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 2228.0]
+    coordinate: [1080, 2172.0]
     rotation: 0
     state: enabled
 
@@ -3646,6 +4079,8 @@ connections:
 - [blocks_add_const_vxx_2, '0', analog_pll_carriertracking_cc_0, '0']
 - [blocks_add_const_vxx_2, '0', qtgui_time_sink_x_0_0_0, '0']
 - [blocks_add_const_vxx_2, '0', rational_resampler_xxx_1, '0']
+- [blocks_add_const_vxx_4, '0', blocks_multiply_const_vxx_0, '0']
+- [blocks_add_xx_0, '0', epy_block_0_0, '0']
 - [blocks_and_xx_0, '0', blocks_add_const_vxx_1, '0']
 - [blocks_and_xx_0_0, '0', blocks_char_to_float_0_0, '0']
 - [blocks_and_xx_0_0_0, '0', blocks_char_to_float_0_0_0, '0']
@@ -3708,6 +4143,11 @@ connections:
 - [blocks_multiply_const_vxx_4_1_0_0, '0', qtgui_time_sink_x_0_0_2, '8']
 - [blocks_multiply_const_vxx_4_1_1, '0', qtgui_time_sink_x_0_0_2, '0']
 - [blocks_multiply_const_vxx_5, '0', blocks_add_const_vxx_2, '0']
+- [blocks_multiply_const_vxx_6, '0', blocks_add_xx_0, '0']
+- [blocks_multiply_const_vxx_6_0, '0', blocks_add_xx_0, '4']
+- [blocks_multiply_const_vxx_6_0_0, '0', blocks_add_xx_0, '3']
+- [blocks_multiply_const_vxx_6_0_0_0, '0', blocks_add_xx_0, '2']
+- [blocks_multiply_const_vxx_6_0_0_1, '0', blocks_add_xx_0, '1']
 - [blocks_multiply_const_xx_0, '0', probe_signal, '0']
 - [blocks_not_xx_0, '0', blocks_and_xx_0_0, '0']
 - [blocks_not_xx_0, '0', blocks_and_xx_0_0_0, '0']
@@ -3730,6 +4170,9 @@ connections:
 - [epy_block_0, '0', blocks_multiply_const_vxx_0, '0']
 - [epy_block_0, msg_out, blocks_message_debug_0_0, print]
 - [epy_block_0, msg_out, epy_block_2, msg_in]
+- [epy_block_0_0, '0', blocks_add_const_vxx_4, '0']
+- [epy_block_0_0, msg_out, blocks_message_debug_0_0, print]
+- [epy_block_0_0, msg_out, epy_block_2, msg_in]
 - [epy_block_2, msg_out, blocks_message_debug_0_0_0, print]
 - [epy_block_2, msg_out, zeromq_push_msg_sink_1, in]
 - [freq_xlating_fir_filter_xxx_0, '0', blocks_add_const_vxx_2, '0']
@@ -3744,9 +4187,14 @@ connections:
 - [virtual_source_0, '0', blocks_multiply_const_vxx_1_0, '0']
 - [virtual_source_1, '0', epy_block_0, '0']
 - [virtual_source_1_0, '0', epy_block_0, '1']
+- [virtual_source_1_0_0, '0', blocks_multiply_const_vxx_6_0_0, '0']
 - [virtual_source_1_1, '0', epy_block_0, '2']
+- [virtual_source_1_1_0, '0', blocks_multiply_const_vxx_6_0_0_0, '0']
 - [virtual_source_1_2, '0', epy_block_0, '3']
 - [virtual_source_1_2_0, '0', epy_block_0, '4']
+- [virtual_source_1_2_0_0, '0', blocks_multiply_const_vxx_6_0, '0']
+- [virtual_source_1_2_1, '0', blocks_multiply_const_vxx_6, '0']
+- [virtual_source_1_3, '0', blocks_multiply_const_vxx_6_0_0_1, '0']
 - [virtual_source_2, '0', blocks_moving_average_xx_0, '0']
 - [virtual_source_2, '0', qtgui_time_sink_x_0, '0']
 - [virtual_source_3, '0', qtgui_time_sink_x_0_0, '8']

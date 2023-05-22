@@ -704,25 +704,26 @@ blocks:
   parameters:
     _source_code: "\nimport numpy as np\nfrom gnuradio import gr\n\n\nclass blk(gr.sync_block):\n\
       \n    def __init__(self):\n        gr.sync_block.__init__(\n            self,\n\
-      \            name='Waveform Selector',\n            in_sig=[np.short,     #\
-      \ selector\n                    np.short,     # input signal for symbol zero\n\
-      \                    np.short,     # input signal for symbol one\n         \
-      \           np.short],    # input signal for symbol two\n            out_sig=[np.short,\
-      \    # output signal\n                     np.short]    # forward selector\n\
-      \        )\n\n    def work(self, input_items, output_items):\n        inp0 =\
-      \ input_items[0]   # selector value\n        inp1 = input_items[1]   # input\
-      \ signal for symbol zero\n        inp2 = input_items[2]   # input signal for\
-      \ symbol one\n        inp3 = input_items[3]   # input signal for symbol two\n\
-      \n        # only as initialization value for output signal\n        output_items[0][:]\
-      \ = inp3\n\n        # forward the selector value\n        output_items[1][:]\
-      \ = inp0\n\n        # select the input signal to forward it to the output\n\
-      \        output_items[0][:] = self.selsym_to_bbsig(inp0, inp1, inp2, inp3)\n\
-      \n        return len(output_items[0])\n\n    def selsym_to_bbsig(self, inp0,\
-      \ inp1, inp2, inp3):\n        out = inp0\n\n        for idx, ch in enumerate(inp0):\n\
-      \            # forward waveform for symbol zero\n            if (ch == 0):\n\
-      \                out[idx] = inp1[idx]\n\n            # forward waveform for\
-      \ symbol one\n            elif (ch == 1):\n                out[idx] = inp2[idx]\n\
-      \n            # forward waveform for symbol two\n            elif (ch == 2):\n\
+      \            name='Synchronous\\nWaveform Selector',\n            in_sig=[np.short,\
+      \     # selector\n                    np.short,     # input signal for symbol\
+      \ zero\n                    np.short,     # input signal for symbol one\n  \
+      \                  np.short],    # input signal for symbol two\n           \
+      \ out_sig=[np.short,    # output signal\n                     np.short]    #\
+      \ forward selector\n        )\n\n    def work(self, input_items, output_items):\n\
+      \        inp0 = input_items[0]   # selector value\n        inp1 = input_items[1]\
+      \   # input signal for symbol zero\n        inp2 = input_items[2]   # input\
+      \ signal for symbol one\n        inp3 = input_items[3]   # input signal for\
+      \ symbol two\n\n        # only as initialization value for output signal\n \
+      \       output_items[0][:] = inp3\n\n        # forward the selector value\n\
+      \        output_items[1][:] = inp0\n\n        # synchronously select the input\
+      \ signal to forward it to the output\n        output_items[0][:] = self.selsym_to_bbsig(inp0,\
+      \ inp1, inp2, inp3)\n\n        return len(output_items[0])\n\n    # selected\
+      \ symbol to baseband signal\n    def selsym_to_bbsig(self, inp0, inp1, inp2,\
+      \ inp3):\n        out = inp0\n\n        for idx, ch in enumerate(inp0):\n  \
+      \          # forward waveform for symbol zero\n            if (ch == 0):\n \
+      \               out[idx] = inp1[idx]\n\n            # forward waveform for symbol\
+      \ one\n            elif (ch == 1):\n                out[idx] = inp2[idx]\n\n\
+      \            # forward waveform for symbol two\n            elif (ch == 2):\n\
       \                out[idx] = inp3[idx]\n\n        return out\n"
     affinity: ''
     alias: ''
@@ -734,9 +735,9 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Waveform Selector', 'blk', [], [('0', 'short', 1), ('1', 'short',
-      1), ('2', 'short', 1), ('3', 'short', 1)], [('0', 'short', 1), ('1', 'short',
-      1)], '', [])
+    _io_cache: ('Synchronous\nWaveform Selector', 'blk', [], [('0', 'short', 1), ('1',
+      'short', 1), ('2', 'short', 1), ('3', 'short', 1)], [('0', 'short', 1), ('1',
+      'short', 1)], '', [])
     bus_sink: false
     bus_source: false
     bus_structure: null
