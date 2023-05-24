@@ -20,6 +20,38 @@ class Class_DecodeALS162():
 
         return val
 
+    def compute_num_errors(self, bitstream):
+        error_list = [1 for idx, val in enumerate(bitstream) if val == 3]
+        num_errors = np.sum(error_list)
+
+        return num_errors
+
+    def compute_error_pos(self, bitstream):
+        error_pos = [idx for idx, val in enumerate(bitstream) if val == 3]
+
+        return error_pos
+
+    def single_error_correction(self, bitstream):
+        num_errors = self.compute_num_errors(bitstream)
+
+        if num_errors == 1:
+            rel_error_pos = self.compute_error_pos(bitstream)
+
+            # no correction on default
+            corr_val = 3
+
+            if rel_error_pos[0] <= len(bitstream)-1:
+                # binary addition of all bits except for the error
+                sum = np.sum(bitstream) - bitstream[rel_error_pos[0]]
+
+                # corrected value must yield an even parity in total
+                corr_val = sum % 2
+                bitstream[rel_error_pos[0]] = corr_val
+
+            return [bitstream, rel_error_pos[0], corr_val]
+
+        return [bitstream, -1, -1]
+
     def decode_bitstream(self, bitstream, count):
         output = ""
 
@@ -37,10 +69,10 @@ class Class_DecodeALS162():
             output += "00: Start-bit is ?.\n"
 
         # leap second
-        if bitstream[1] == 1 :
-            output += "01: positive leap second warning.\n"
-        elif bitstream[2] == 1:
-            output += "02: negative leap second warning.\n"
+        if bitstream[1] == 1 and bitstream[2] == 0:
+            output += "01: Positive leap second warning.\n"
+        elif bitstream[2] == 1 and bitstream[1] == 0:
+            output += "02: Negative leap second warning.\n"
         elif bitstream[2] == 1 and bitstream[2] == 1:
             output += "01-02: Error: Both leap seconds are set!\n"
         elif bitstream[2] == 0 and bitstream[2] == 0:
@@ -53,69 +85,74 @@ class Class_DecodeALS162():
             decoded_hamming_weight = bitstream[3] * 2 + bitstream[4] * 4 + \
                                      bitstream[5] * 8 + bitstream[6] * 16
 
-            if 3 not in bitstream[3:7]:
-                num_ones = [1 for idx, val in enumerate(bitstream[21:59]) \
-                            if val == 1]
-                hamming_weight = np.sum(num_ones)
+            num_ones = [1 for idx, val in enumerate(bitstream[21:59]) \
+                        if val == 1]
+            hamming_weight = np.sum(num_ones)
 
-                if hamming_weight == decoded_hamming_weight:
-                    output += "03-06: Decoded & computed Hamming weights " + \
-                              f"match for bits 21-58: " + \
-                              f"{decoded_hamming_weight} == " + \
-                              f"{hamming_weight}.\n"
-                else:
-                    output += "03-06: Error: Decoded & computed Hamming " + \
-                              f"weights missmatch for bits 21-58: " + \
-                              f"{decoded_hamming_weight} != " + \
-                              f"{hamming_weight}!\n"
-                if hamming_weight % 2 != 0:
-                    output += "03-06: Error: Hamming weight for bits " + \
-                              "21-58 is not even!\n"
+            if hamming_weight == decoded_hamming_weight:
+                output += "03-06: Decoded & computed Hamming weights " + \
+                         f"match for bits 21-58: " + \
+                         f"{decoded_hamming_weight} == " + \
+                         f"{hamming_weight}.\n"
             else:
-                output += "03-06: Decoded Hamming weight is {decoded}.\n"
-                output += "03-06: Error: Hamming weight can not be "+ \
-                          "computed as bits 21-58 contain error bits!\n"
+                output += "03-06: Error: Decoded & computed Hamming " + \
+                         f"weights missmatch for bits 21-58: " + \
+                         f"{decoded_hamming_weight} != " + \
+                         f"{hamming_weight}!\n"
+
+            if hamming_weight % 2 != 0:
+                output += "03-06: Error: Hamming weight for bits " + \
+                          "21-58 is not even!\n"
+
         else:
             output += "03-06: Error: Hamming weight is ?.\n"
 
-        # TBD check for error value 3 in the following bits
-        if (bitstream[7] or bitstream[8] or bitstream[9] or
-                bitstream[10] or bitstream[11] or bitstream[12] == 1):
+        if (bitstream[7] == 1 or bitstream[8] == 1 or bitstream[9] == 1 or
+                bitstream[10] == 1 or bitstream[11] or bitstream[12] == 1):
             output += "07-12: At least one bit is 1 instead of 0!\n"
-        else:
+        elif (bitstream[7] == 0 and bitstream[8] == 0 and bitstream[9] == 0 and
+                bitstream[10] == 0 and bitstream[11] == 0 and bitstream[12] == 0):
             output += "07-12: All zero.\n"
+        elif 3 in bitstream[7:13]:
+            output += "07-12: Contains errors\n"
 
         if bitstream[13] == 1:
             output += "13: The following day is a holiday.\n"
+        elif bitstream[13] == 3:
+            output += "13: Contains an error.\n"
 
         if bitstream[14] == 1:
             output += "14: The current day is a holiday.\n"
+        elif bitstream[14] == 3:
+            output += "14: Contains an error.\n"
 
         if bitstream[16] == 1:
             output += "16: Clock change\n"
         elif bitstream[16] == 0:
             output += "16: No clock change\n"
+        elif bitstream[16] == 3:
+            output += "16: Contains an error.\n"
 
+        # TBD check for error value 3 in the following bits
         if bitstream[17] == 0 and bitstream[18] == 1:
             output += "17-18: CET - winter time.\n"
         elif bitstream[17] == 1 and bitstream[18] == 0:
             output += "17-18: CEST - summer time.\n"
-        else:
+        elif ((bitstream[17] == 0 and bitstream[18] == 0) or
+             (bitstream[17] == 1 and bitstream[18] == 1)):
             output += "17-18: Error: Neither CET nor CEST set!\n"
+        else:
+            output += "17-18: Contains errors\n"
 
         if bitstream[19] == 1:
             output += "19: Is 1 instead of 0!\n"
+        elif bitstream[19] == 3:
+            output += "19: Contains an error.\n"
 
         if bitstream[20] == 1:
             output += "20: Begin of time information.\n"
         elif bitstream[20] == 0:
             output += "20: Is 0 instead of 1!\n"
-
-        min_dec0 = self.decode_BCD([bitstream[24], bitstream[23],
-                                    bitstream[22], bitstream[21]], 4)
-
-        min_dec10 = self.decode_BCD([bitstream[27], bitstream[26],
-                                     bitstream[25]], 3)
 
         # check parity for the minute values
         if 3 not in bitstream[21:29]:
@@ -126,12 +163,19 @@ class Class_DecodeALS162():
             else:
                 output += "28: Even parity of minutes failed.\n"
         else:
-            output += "28: Even parity of minutes is ?.\n"
+            num_errors = self.compute_num_errors(bitstream[21:29])
 
-        hour_dec0 = self.decode_BCD([bitstream[32], bitstream[31],
-                                     bitstream[30], bitstream[29]], 4)
+            if num_errors == 1:
+                [bitstream[21:29], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[21:29])
+                output += f"Corrected single error at {21 + rel_err_pos}.\n"
+            else:
+                output += "28: Even parity of minutes is ?.\n"
 
-        hour_dec10 = self.decode_BCD([bitstream[34], bitstream[33]], 2 )
+        min_dec0 = self.decode_BCD([bitstream[24], bitstream[23],
+                                    bitstream[22], bitstream[21]], 4)
+
+        min_dec10 = self.decode_BCD([bitstream[27], bitstream[26],
+                                     bitstream[25]], 3)
 
         # check parity for the hour values
         if 3 not in bitstream[29:36]:
@@ -141,7 +185,18 @@ class Class_DecodeALS162():
             else:
                 output += "35: Even parity of hours failed.\n"
         else:
-            output += "35: Even parity of hours is ?.\n"
+            num_errors = self.compute_num_errors(bitstream[29:36])
+
+            if num_errors == 1:
+                [bitstream[29:36], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[29:36])
+                output += f"Corrected single error at {29 + rel_err_pos}.\n"
+            else:
+                output += "35: Even parity of hours is ?.\n"
+
+        hour_dec0 = self.decode_BCD([bitstream[32], bitstream[31],
+                                     bitstream[30], bitstream[29]], 4)
+
+        hour_dec10 = self.decode_BCD([bitstream[34], bitstream[33]], 2)
 
         # check minute values
         if min_dec0 != "?" and min_dec10 != "?":
@@ -182,15 +237,25 @@ class Class_DecodeALS162():
         output += f"21-27 & 29-34: Time: {hour_dec10}{hour_dec0}:" + \
                   f"{min_dec10}{min_dec0}h.\n"
 
+        # single bit error correction over bits 36-57 for date and weekday
+        num_errors = self.compute_num_errors(bitstream[36:59])
+        [bitstream[36:59], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[36:59])
+        if corr_val != -1:
+            output += f"Corrected single error at {36 + rel_err_pos}.\n"
+        elif corr_val == -1:
+            pass
+        else:
+            output += "58: Even parity of of date and weekdays is ?.\n"
+
         weekday = self.decode_BCD([bitstream[44], bitstream[43],
-                                    bitstream[42]], 3)
+                                   bitstream[42]], 3)
 
         day_dec0 = self.decode_BCD([bitstream[39], bitstream[38],
-                                     bitstream[37], bitstream[36]], 4)
+                                    bitstream[37], bitstream[36]], 4)
         day_dec10 = self.decode_BCD([bitstream[41], bitstream[40]], 2)
 
         month_dec0 = self.decode_BCD([bitstream[48], bitstream[47],
-                                       bitstream[46], bitstream[45]], 4)
+                                      bitstream[46], bitstream[45]], 4)
         month_dec10 = bitstream[49]
 
         year_dec0 = self.decode_BCD([bitstream[53], bitstream[52],
@@ -254,7 +319,7 @@ class Class_DecodeALS162():
             output += "42-44: Error: Weekday is ?.\n"
 
         # check parity for the date and weekday values
-        if 3 not in bitstream[36:58]:
+        if 3 not in bitstream[36:59]:
             if (bitstream[36] ^ bitstream[37] ^ bitstream[38] ^
                     bitstream[39] ^ bitstream[40] ^ bitstream[41] ^
                     bitstream[42] ^ bitstream[43] ^ bitstream[44] ^
@@ -270,15 +335,15 @@ class Class_DecodeALS162():
             output += "58: Parity of date and weekdays is ?.\n"
 
         # count number of errors in current bitstream
-        error_list = [1 for idx, val in enumerate(bitstream) if val == 3]
-        num_errors = np.sum(error_list)
+        num_errors = self.compute_num_errors(bitstream)
 
-        # get index of each error in curent bitstream
-        error_pos = [idx for idx, val in enumerate(bitstream) if val == 3]
+        # get indices of each error in current bitstream
+        error_pos = self.compute_error_pos(bitstream)
+        #error_pos = [idx for idx, val in enumerate(bitstream) if val == 3]
 
         if num_errors > 0:
             output += f"# Bit errors: {num_errors} => " + \
-                      f"at postions: {error_pos}.\n"
+                      f"at positions: {error_pos}.\n"
 
         return output
 

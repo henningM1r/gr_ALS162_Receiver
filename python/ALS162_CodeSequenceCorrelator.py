@@ -176,7 +176,7 @@ class blk(gr.sync_block):
     def prepare_window(self, msg):
         global _msg_window
 
-        # message contains whole spread sequence of a received second
+        # message contains the whole sequence of a received second
         msg = pmt.to_python(msg)
 
         # first put each string into an array (separated by comma)
@@ -185,7 +185,7 @@ class blk(gr.sync_block):
         # truncate last element ("") from list
         received_msg = received_msg[:-1]
 
-        # convert to numpy array
+        # convert to numpy-array
         np_recv_seq = np.array(received_msg)
 
         # turn each array element into an integer value
@@ -208,6 +208,7 @@ class blk(gr.sync_block):
 
         min_dist = 15
         min_dist_idx = 0
+        # NOTE: this position key causes the decoder to reset
         pos_key = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 

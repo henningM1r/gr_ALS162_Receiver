@@ -1,22 +1,21 @@
 # this module will be imported in the into your flowgraph
 
-
 import math
 
 
-f1 = -math.pi
-f2 = +math.pi
+p1 = -math.pi
+p2 = +math.pi
 
-f = 0
+p = 0
 
 
-def shift_freq(weighted_trigger):
-    global f1, f2, f
+def shift_phase(weighted_trigger):
+    global p1, p2, p
 
     if weighted_trigger:
-        f = f - weighted_trigger
+        p = p - weighted_trigger
 
-    if f <= f1:
-        f = f2
+    if p <= p1:
+        p = p2
 
-    return f
+    return p

@@ -69,7 +69,7 @@ blocks:
     start: '1'
     step: '1'
     stop: '800'
-    value: '675'
+    value: '265'
     widget: counter_slider
   states:
     bus_sink: false
@@ -1041,11 +1041,11 @@ blocks:
       resilience, but seems more
 
       performance-critical)'
-    length: '15'
+    length: '20'
     max_iter: '150'
     maxoutbuf: '0'
     minoutbuf: '0'
-    scale: 1/15
+    scale: 1/20
     type: float
     vlen: '1'
   states:
@@ -1065,11 +1065,11 @@ blocks:
       from a noisy
 
       derivation of the phase'
-    length: '15'
+    length: '20'
     max_iter: '150'
     maxoutbuf: '0'
     minoutbuf: '0'
-    scale: 1/15
+    scale: 1/20
     type: float
     vlen: '1'
   states:
@@ -1442,7 +1442,7 @@ blocks:
     bus_structure: null
     coordinate: [584, 796.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_multiply_const_vxx_6
   id: blocks_multiply_const_vxx
   parameters:
@@ -1880,7 +1880,7 @@ blocks:
       \ one samples for -1\n_num_ones_m1 = 0\n# counted number of one samples for\
       \  0\n_num_ones_z0 = 0\n# counted number of one samples for +2\n_num_ones_p2\
       \ = 0\n# counted number of one samples for -2\n_num_ones_m2 = 0\n\n\nclass blk(gr.sync_block):\n\
-      \n    def __init__(self, sample_rate=24000, tolerance=0.003):\n\n        gr.sync_block.__init__(\n\
+      \n    def __init__(self, sample_rate=24000, tolerance=0.004):\n\n        gr.sync_block.__init__(\n\
       \            self,\n            name='ALS162\\nSymbol Detector',\n         \
       \   in_sig=[np.float32, np.float32, np.float32,\n                    np.float32,\
       \ np.float32],\n            out_sig=[np.float32]\n        )\n\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
@@ -2015,10 +2015,10 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_rate: int(samp_rate/decimation)
-    tolerance: '0.003'
+    tolerance: '0.004'
   states:
     _io_cache: ('ALS162\nSymbol Detector', 'blk', [('sample_rate', '24000'), ('tolerance',
-      '0.003')], [('0', 'float', 1), ('1', 'float', 1), ('2', 'float', 1), ('3', 'float',
+      '0.004')], [('0', 'float', 1), ('1', 'float', 1), ('2', 'float', 1), ('3', 'float',
       1), ('4', 'float', 1)], [('0', 'float', 1), ('msg_out', 'message', 1)], '',
       ['sample_rate'])
     bus_sink: false
@@ -2432,7 +2432,7 @@ blocks:
     bus_structure: null
     coordinate: [472, 508.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: freq_xlating_fir_filter_xxx_0_0
   id: freq_xlating_fir_filter_xxx
   parameters:
@@ -2454,7 +2454,7 @@ blocks:
     bus_structure: null
     coordinate: [296, 772.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: import_0
   id: import
   parameters:
@@ -2499,13 +2499,13 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_delay: '0'
-    taps: 20*[1]+40*[0]+20*[-1]
+    taps: 55*[1]+55*[-1]
     type: fff
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1312, 1012.0]
+    coordinate: [1296, 1012.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_1
@@ -2531,7 +2531,7 @@ blocks:
     bus_structure: null
     coordinate: [72, 764.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: note_0
   id: note
   parameters:
@@ -3000,7 +3000,7 @@ blocks:
     bus_structure: null
     coordinate: [136, 420.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: phase_shift_fct
   id: epy_module
   parameters:

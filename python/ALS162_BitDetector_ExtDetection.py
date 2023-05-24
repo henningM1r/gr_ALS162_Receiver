@@ -18,11 +18,11 @@ _num_ones_m2 = 0
 
 class blk(gr.sync_block):
 
-    def __init__(self, sample_rate=24000, tolerance=0.003):
+    def __init__(self, sample_rate=24000, tolerance=0.004):
 
         gr.sync_block.__init__(
             self,
-            name='ALS162\nSymbol detector',
+            name='ALS162\nSymbol Detector',
             in_sig=[np.float32, np.float32, np.float32,
                     np.float32, np.float32],
             out_sig=[np.float32]
@@ -147,8 +147,9 @@ class blk(gr.sync_block):
 
                 _num = round(_num_ones_p2/self._subframe)
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"+2,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"+2,{_num}")
+                value = pmt.intern(f"+2")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -163,8 +164,9 @@ class blk(gr.sync_block):
 
                 _num = round(_num_ones_m2/self._subframe)
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"-2,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"-2,{_num}")
+                value = pmt.intern(f"-2")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -179,8 +181,9 @@ class blk(gr.sync_block):
 
                 _num = round(_num_ones_p1/self._subframe)
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"+1,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"+1,{_num}")
+                value = pmt.intern(f"+1")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -197,8 +200,9 @@ class blk(gr.sync_block):
                 # _num = round(_num_ones_z0/self._subframe)
                 _num = 1
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"+1,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"+1,{_num}")
+                value = pmt.intern(f"+1")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -214,8 +218,9 @@ class blk(gr.sync_block):
 
                 _num = round(_num_ones_m1/self._subframe)
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"-1,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"-1,{_num}")
+                value = pmt.intern(f"-1")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -233,8 +238,9 @@ class blk(gr.sync_block):
                 # _num = round(_num_ones_z0/self._subframe)
                 _num = 1
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"-1,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"-1,{_num}")
+                value = pmt.intern(f"-1")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -250,8 +256,9 @@ class blk(gr.sync_block):
 
                 _num = round(_num_ones_z0/self._subframe)
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"0,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"0,{_num}")
+                value = pmt.intern(f"0")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
@@ -272,8 +279,9 @@ class blk(gr.sync_block):
                 # _num = round(_num_ones_z0/self._subframe)
                 _num = 1
 
-                key = pmt.intern("c")
-                value = pmt.intern(f"0,{_num}")
+                key = pmt.intern("")
+                #value = pmt.intern(f"0,{_num}")
+                value = pmt.intern(f"0")
                 self.add_item_tag(0,
                                   self.nitems_written(0) + idx,
                                   key,
