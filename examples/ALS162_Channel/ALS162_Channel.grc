@@ -28,7 +28,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 8.0]
+    coordinate: [16, 12.0]
     rotation: 0
     state: enabled
 
@@ -51,7 +51,40 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 12.0]
+    coordinate: [280, 12.0]
+    rotation: 0
+    state: true
+- name: c
+  id: variable
+  parameters:
+    comment: speed of light
+    value: 3e8
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 12.0]
+    rotation: 0
+    state: true
+- name: freq
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: 1e6
+    step: 0.1e6
+    stop: 6e6
+    value: 3.5e6
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 12.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -63,9 +96,21 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 12.0]
+    coordinate: [184, 12.0]
     rotation: 0
     state: enabled
+- name: v
+  id: variable
+  parameters:
+    comment: speed
+    value: 3/3.6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 12.0]
+    rotation: 0
+    state: true
 - name: analog_fastnoise_source_x_0
   id: analog_fastnoise_source_x
   parameters:
@@ -83,7 +128,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 276.0]
+    coordinate: [376, 340.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0
@@ -101,7 +146,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 208.0]
+    coordinate: [680, 216.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -118,7 +163,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [888, 120.0]
+    coordinate: [896, 136.0]
     rotation: 0
     state: enabled
 - name: blocks_null_source_0
@@ -137,7 +182,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 120.0]
+    coordinate: [512, 136.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -156,9 +201,31 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 116.0]
+    coordinate: [688, 132.0]
     rotation: 0
     state: enabled
+- name: channels_fading_model_0
+  id: channels_fading_model
+  parameters:
+    K: '4.0'
+    LOS: 'False'
+    N: '12'
+    affinity: ''
+    alias: ''
+    comment: 'configuration inspired by:
+
+      https://www.bastibl.net/rayleigh-autocorrelation/'
+    fDTs: freq * v / c / samp_rate
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    seed: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [264, 188.0]
+    rotation: 0
+    state: true
 - name: network_tcp_sink_0
   id: network_tcp_sink
   parameters:
@@ -174,7 +241,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [440, 212.0]
+    coordinate: [832, 220.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_0
@@ -194,7 +261,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 188.0]
+    coordinate: [32, 196.0]
     rotation: 0
     state: enabled
 - name: note_0
@@ -211,7 +278,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 300.0]
+    coordinate: [464, 524.0]
     rotation: 0
     state: disabled
 
@@ -220,7 +287,8 @@ connections:
 - [blocks_add_xx_0, '0', network_tcp_sink_0, '0']
 - [blocks_null_source_0, '0', blocks_throttle_0, '0']
 - [blocks_throttle_0, '0', blocks_null_sink_0, '0']
-- [network_tcp_source_0, '0', blocks_add_xx_0, '0']
+- [channels_fading_model_0, '0', blocks_add_xx_0, '0']
+- [network_tcp_source_0, '0', channels_fading_model_0, '0']
 
 metadata:
   file_format: 1

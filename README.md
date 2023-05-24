@@ -93,6 +93,5 @@ The ALS162 receiver was tested with:
 + This project has __not__ been tested with a receiver setup using a sound card.
 + This project has __not__ been tested with other antennas (e.g. a ferrite antenna).
 + A Low Noise Amplifier (LNA) is not needed.
-+ Even a single lost bit during reception causes the synchronization of a full minute to fail. Additional resilience of the decoder has __not__ been implemented yet.
 + The simulation of transmitter channel and receiver does __not__ run the same speed as ordinary seconds, but rather a little bit faster.
 + The SDR project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds and it is also delayed by approximately 2 seconds.
