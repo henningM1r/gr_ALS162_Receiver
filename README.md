@@ -73,19 +73,19 @@ The ALS162 receiver was tested with:
     + Press `run` button.
     + First, deactivate the following auxiliary signals in the plot for now (Derivative, +2, +1, 0, -1, -2), and keep the remaining signals (Phase, Symbols, avg. Phase).
     + Wait a few seconds until the Phase signal in the _Phase Drift Compensation_ plot roughly aligns at 0 between the values -1 and 1. If the transient phase of the control loop is still too erratic, reduce the _shift step_ slider slightly (and increase it again later on).
-    + reactivate the auxiliary signal _Derivative_ and set the _diff_gain_ slider values so that the amplitudes of _Derivative"_ are roughly at +/-3000 and +/-6000, respectively.
+    + reactivate the auxiliary signal _Derivative_ and set the _diff_gain_ slider values so that the amplitudes of _Derivative"_ are roughly at +/-2000 and +/-4000, respectively.
     + Only adjust the sliders for the _thresholds_, if really needed. You should rather avoid to change them.
     + After sufficient parameter adjustment, the GNURadio Companion debug console should show a debug message each second with either '0' or '1' or '2' (for a new minute). And the plot should indicate these symbols with tags, given _symbols_ is activated.
     + Optionally,
         + you can adjust zoom the signal amplitude of the plot with _zoom_.
-        + you can investigate the results of the _threshold values_ on the Derivated phase signal by activating +2,+1,0,-1,-2, respectively.
+        + you can investigate the results of the _threshold values_ on the derivative of the phase signal by activating +2,+1, 0,-1,-2, respectively.
 
 + Next, open a terminal or Powershell.
     + Change to your cloned repository.
     + Run the DecodeALS162 script with ```python3 ./python/DecodeALS162.py```.
     + The terminal should show the received bits together with a sequence of indices.
     + after approximately 2 minutes, DecodeALS162 should be synchronized with the transmitter. It should provide the current time, date, etc. each minute.
-    + NOTE: sometimes a bit can not be decoded correctly, e.g. due to bad reception. Then the current frame of the minute is corrupted and will attempt to re-synchronize.
+    + NOTE: sometimes a bit can not be decoded correctly, e.g. due to interference or noise or a weak signal. Then the current frame of the minute is corrupted and will attempt to re-synchronize.
 
 
 ### REMARKS
@@ -95,4 +95,4 @@ The ALS162 receiver was tested with:
 + A Low Noise Amplifier (LNA) is not needed.
 + Even a single lost bit during reception causes the synchronization of a full minute to fail. Additional resilience of the decoder has __not__ been implemented yet.
 + The simulation of transmitter channel and receiver does __not__ run the same speed as ordinary seconds, but rather a little bit faster.
-+ The SDR project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds.
++ The SDR project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds and it is also delayed by approximately 2 seconds.
