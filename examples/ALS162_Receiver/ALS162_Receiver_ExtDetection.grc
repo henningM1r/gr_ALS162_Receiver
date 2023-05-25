@@ -867,7 +867,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 264.0]
+    coordinate: [1008, 264.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_char_0
@@ -1663,7 +1663,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1696, 352.0]
+    coordinate: [1816, 104.0]
     rotation: 0
     state: enabled
 - name: blocks_null_source_0
@@ -1682,7 +1682,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1312, 352.0]
+    coordinate: [1432, 104.0]
     rotation: 0
     state: enabled
 - name: blocks_phase_shift_0
@@ -1846,7 +1846,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1496, 348.0]
+    coordinate: [1616, 100.0]
     rotation: 0
     state: enabled
 - name: blocks_var_to_msg_0_0
@@ -3678,7 +3678,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1304, 236.0]
+    coordinate: [1256, 236.0]
     rotation: 0
     state: enabled
 - name: rational_resampler_xxx_1

@@ -51,7 +51,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 12.0]
+    coordinate: [288, 12.0]
     rotation: 0
     state: true
 - name: c
@@ -63,13 +63,15 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [672, 12.0]
+    coordinate: [664, 12.0]
     rotation: 0
     state: true
-- name: freq
+- name: fading_freq
   id: variable_qtgui_range
   parameters:
-    comment: ''
+    comment: 'low frequency => slow erfades
+
+      high frequency => faster fades'
     gui_hint: ''
     label: ''
     min_len: '200'
@@ -85,6 +87,125 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [424, 12.0]
+    rotation: 0
+    state: true
+- name: fading_toggle_button
+  id: variable_qtgui_toggle_button_msg
+  parameters:
+    comment: 'enable/disable
+
+      fading effect'
+    gui_hint: ''
+    initPressed: 'False'
+    label: Fading (on/off)
+    outputmsgname: value
+    pressBackgroundColor: green
+    pressFontColor: black
+    pressed: '1'
+    relBackgroundColor: gray
+    relFontColor: black
+    released: '0'
+    type: int
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 396.0]
+    rotation: 0
+    state: true
+- name: impulse_thres
+  id: variable_qtgui_range
+  parameters:
+    comment: 'high threshold => less interference
+
+      threshold must be below range_uniform'
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: int(32768e4)
+    value: '327679500'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 28.0]
+    rotation: 0
+    state: true
+- name: interference_gain
+  id: variable_qtgui_range
+  parameters:
+    comment: 'multiplicative gain for
+
+      interference signals'
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '0.01'
+    stop: '1000'
+    value: '500'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1480, 28.0]
+    rotation: 0
+    state: true
+- name: interference_toggle_button
+  id: variable_qtgui_toggle_button_msg
+  parameters:
+    comment: 'enable/disable
+
+      impulsive interference effect'
+    gui_hint: ''
+    initPressed: 'False'
+    label: Interference (on/off)
+    outputmsgname: value
+    pressBackgroundColor: green
+    pressFontColor: black
+    pressed: '1'
+    relBackgroundColor: gray
+    relFontColor: black
+    released: '0'
+    type: int
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 676.0]
+    rotation: 0
+    state: true
+- name: range_uniform
+  id: variable_qtgui_range
+  parameters:
+    comment: 'range of values for
+
+      uniform source'
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: int(32768e4)
+    value: int(32768e4)
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1064, 28.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -108,7 +229,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 12.0]
+    coordinate: [552, 12.0]
     rotation: 0
     state: true
 - name: analog_fastnoise_source_x_0
@@ -128,7 +249,72 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 340.0]
+    coordinate: [648, 748.0]
+    rotation: 0
+    state: true
+- name: analog_random_uniform_source_x_0
+  id: analog_random_uniform_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'produce a rare
+
+      impulse signal'
+    maximum: range_uniform
+    maxoutbuf: '0'
+    minimum: '0'
+    minoutbuf: '0'
+    seed: '1'
+    type: int
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 1068.0]
+    rotation: 0
+    state: true
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '150'
+    comment: ''
+    freq: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: complex
+    waveform: analog.GR_CONST_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [216, 1356.0]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_1
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '0'
+    comment: ''
+    freq: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 524.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0
@@ -139,14 +325,69 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_inputs: '2'
+    num_inputs: '3'
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 216.0]
+    coordinate: [936, 448.0]
+    rotation: 0
+    state: enabled
+- name: blocks_int_to_float_0
+  id: blocks_int_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [280, 1084.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_1_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'to scale the signal
+
+      with a selectable gain'
+    const: interference_gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [904, 1084.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_xx_1
+  id: blocks_multiply_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1024'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [736, 1264.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -163,7 +404,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 136.0]
+    coordinate: [1088, 168.0]
     rotation: 0
     state: enabled
 - name: blocks_null_source_0
@@ -182,9 +423,109 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 136.0]
+    coordinate: [704, 168.0]
     rotation: 0
     state: enabled
+- name: blocks_selector_0
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    num_outputs: '1'
+    output_index: '0'
+    showports: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 568.0]
+    rotation: 0
+    state: true
+- name: blocks_selector_0_0
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    num_outputs: '1'
+    output_index: '0'
+    showports: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [664, 240.0]
+    rotation: 0
+    state: true
+- name: blocks_stream_to_vector_0
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '1024'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 1264.0]
+    rotation: 0
+    state: enabled
+- name: blocks_stream_to_vector_0_0
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '1024'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 1400.0]
+    rotation: 0
+    state: enabled
+- name: blocks_threshold_ff_0
+  id: blocks_threshold_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    high: impulse_thres
+    init: '0'
+    low: impulse_thres
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 1068.0]
+    rotation: 0
+    state: true
 - name: blocks_throttle_0
   id: blocks_throttle
   parameters:
@@ -201,7 +542,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 132.0]
+    coordinate: [888, 164.0]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_to_stream_0
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '1024'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 1280.0]
     rotation: 0
     state: enabled
 - name: channels_fading_model_0
@@ -215,7 +574,7 @@ blocks:
     comment: 'configuration inspired by:
 
       https://www.bastibl.net/rayleigh-autocorrelation/'
-    fDTs: freq * v / c / samp_rate
+    fDTs: fading_freq * v / c / samp_rate
     maxoutbuf: '0'
     minoutbuf: '0'
     seed: '0'
@@ -223,7 +582,97 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [264, 188.0]
+    coordinate: [304, 268.0]
+    rotation: 0
+    state: true
+- name: channels_fading_model_0_0
+  id: channels_fading_model
+  parameters:
+    K: '4.0'
+    LOS: 'False'
+    N: '12'
+    affinity: ''
+    alias: ''
+    comment: 'similar to the intended
+
+      signal this signal is subject
+
+      to fading'
+    fDTs: 10.0/samp_rate
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    seed: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 1252.0]
+    rotation: 0
+    state: enabled
+- name: fft_vxx_0
+  id: fft_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    fft_size: '1024'
+    forward: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    shift: 'True'
+    type: float
+    window: window.blackmanharris(1024)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 1228.0]
+    rotation: 0
+    state: enabled
+- name: fft_vxx_0_0
+  id: fft_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "should provide a \nwaveform similar to\na sine cardinale"
+    fft_size: '1024'
+    forward: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    shift: 'True'
+    type: complex
+    window: window.blackmanharris(1024)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 1244.0]
+    rotation: 0
+    state: enabled
+- name: filter_fft_low_pass_filter_0
+  id: filter_fft_low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '100'
+    decim: '1'
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    samp_rate: samp_rate
+    type: fff
+    width: '55'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [664, 1028.0]
     rotation: 0
     state: true
 - name: network_tcp_sink_0
@@ -241,7 +690,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 220.0]
+    coordinate: [1088, 468.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_0
@@ -261,34 +710,109 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 196.0]
+    coordinate: [64, 220.0]
     rotation: 0
     state: enabled
 - name: note_0
   id: note
   parameters:
     alias: ''
-    comment: 'TBD: The signal received by
+    comment: 'This block creates the
 
-      the SDR also includes
+      impulsive interference
 
-      some occasional glitches'
+      (roughly  a sine cardinale
+
+      waveform)'
     note: ''
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 524.0]
+    coordinate: [32, 932.0]
     rotation: 0
-    state: disabled
+    state: true
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1840, 1276.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_0_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 1084.0]
+    rotation: 0
+    state: true
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: synthetized interference
+    stream_id: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 596.0]
+    rotation: 0
+    state: true
+- name: virtual_source_0_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 1260.0]
+    rotation: 0
+    state: true
 
 connections:
-- [analog_fastnoise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_fastnoise_source_x_0, '0', blocks_add_xx_0, '2']
+- [analog_random_uniform_source_x_0, '0', blocks_int_to_float_0, '0']
+- [analog_sig_source_x_0, '0', blocks_stream_to_vector_0_0, '0']
+- [analog_sig_source_x_1, '0', blocks_selector_0, '0']
 - [blocks_add_xx_0, '0', network_tcp_sink_0, '0']
+- [blocks_int_to_float_0, '0', blocks_threshold_ff_0, '0']
+- [blocks_multiply_const_vxx_1_0, '0', virtual_sink_0_0, '0']
+- [blocks_multiply_xx_1, '0', fft_vxx_0_0, '0']
 - [blocks_null_source_0, '0', blocks_throttle_0, '0']
+- [blocks_selector_0, '0', blocks_add_xx_0, '1']
+- [blocks_selector_0_0, '0', blocks_add_xx_0, '0']
+- [blocks_stream_to_vector_0, '0', fft_vxx_0, '0']
+- [blocks_stream_to_vector_0_0, '0', blocks_multiply_xx_1, '1']
+- [blocks_threshold_ff_0, '0', filter_fft_low_pass_filter_0, '0']
 - [blocks_throttle_0, '0', blocks_null_sink_0, '0']
-- [channels_fading_model_0, '0', blocks_add_xx_0, '0']
+- [blocks_vector_to_stream_0, '0', channels_fading_model_0_0, '0']
+- [channels_fading_model_0, '0', blocks_selector_0_0, '1']
+- [channels_fading_model_0_0, '0', virtual_sink_0, '0']
+- [fading_toggle_button, state, blocks_selector_0_0, iindex]
+- [fft_vxx_0, '0', blocks_multiply_xx_1, '0']
+- [fft_vxx_0_0, '0', blocks_vector_to_stream_0, '0']
+- [filter_fft_low_pass_filter_0, '0', blocks_multiply_const_vxx_1_0, '0']
+- [interference_toggle_button, state, blocks_selector_0, iindex]
+- [network_tcp_source_0, '0', blocks_selector_0_0, '0']
 - [network_tcp_source_0, '0', channels_fading_model_0, '0']
+- [virtual_source_0, '0', blocks_selector_0, '1']
+- [virtual_source_0_0, '0', blocks_stream_to_vector_0, '0']
 
 metadata:
   file_format: 1

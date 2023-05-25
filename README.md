@@ -55,10 +55,17 @@ The ALS162 receiver was tested with:
 + Run Channel with: `python3 ALS162_Channel.py`
     + It should be run in the 2nd step.
     + A GUI should appear.
+        + You can enable/disable the fading effect with the push button
+            * you can adjust slower and faster fading with _fading_freq_
+        + You can enable/disable the interference effect  with the push button
+            * you can adjust the gain of interference with _interference_gain_
+            * you can adjust the number of occurrences of interference signals with _impulse_thres_
+    + you can adjust noise with _noise_gain_
 + T3: Go to ```/examples/ALS162_Receiver/```
 + Run Receiver with: `python3 ALS162_Receiver_ExtDetection.py`
     + It should be run in the 3rd step.
     + A GUI should appear.
+        + for further adjustments see "Signal REception with SDR"
 + T4: (compare above) go to ```/examples/ALS162_Receiver/```
 + Run the decoder with: `python3 DecodeALS162.py`
     + It should be run in the 4th step.
