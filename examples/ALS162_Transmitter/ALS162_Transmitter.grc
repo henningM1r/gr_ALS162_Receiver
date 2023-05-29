@@ -243,9 +243,9 @@ blocks:
 
       position codewords
 
-      into empty 32
+      into the 32 yet
 
-      time-slices'
+      empty time-slices'
     maxoutbuf: '0'
     minoutbuf: '0'
     num_inputs: '2'

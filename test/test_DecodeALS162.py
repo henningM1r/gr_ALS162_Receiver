@@ -1,6 +1,11 @@
 
 import sys
 import unittest
+from io import StringIO
+import zmq
+import pmt
+import threading
+import sys
 sys.path.append('..')
 from python import Class_DecodeALS162 as ALS162
 
@@ -958,6 +963,164 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "42-44: Weekday: Saturday.\n" + \
                     "58: Parity of date and weekdays successful.\n"
         self.assertEqual(objective, result)
+
+    def _mock_send(self, msg):
+        context = zmq.Context()
+        self.socket_sender = context.socket(zmq.PUSH)
+        self.socket_sender.bind("tcp://127.0.0.1:55555")
+        output = pmt.serialize_str(pmt.to_pmt(msg))
+        self.socket_sender.send(output)
+        self.socket_sender.close()
+        context.term()
+
+    def test_consumer(self):
+        # positive test - ordinary 0 and 1 at beginning
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send("0, 00")
+        self._mock_send("1, 01")
+        self._mock_send("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 00: 0 at position: 00\n" + \
+                    "decoded bit at 01: 1 at position: 01\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
+
+        # positive test - ordinary 0 and 1 but later than beginning
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send("0, 20")
+        self._mock_send("1, 21")
+        self._mock_send("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 00: 0 at position: 20\n" + \
+                    "20 bit(s) lost before position: 20\n" + \
+                    "decoded bit at 21: 1 at position: 21\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
+
+        # positive test - end of minute too early
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send("1, 00")
+        self._mock_send("0, 01")
+        self._mock_send("2, 02")
+        self._mock_send("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 00: 1 at position: 00\n" + \
+                    "decoded bit at 01: 0 at position: 01\n" + \
+                    "decoded bit at 02: 2 at position: 02\n" + \
+                    "Error: Wrong number of bits at new minute!\n" + \
+                    "#Bits: 2\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
+
+        # positive test - received forbidden symbols
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send("1, 00")
+        self._mock_send("Q, 01")
+        self._mock_send("0, 0K")
+        self._mock_send("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 00: 1 at position: 00\n" + \
+                    "decoded bit at 01: Q at position: 01\n" + \
+                    "Error: received message \"Q\" for time codeword is not permitted!\n" + \
+                    "decoded bit at 02: 0 at position: 0K\n" + \
+                    "Error: received message \"0K\" for position codeword is not permitted!\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
+
+        # positive test - received new minute at right time
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        for i in range(60):
+            self._mock_send(f"0, {i:02d}")
+        self._mock_send("2, 00")
+        self._mock_send("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = ""
+        for i in range(60):
+            objective += f"decoded bit at {i:02d}: 0 at position: {i:02d}\n"
+        objective += "decoded bit at 60: 2 at position: 00\n" + \
+                     "\n00: Start-bit is 0.\n" + \
+                     "0-02: No leap second.\n" + \
+                     "03-06: Decoded & computed Hamming weights match for " + \
+                     "bits 21-58: 0 == 0.0.\n" + \
+                     "07-12: All zero.\n" + \
+                     "16: No clock change\n" + \
+                     "17-18: Error: Neither CET nor CEST set!\n" + \
+                     "20: Is 0 instead of 1!\n" + \
+                     "28: Even parity of minutes successful.\n" + \
+                     "35: Even parity of hours successful.\n" + \
+                     "21-27 & 29-34: Time: 00:00h.\n" + \
+                     "Error: Day is 00!\n" + \
+                     "Error: Month is 00!\n" + \
+                     "36-41 & 45-57: Date: ??.??.00.\n" + \
+                     "42-44: Weekday: Sunday.\n" + \
+                     "58: Parity of date and weekdays successful.\n\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
 
 
 if __name__ == '__main__':

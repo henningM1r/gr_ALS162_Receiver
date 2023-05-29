@@ -2,6 +2,7 @@
 
 import zmq
 import numpy as np
+import re
 
 
 class Class_DecodeALS162():
@@ -354,15 +355,35 @@ class Class_DecodeALS162():
         consumer_receiver.connect("tcp://127.0.0.1:55555")
 
         bitstream = []
-        count = 1
+        count = -1
 
         while True:
             data = consumer_receiver.recv()
             received_msg = data.decode('ascii')[3:]
 
+            # for testing only
+            if received_msg == "___EOT":
+                consumer_receiver.close()
+                context.term()
+                return
+
             count += 1
             print(f"decoded bit at {count:02}: {received_msg[0]} " +
                   f"at position: {received_msg[3:5]}")
+
+            if (not (received_msg[0] == "0" or
+                     received_msg[0] == "1" or
+                     received_msg[0] == "2" or
+                     received_msg[0] == "3")):
+                print(f"Error: received message \"{received_msg[0]}\" for time codeword is not permitted!")
+                continue
+
+            regex = "\d{2}"
+            match = re.findall(regex, received_msg[3:5])
+            if (not match):
+                print(f"Error: received message \"{received_msg[3:5]}\" for position codeword is not permitted!")
+                continue
+
             position = int(received_msg[3:5], 10)
 
             # fill up error symbols
@@ -375,9 +396,11 @@ class Class_DecodeALS162():
             if (received_msg[0] == "0"):
                 bitstream.append(0)
                 count = position
+
             elif (received_msg[0] == "1"):
                 bitstream.append(1)
                 count = position
+
             # derive current time and date from the bitstream
             elif (received_msg[0] == "2" and count == 60):
                 bitstream.append(0)
@@ -388,6 +411,7 @@ class Class_DecodeALS162():
                 bitstream = []
                 count = position
                 continue
+
             # either too few or too many bits have
             # been received during the decoding step
             elif (received_msg[0] == "2" and count != 60):
@@ -398,6 +422,7 @@ class Class_DecodeALS162():
                 count = 1
                 continue
 
+            # NOTE this case should not occur anyway
             if count > 61:
                 print("Error: more than 60 bits counted: Reinit Counter.")
                 bitstream = []

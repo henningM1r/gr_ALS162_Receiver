@@ -159,7 +159,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 3076.0]
+    coordinate: [832, 3084.0]
     rotation: 0
     state: enabled
 - name: pll_bw
@@ -1006,8 +1006,8 @@ blocks:
     affinity: ''
     alias: ''
     comment: "compute average phase:\n* if it is too short, it\n   overcompensates\
-      \ and\n   disturbs the desired \n   the shorttime phases\n* if it is too long,\
-      \ it converges\n   too slowly due to the delay"
+      \ and\n   disturbs the desired \n   shorttime phases\n* if it is too long, it\
+      \ converges\n   too slowly due to delay"
     length: '15000'
     max_iter: '25000'
     maxoutbuf: '0'
@@ -1019,7 +1019,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 3044.0]
+    coordinate: [336, 3028.0]
     rotation: 0
     state: enabled
 - name: blocks_moving_average_xx_0_0_0
@@ -1052,7 +1052,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1032, 996.0]
+    coordinate: [1016, 996.0]
     rotation: 0
     state: enabled
 - name: blocks_moving_average_xx_0_0_1
@@ -1064,7 +1064,7 @@ blocks:
 
       from a noisy
 
-      derivation of the phase'
+      derivative of the phase'
     length: '20'
     max_iter: '150'
     maxoutbuf: '0'
@@ -1076,7 +1076,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1552, 996.0]
+    coordinate: [1544, 996.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0
@@ -1550,7 +1550,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 3148.0]
+    coordinate: [568, 3148.0]
     rotation: 0
     state: enabled
 - name: blocks_not_xx_0
@@ -2505,7 +2505,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1296, 1012.0]
+    coordinate: [1280, 1012.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_1
@@ -2553,13 +2553,15 @@ blocks:
   id: note
   parameters:
     alias: ''
-    comment: Phase drift compensation block
+    comment: 'Phase drift
+
+      compensation block'
     note: ''
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 2884.0]
+    coordinate: [416, 2868.0]
     rotation: 0
     state: true
 - name: note_2
@@ -3005,8 +3007,15 @@ blocks:
   id: epy_module
   parameters:
     alias: ''
-    comment: "phase rotates from pi to -pi\nfor given poll frequency and \ngiven weight\
-      \ to countereffect\nthe phase drift"
+    comment: 'phase rotates from pi
+
+      to -pi for given poll
+
+      frequency and given
+
+      weight to counter-
+
+      effect the phase drift'
     source_code: "# this module will be imported in the into your flowgraph\n\nimport\
       \ math\n\n\np1 = -math.pi\np2 = +math.pi\n\np = 0\n\n\ndef shift_phase(weighted_trigger):\n\
       \    global p1, p2, p\n\n    if weighted_trigger:\n        p = p - weighted_trigger\n\
@@ -3015,7 +3024,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 2972.0]
+    coordinate: [832, 2964.0]
     rotation: 0
     state: enabled
 - name: probe_signal
@@ -3025,7 +3034,9 @@ blocks:
     alias: ''
     comment: 'weighted poll signal
 
-      for phase shift correction'
+      for phase shift
+
+      correction'
     type: float
   states:
     bus_sink: false
@@ -3290,7 +3301,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 3012.0]
+    coordinate: [568, 3012.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_0
@@ -3821,9 +3832,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 3228.0]
+    coordinate: [568, 3228.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: virtual_sink_5
   id: virtual_sink
   parameters:
@@ -3992,7 +4003,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [112, 3068.0]
+    coordinate: [144, 3052.0]
     rotation: 0
     state: enabled
 - name: virtual_source_3
