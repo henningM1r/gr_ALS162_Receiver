@@ -115,7 +115,7 @@ class Class_DecodeALS162():
                 bitstream[10] == 0 and bitstream[11] == 0 and bitstream[12] == 0):
             output += "07-12: All zero.\n"
         elif 3 in bitstream[7:13]:
-            output += "07-12: Contains errors\n"
+            output += "07-12: Contains errors.\n"
 
         if bitstream[13] == 1:
             output += "13: The following day is a holiday.\n"
@@ -345,7 +345,6 @@ class Class_DecodeALS162():
         if num_errors > 0:
             output += f"# Bit errors: {num_errors} => " + \
                       f"at positions: {error_pos}.\n"
-
         return output
 
     def consumer(self):
@@ -361,14 +360,14 @@ class Class_DecodeALS162():
             data = consumer_receiver.recv()
             received_msg = data.decode('ascii')[3:]
 
-            # for testing only
+            # exit-loop statement: for testing only
             if received_msg == "___EOT":
                 consumer_receiver.close()
                 context.term()
                 return
 
             count += 1
-            print(f"decoded bit at {count:02}: {received_msg[0]} " +
+            print(f"decoded bit at {count:02d}: {received_msg[0]} " +
                   f"at position: {received_msg[3:5]}")
 
             if (not (received_msg[0] == "0" or
@@ -390,7 +389,7 @@ class Class_DecodeALS162():
             if count < position:
                 print(f"{position-count} bit(s) lost before " +
                       f"position: {received_msg[3:5]}")
-                for i in range(0, position-count):
+                for i in range(0, position-count-1):
                     bitstream.append(3)
 
             if (received_msg[0] == "0"):

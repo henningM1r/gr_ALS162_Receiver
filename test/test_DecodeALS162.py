@@ -964,7 +964,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "58: Parity of date and weekdays successful.\n"
         self.assertEqual(objective, result)
 
-    def _mock_send(self, msg):
+    def _mock_send_msg(self, msg):
         context = zmq.Context()
         self.socket_sender = context.socket(zmq.PUSH)
         self.socket_sender.bind("tcp://127.0.0.1:55555")
@@ -972,6 +972,11 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.socket_sender.send(output)
         self.socket_sender.close()
         context.term()
+
+    def _mock_send_stream(self, stream, offset=0):
+        for i in range(len(stream)):
+            out_msg = f"{stream[i]}, {i+offset}"
+            self._mock_send_msg(out_msg)
 
     def test_consumer(self):
         # positive test - ordinary 0 and 1 at beginning
@@ -984,9 +989,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send("0, 00")
-        self._mock_send("1, 01")
-        self._mock_send("___EOT")
+        self._mock_send_msg("0, 00")
+        self._mock_send_msg("1, 01")
+        self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
@@ -1008,9 +1013,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send("0, 20")
-        self._mock_send("1, 21")
-        self._mock_send("___EOT")
+        self._mock_send_msg("0, 20")
+        self._mock_send_msg("1, 21")
+        self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
@@ -1033,10 +1038,10 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send("1, 00")
-        self._mock_send("0, 01")
-        self._mock_send("2, 02")
-        self._mock_send("___EOT")
+        self._mock_send_msg("1, 00")
+        self._mock_send_msg("0, 01")
+        self._mock_send_msg("2, 02")
+        self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
@@ -1061,10 +1066,10 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send("1, 00")
-        self._mock_send("Q, 01")
-        self._mock_send("0, 0K")
-        self._mock_send("___EOT")
+        self._mock_send_msg("1, 00")
+        self._mock_send_msg("Q, 01")
+        self._mock_send_msg("0, 0K")
+        self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
@@ -1078,7 +1083,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         # full clean up decoder
         del t_decoder
-
+        """
         # positive test - received new minute at right time
         # Create StringIO object to capture any print-outputs on stdout
         result = StringIO()
@@ -1090,9 +1095,9 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         # send desired messages and exit-signal
         for i in range(60):
-            self._mock_send(f"0, {i:02d}")
-        self._mock_send("2, 00")
-        self._mock_send("___EOT")
+            self._mock_send_msg(f"0, {i:02d}")
+        self._mock_send_msg("2, 00")
+        self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
@@ -1117,6 +1122,50 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                      "36-41 & 45-57: Date: ??.??.00.\n" + \
                      "42-44: Weekday: Sunday.\n" + \
                      "58: Parity of date and weekdays successful.\n\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean up decoder
+        del t_decoder
+        """
+        # positive test - decoding with some lost bits at begin of minute
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder.start()
+        stream = [0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,0,1,0,0,0,1,
+                  0,0,1,0,0,1,0,1,1,0,0,1,0,1,0,0,1,1,0,0,0,1,0,0,1]
+        offset = 10
+        self._mock_send_stream(stream=stream, offset=offset)
+        self._mock_send_msg("2, 00")
+        self._mock_send_msg("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = ""
+        objective += f"decoded bit at 00: {stream[0]} at position: {offset:02d}\n" + \
+                     f"10 bit(s) lost before position: {offset:02d}\n"
+        for i in range(offset+1, 60, 1):
+            objective += f"decoded bit at {i:02d}: {stream[i-offset]} at position: {i:02d}\n"
+        objective += "decoded bit at 60: 2 at position: 00\n" + \
+                     "\n00: Start-bit is ?.\n" + \
+                     "01-02: Error: Leap second is ?.\n" + \
+                     "03-06: Error: Hamming weight is ?.\n" + \
+                     "07-12: Contains errors.\n" + \
+                     "14: The current day is a holiday.\n" + \
+                     "16: No clock change\n" + \
+                     "17-18: CEST - summer time.\n" + \
+                     "20: Begin of time information.\n" + \
+                     "28: Even parity of minutes successful.\n" + \
+                     "35: Even parity of hours successful.\n" + \
+                     "21-27 & 29-34: Time: 11:22h.\n" + \
+                     "36-41 & 45-57: Date: 29.05.23.\n" + \
+                     "42-44: Weekday: Monday.\n" + \
+                     "58: Parity of date and weekdays successful.\n" + \
+                     "# Bit errors: 9 => at positions: [0, 1, 2, 3, 4, 5, 6, 7, 8].\n\n"
         self.assertEqual(objective, result.getvalue())
 
         # full clean up decoder
