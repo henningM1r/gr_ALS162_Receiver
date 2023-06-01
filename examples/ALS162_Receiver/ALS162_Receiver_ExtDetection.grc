@@ -1006,8 +1006,8 @@ blocks:
     affinity: ''
     alias: ''
     comment: "compute average phase:\n* if it is too short, it\n   overcompensates\
-      \ and\n   disturbs the desired \n   shorttime phases\n* if it is too long, it\
-      \ converges\n   too slowly due to delay"
+      \ and\n   disturbs the desired \n   short-time phases\n* if it is too long,\
+      \ it converges\n   too slowly due to delay"
     length: '15000'
     max_iter: '25000'
     maxoutbuf: '0'
@@ -2180,7 +2180,7 @@ blocks:
       \ seconds\n_counter = 0\n\n# sliding window for selected messages\n_msg_window\
       \ = np.empty(shape=(1, 1))\n\n\nclass blk(gr.sync_block):\n\n    def __init__(self):\n\
       \        gr.sync_block.__init__(\n            self,\n            name='ALS162\
-      \ Code\\nSequence Correlator',\n            in_sig=None,\n            out_sig=None\n\
+      \ Code\\nSequence Correlation',\n            in_sig=None,\n            out_sig=None\n\
       \        )\n\n        self.message_port_register_out(pmt.intern('msg_out'))\n\
       \        self.message_port_register_in(pmt.intern('msg_in'))\n        self.set_msg_handler(pmt.intern('msg_in'),\
       \ self.handle_msg)\n\n        # error threshold for position code distance\n\
@@ -2399,13 +2399,13 @@ blocks:
 
       the time-slice symbols:
 
-      * the time symbol
+      * the time symbols
 
       * the position symbols'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('ALS162 Code\nSequence Correlator', 'blk', [], [('msg_in', 'message',
+    _io_cache: ('ALS162 Code\nSequence Correlation', 'blk', [], [('msg_in', 'message',
       1)], [('msg_out', 'message', 1)], '', [])
     bus_sink: false
     bus_source: false

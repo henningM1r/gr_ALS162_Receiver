@@ -12,6 +12,10 @@ class Class_DecodeALS162():
                          "Friday", "Saturday", "Sunday"]
 
     def decode_BCD(self, bits, length):
+        if length != len(bits):
+            # lengths missmatch
+            return "?"
+
         list1 = [bits[i] for i in range(0, length)]
         if 3 in list1:
             return "?"
@@ -33,30 +37,34 @@ class Class_DecodeALS162():
         return error_pos
 
     def single_error_correction(self, bitstream):
-        num_errors = self.compute_num_errors(bitstream)
+        out_bitstream = bitstream.copy()
+        num_errors = self.compute_num_errors(out_bitstream)
 
         if num_errors == 1:
-            rel_error_pos = self.compute_error_pos(bitstream)
+            rel_error_pos = self.compute_error_pos(out_bitstream)
 
             # no correction on default
             corr_val = 3
 
-            if rel_error_pos[0] <= len(bitstream)-1:
+            if rel_error_pos[0] <= len(out_bitstream)-1:
                 # binary addition of all bits except for the error
-                sum = np.sum(bitstream) - bitstream[rel_error_pos[0]]
+                sum = np.sum(out_bitstream) - out_bitstream[rel_error_pos[0]]
 
                 # corrected value must yield an even parity in total
                 corr_val = sum % 2
-                bitstream[rel_error_pos[0]] = corr_val
+                out_bitstream[rel_error_pos[0]] = corr_val
 
-            return [bitstream, rel_error_pos[0], corr_val]
+            return [out_bitstream, rel_error_pos[0], corr_val]
 
-        return [bitstream, -1, -1]
+        return [out_bitstream, -1, -1]
 
-    def decode_bitstream(self, bitstream, count):
+    def decode_bitstream(self, bitstream):
         output = ""
 
-        if count > 60:
+        if len(bitstream) > 59:
+            output += f"Decoding error\nReceived bits: {len(bitstream)}\n"
+            return output
+        elif len(bitstream) < 59:
             output += f"Decoding error\nReceived bits: {len(bitstream)}\n"
             return output
 
@@ -240,13 +248,10 @@ class Class_DecodeALS162():
 
         # single bit error correction over bits 36-57 for date and weekday
         num_errors = self.compute_num_errors(bitstream[36:59])
-        [bitstream[36:59], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[36:59])
-        if corr_val != -1:
-            output += f"Corrected single error at {36 + rel_err_pos}.\n"
-        elif corr_val == -1:
-            pass
-        else:
-            output += "58: Even parity of of date and weekdays is ?.\n"
+        if num_errors == 1:
+            [bitstream[36:59], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[36:59])
+            if corr_val != -1:
+                output += f"Corrected single error at {36 + rel_err_pos}.\n"
 
         weekday = self.decode_BCD([bitstream[44], bitstream[43],
                                    bitstream[42]], 3)
@@ -319,8 +324,8 @@ class Class_DecodeALS162():
         else:
             output += "42-44: Error: Weekday is ?.\n"
 
-        # check parity for the date and weekday values
-        if 3 not in bitstream[36:59]:
+        # check even parity for the date and weekday values
+        if "?" not in bitstream[36:59] or 3 not in bitstream[36:59]:
             if (bitstream[36] ^ bitstream[37] ^ bitstream[38] ^
                     bitstream[39] ^ bitstream[40] ^ bitstream[41] ^
                     bitstream[42] ^ bitstream[43] ^ bitstream[44] ^
@@ -340,7 +345,6 @@ class Class_DecodeALS162():
 
         # get indices of each error in current bitstream
         error_pos = self.compute_error_pos(bitstream)
-        #error_pos = [idx for idx, val in enumerate(bitstream) if val == 3]
 
         if num_errors > 0:
             output += f"# Bit errors: {num_errors} => " + \
@@ -354,7 +358,7 @@ class Class_DecodeALS162():
         consumer_receiver.connect("tcp://127.0.0.1:55555")
 
         bitstream = []
-        count = -1
+        count = 0
 
         while True:
             data = consumer_receiver.recv()
@@ -364,7 +368,14 @@ class Class_DecodeALS162():
             if received_msg == "___EOT":
                 consumer_receiver.close()
                 context.term()
-                return
+                break
+
+            if count >= 60:
+                print("Error: more than 60 bits counted: Reinit Counter.")
+                # just drop previous bitstream
+                bitstream = []
+                count = 0
+                continue
 
             count += 1
             print(f"decoded bit at {count:02d}: {received_msg[0]} " +
@@ -387,24 +398,21 @@ class Class_DecodeALS162():
 
             # fill up error symbols
             if count < position:
-                print(f"{position-count} bit(s) lost before " +
-                      f"position: {received_msg[3:5]}")
-                for i in range(0, position-count-1):
+                print(f"{position-count} bit(s) lost before " + f"position: {received_msg[3:5]}")
+                for i in range(0, position-count):
                     bitstream.append(3)
 
-            if (received_msg[0] == "0"):
+            if received_msg[0] == "0":
                 bitstream.append(0)
                 count = position
 
-            elif (received_msg[0] == "1"):
+            elif received_msg[0] == "1":
                 bitstream.append(1)
                 count = position
 
             # derive current time and date from the bitstream
-            elif (received_msg[0] == "2" and count == 60):
-                bitstream.append(0)
-
-                output = self.decode_bitstream(bitstream, count)
+            elif received_msg[0] == "2" and count == 60:
+                output = self.decode_bitstream(bitstream)
                 print(output)
 
                 bitstream = []
@@ -413,16 +421,10 @@ class Class_DecodeALS162():
 
             # either too few or too many bits have
             # been received during the decoding step
-            elif (received_msg[0] == "2" and count != 60):
+            elif received_msg[0] == "2" and count != 60:
                 print("Error: Wrong number of bits at new minute!")
                 print(f"#Bits: {len(bitstream)}")
 
                 bitstream = []
-                count = 1
+                count = 0
                 continue
-
-            # NOTE this case should not occur anyway
-            if count > 61:
-                print("Error: more than 60 bits counted: Reinit Counter.")
-                bitstream = []
-                count = 1

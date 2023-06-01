@@ -1,13 +1,12 @@
-
 import sys
+sys.path.append('..')
+from python import Class_DecodeALS162 as ALS162
 import unittest
 from io import StringIO
 import zmq
 import pmt
 import threading
 import sys
-sys.path.append('..')
-from python import Class_DecodeALS162 as ALS162
 
 
 class Test_Class_DecodeALS162(unittest.TestCase):
@@ -53,8 +52,17 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = 7
         self.assertEqual(objective, result)
 
-        # TBD negative test - too many bits
-        # TBD negative test - too few bits
+        # negative test - too many bits
+        bits = [1, 1, 1]
+        result = self.my_decoder.decode_BCD(bits, 2)
+        objective = "?"
+        self.assertEqual(objective, result)
+
+        # negative test - too few bits
+        bits = [1, 1, 1]
+        result = self.my_decoder.decode_BCD(bits, 4)
+        objective = "?"
+        self.assertEqual(objective, result)
 
     def test_compute_num_errors(self):
         bitstream = [0]*6
@@ -133,13 +141,13 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective = [[0]*6, 5, 0]
         self.assertEqual(objective, result)
 
-        # two error are ignored (without error in parity bit]
+        # two errors are ignored (without error in parity bit]
         bitstream = [3]*2 + [0]*4
         result = self.my_decoder.single_error_correction(bitstream)
         objective = [[3]*2 + [0]*4, -1, -1]
         self.assertEqual(objective, result)
 
-        # two error are ignored (with one error in parity bit]
+        # two errors are ignored (with one error in parity bit]
         bitstream = [3] + [0]*4 + [3]
         result = self.my_decoder.single_error_correction(bitstream)
         objective = [[3] + [0]*4 + [3], -1, -1]
@@ -147,20 +155,20 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
     def test_decode_bitstream(self):
         # negative test - too many bits
-        bitstream = [0]*61
-        result = self.my_decoder.decode_bitstream(bitstream, 61)
-        objective = "Decoding error\nReceived bits: 61\n"
+        bitstream = [0]*60
+        result = self.my_decoder.decode_bitstream(bitstream)
+        objective = "Decoding error\nReceived bits: 60\n"
         self.assertEqual(objective, result)
 
         # negative test - too few bits
-        bitstream = [0]*59
-        result = self.my_decoder.decode_bitstream(bitstream, 61)
-        objective = "Decoding error\nReceived bits: 59\n"
+        bitstream = [0]*58
+        result = self.my_decoder.decode_bitstream(bitstream)
+        objective = "Decoding error\nReceived bits: 58\n"
         self.assertEqual(objective, result)
 
         # positive test - 20 is wrongly zero
-        bitstream = [0]*60
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0]*59
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -180,8 +188,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - start bit is wrongly 1
-        bitstream = [1] + [0]*59
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [1] + [0]*58
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 1 instead of 0!\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -201,8 +209,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - positive leap second
-        bitstream = [0] + [1] + [0] * 58
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + [1] + [0] * 57
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "01: Positive leap second warning.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -222,8 +230,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - negative leap second
-        bitstream = [0]*2 + [1] + [0] * 57
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0]*2 + [1] + [0] * 56
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "02: Negative leap second warning.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -243,8 +251,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - both leap seconds error
-        bitstream = [0] + [1]*2 + [0] * 57
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + [1]*2 + [0] * 56
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "01-02: Error: Both leap seconds are set!\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -264,8 +272,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - error in leap seconds
-        bitstream = [0] + [3] * 2 + [0] * 57
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + [3] * 2 + [0] * 56
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "01-02: Error: Leap second is ?.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -286,8 +294,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - a bit in 07-12 is wrongly 1
-        bitstream = [0] + 6*[0] + 1*[1] + [0]*52
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 1*[1] + [0]*51
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -307,8 +315,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - following day is a holiday
-        bitstream = [0] + 6*[0] + 6*[0] + [1] + [0]*47
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 6*[0] + [1] + [0]*45
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -329,8 +337,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - current day is a holiday
-        bitstream = [0] + 6*[0] + 7*[0] + [1] + [0]*46
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 7*[0] + [1] + [0]*44
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -351,8 +359,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - clock change
-        bitstream = [0] + 6*[0] + 9*[0] + [1] + [0]*44
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 9*[0] + [1] + [0]*42
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -372,8 +380,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - summer time
-        bitstream = [0] + 6*[0] + 10*[0] + [1] + [0]*43
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 10*[0] + [1] + [0]*41
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -393,8 +401,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - winter time
-        bitstream = [0] + 6*[0] + 11*[0] + [1] + [0]*42
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 11*[0] + [1] + [0]*40
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -414,8 +422,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - bit 19 is wrongly set to 1
-        bitstream = [0] + 6*[0] + 12*[0] + [1] + [0]*41
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 12*[0] + [1] + [0]*39
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -436,8 +444,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         self.assertEqual(objective, result)
 
         # positive test - bit 20 is wrongly set to 1
-        bitstream = [0] + 6*[0] + 13*[0] + [1] + [0]*40
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        bitstream = [0] + 6*[0] + 13*[0] + [1] + [0]*38
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
@@ -461,7 +469,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,0,0,0,1,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -483,7 +491,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [0] + [1,0,0,0,1,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -507,7 +515,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,0,0,0,1,0] + [1] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -531,7 +539,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,1,1,1,1,1] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -555,7 +563,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,1,1,1,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -578,7 +586,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [0,0,0,0,1,1] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -601,7 +609,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [0,0,1,0,0,1] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -624,7 +632,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [1,1,1,1,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -647,7 +655,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,1,1,1] + [1] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -670,7 +678,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,1,1,1,1] + [1] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -694,7 +702,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [1,3,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -717,7 +725,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,0,0,1,0] + [1,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -741,7 +749,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,0,0,1,0,1] + [1] + [1,0,3,0,1,0] + [0] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -763,7 +771,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,3,0,1,0,1] + [1] + [1,0,1,0,1,0] + [1] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -785,7 +793,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,1,3,0,1,0,1] + [1] + [1,0,1,0,1,0] + [1] + \
                     [1,1,0,0,1,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is ?.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -808,7 +816,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,1,1,0,0] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [1]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -831,7 +839,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,1,1,1,1,1] + [0,1,1] + [1,0,1,0,0] + \
                     [1,1,0,0,0,1,0,0] + [1]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -854,7 +862,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,0,0,0,0,0] + [0,1,1] + [1,1,1,1,0] + \
                     [1,1,0,0,0,1,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -877,7 +885,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,0,0,0,0,0] + [0,1,1] + [1,1,1,1,1] + \
                     [1,1,0,0,0,1,0,0] + [1]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -900,7 +908,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
                     [1,1,1,1,0,0,0,0] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -923,7 +931,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
                     [0,0,0,0,1,1,1,1] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -946,7 +954,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1] + [0,0,0,0,0,0,0] + [0] + [0,0,0,0,0,0] + [0] + \
                     [1,0,0,0,0,0] + [0,1,1] + [1,0,0,0,0] + \
                     [1,1,1,1,1,1,1,1] + [0]
-        result = self.my_decoder.decode_bitstream(bitstream, 60)
+        result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
                     "0-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
@@ -964,6 +972,33 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "58: Parity of date and weekdays successful.\n"
         self.assertEqual(objective, result)
 
+        # negative test: - error in year 10*digit
+        bitstream = [0] + 2 * [0] + 4 * [1] + 6 * [0] + 3 * [0] + \
+                    [0, 1, 0] + [0] + [1] + [0, 0, 0, 0, 0, 0, 0] + \
+                    [0] + [0, 0, 0, 0, 0, 0] + [0] + [1, 0, 0, 0, 0, 0] + \
+                    [0, 1, 1] + [1, 0, 0, 0, 0] + \
+                    [0, 1, 3, 0, 0, 3, 1, 1] + [0]
+        result = self.my_decoder.decode_bitstream(bitstream)
+        objective = "\n00: Start-bit is 0.\n" + \
+                    "0-02: No leap second.\n" + \
+                    "03-06: Error: Decoded & computed Hamming weights " + \
+                    "missmatch for bits 21-58: 30 != 7!\n" + \
+                    "03-06: Error: Hamming weight for bits 21-58 " + \
+                    "is not even!\n" + \
+                    "07-12: All zero.\n" + \
+                    "16: No clock change\n" + \
+                    "17-18: CEST - summer time.\n" + \
+                    "20: Begin of time information.\n" + \
+                    "28: Even parity of minutes successful.\n" + \
+                    "35: Even parity of hours successful.\n" + \
+                    "21-27 & 29-34: Time: 00:00h.\n" + \
+                    "Error: Year is ?.\n" + \
+                    "36-41 & 45-57: Date: 01.01.??.\n" + \
+                    "42-44: Weekday: Saturday.\n" + \
+                    "58: Parity of date and weekdays failed.\n" + \
+                    "# Bit errors: 2 => at positions: [52, 55].\n"
+        self.assertEqual(objective, result)
+
     def _mock_send_msg(self, msg):
         context = zmq.Context()
         self.socket_sender = context.socket(zmq.PUSH)
@@ -974,8 +1009,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         context.term()
 
     def _mock_send_stream(self, stream, offset=0):
-        for i in range(len(stream)):
-            out_msg = f"{stream[i]}, {i+offset}"
+        for i in range(1, len(stream)):
+            out_msg = f"{stream[i]}, {i+offset:02d}"
             self._mock_send_msg(out_msg)
 
     def test_consumer(self):
@@ -985,22 +1020,23 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send_msg("0, 00")
-        self._mock_send_msg("1, 01")
+        self._mock_send_msg("0, 01")
+        self._mock_send_msg("1, 02")
         self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
 
-        objective = "decoded bit at 00: 0 at position: 00\n" + \
-                    "decoded bit at 01: 1 at position: 01\n"
+        objective = "decoded bit at 01: 0 at position: 01\n" + \
+                    "decoded bit at 02: 1 at position: 02\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
         del t_decoder
 
         # positive test - ordinary 0 and 1 but later than beginning
@@ -1009,7 +1045,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
 
         # send desired messages and exit-signal
@@ -1020,12 +1057,12 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         # wait for decoder-thread to be completed
         t_decoder.join()
 
-        objective = "decoded bit at 00: 0 at position: 20\n" + \
-                    "20 bit(s) lost before position: 20\n" + \
+        objective = "decoded bit at 01: 0 at position: 20\n" + \
+                    "19 bit(s) lost before position: 20\n" + \
                     "decoded bit at 21: 1 at position: 21\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
         del t_decoder
 
         # positive test - end of minute too early
@@ -1034,26 +1071,27 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send_msg("1, 00")
-        self._mock_send_msg("0, 01")
-        self._mock_send_msg("2, 02")
+        self._mock_send_msg("1, 01")
+        self._mock_send_msg("0, 02")
+        self._mock_send_msg("2, 03")
         self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
 
-        objective = "decoded bit at 00: 1 at position: 00\n" + \
-                    "decoded bit at 01: 0 at position: 01\n" + \
-                    "decoded bit at 02: 2 at position: 02\n" + \
+        objective = "decoded bit at 01: 1 at position: 01\n" + \
+                    "decoded bit at 02: 0 at position: 02\n" + \
+                    "decoded bit at 03: 2 at position: 03\n" + \
                     "Error: Wrong number of bits at new minute!\n" + \
                     "#Bits: 2\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
         del t_decoder
 
         # positive test - received forbidden symbols
@@ -1062,39 +1100,43 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
 
         # send desired messages and exit-signal
-        self._mock_send_msg("1, 00")
-        self._mock_send_msg("Q, 01")
+        self._mock_send_msg("1, 01")
+        self._mock_send_msg("Q, 02")
         self._mock_send_msg("0, 0K")
         self._mock_send_msg("___EOT")
 
         # wait for decoder-thread to be completed
         t_decoder.join()
 
-        objective = "decoded bit at 00: 1 at position: 00\n" + \
-                    "decoded bit at 01: Q at position: 01\n" + \
-                    "Error: received message \"Q\" for time codeword is not permitted!\n" + \
-                    "decoded bit at 02: 0 at position: 0K\n" + \
-                    "Error: received message \"0K\" for position codeword is not permitted!\n"
+        objective = "decoded bit at 01: 1 at position: 01\n" + \
+                    "decoded bit at 02: Q at position: 02\n" + \
+                    "Error: received message \"Q\" for time codeword " + \
+                    "is not permitted!\n" + \
+                    "decoded bit at 03: 0 at position: 0K\n" + \
+                    "Error: received message \"0K\" for position " + \
+                    "codeword is not permitted!\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
         del t_decoder
-        """
+
         # positive test - received new minute at right time
         # Create StringIO object to capture any print-outputs on stdout
         result = StringIO()
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
 
         # send desired messages and exit-signal
-        for i in range(60):
+        for i in range(1, 60):
             self._mock_send_msg(f"0, {i:02d}")
         self._mock_send_msg("2, 00")
         self._mock_send_msg("___EOT")
@@ -1103,7 +1145,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.join()
 
         objective = ""
-        for i in range(60):
+        for i in range(1, 60):
             objective += f"decoded bit at {i:02d}: 0 at position: {i:02d}\n"
         objective += "decoded bit at 60: 2 at position: 00\n" + \
                      "\n00: Start-bit is 0.\n" + \
@@ -1124,16 +1166,17 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                      "58: Parity of date and weekdays successful.\n\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
         del t_decoder
-        """
+
         # positive test - decoding with some lost bits at begin of minute
         # Create StringIO object to capture any print-outputs on stdout
         result = StringIO()
         sys.stdout = result
 
         # run ALS162 decoder in a separate thread and start it
-        t_decoder = threading.Thread(target=self.my_decoder.consumer, name='Thread-consumer')
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
         t_decoder.start()
         stream = [0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,0,1,0,0,0,1,
                   0,0,1,0,0,1,0,1,1,0,0,1,0,1,0,0,1,1,0,0,0,1,0,0,1]
@@ -1146,10 +1189,12 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         t_decoder.join()
 
         objective = ""
-        objective += f"decoded bit at 00: {stream[0]} at position: {offset:02d}\n" + \
-                     f"10 bit(s) lost before position: {offset:02d}\n"
-        for i in range(offset+1, 60, 1):
-            objective += f"decoded bit at {i:02d}: {stream[i-offset]} at position: {i:02d}\n"
+        objective += f"decoded bit at 01: {stream[0]} at position: " + \
+                     f"{offset+1:02d}\n" + \
+                     f"10 bit(s) lost before position: {offset+1:02d}\n"
+        for i in range(offset+2, 60, 1):
+            objective += f"decoded bit at {i:02d}: {stream[i-offset]} " + \
+                         f"at position: {i}\n"
         objective += "decoded bit at 60: 2 at position: 00\n" + \
                      "\n00: Start-bit is ?.\n" + \
                      "01-02: Error: Leap second is ?.\n" + \
@@ -1165,10 +1210,37 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                      "36-41 & 45-57: Date: 29.05.23.\n" + \
                      "42-44: Weekday: Monday.\n" + \
                      "58: Parity of date and weekdays successful.\n" + \
-                     "# Bit errors: 9 => at positions: [0, 1, 2, 3, 4, 5, 6, 7, 8].\n\n"
+                     "# Bit errors: 10 => at positions: " + \
+                     "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].\n\n"
         self.assertEqual(objective, result.getvalue())
 
-        # full clean up decoder
+        # full clean-up of decoder
+        del t_decoder
+
+        # negative test - decoding with additional bits
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
+        t_decoder.start()
+        stream = [0]*62
+        self._mock_send_stream(stream=stream, offset=0)
+        self._mock_send_msg("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = ""
+        for i in range(1, 61, 1):
+            objective += f"decoded bit at {i:02d}: {stream[i]} " + \
+                         f"at position: {i:02d}\n"
+        objective += "Error: more than 60 bits counted: Reinit Counter.\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean-up of decoder
         del t_decoder
 
 
