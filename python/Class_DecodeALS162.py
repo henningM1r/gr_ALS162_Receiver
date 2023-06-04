@@ -85,7 +85,7 @@ class Class_DecodeALS162():
         elif bitstream[2] == 1 and bitstream[2] == 1:
             output += "01-02: Error: Both leap seconds are set!\n"
         elif bitstream[2] == 0 and bitstream[2] == 0:
-            output += "0-02: No leap second.\n"
+            output += "01-02: No leap second.\n"
         else:
             output += "01-02: Error: Leap second is ?.\n"
 
@@ -176,7 +176,7 @@ class Class_DecodeALS162():
 
             if num_errors == 1:
                 [bitstream[21:29], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[21:29])
-                output += f"Corrected single error at {21 + rel_err_pos}.\n"
+                output += f"Corrected single error at {21 + rel_err_pos + 1}.\n"
             else:
                 output += "28: Even parity of minutes is ?.\n"
 
@@ -198,7 +198,7 @@ class Class_DecodeALS162():
 
             if num_errors == 1:
                 [bitstream[29:36], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[29:36])
-                output += f"Corrected single error at {29 + rel_err_pos}.\n"
+                output += f"Corrected single error at {29 + rel_err_pos + 1}.\n"
             else:
                 output += "35: Even parity of hours is ?.\n"
 
@@ -251,7 +251,7 @@ class Class_DecodeALS162():
         if num_errors == 1:
             [bitstream[36:59], rel_err_pos, corr_val] = self.single_error_correction(bitstream=bitstream[36:59])
             if corr_val != -1:
-                output += f"Corrected single error at {36 + rel_err_pos}.\n"
+                output += f"Corrected single error at {36 + rel_err_pos + 1}.\n"
 
         weekday = self.decode_BCD([bitstream[44], bitstream[43],
                                    bitstream[42]], 3)
@@ -345,6 +345,9 @@ class Class_DecodeALS162():
 
         # get indices of each error in current bitstream
         error_pos = self.compute_error_pos(bitstream)
+
+        # to compensate for the shifted index
+        error_pos = [val+1 for val in error_pos]
 
         if num_errors > 0:
             output += f"# Bit errors: {num_errors} => " + \

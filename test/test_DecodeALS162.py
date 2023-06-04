@@ -170,7 +170,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0]*59
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -191,7 +191,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [1] + [0]*58
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 1 instead of 0!\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -290,14 +290,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "36-41 & 45-57: Date: ??.??.00.\n" + \
                     "42-44: Weekday: Sunday.\n" + \
                     "58: Parity of date and weekdays successful.\n" + \
-                    "# Bit errors: 2 => at positions: [1, 2].\n"
+                    "# Bit errors: 2 => at positions: [2, 3].\n"
         self.assertEqual(objective, result)
 
         # positive test - a bit in 07-12 is wrongly 1
         bitstream = [0] + 6*[0] + 1*[1] + [0]*51
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: At least one bit is 1 instead of 0!\n" + \
@@ -318,7 +318,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 6*[0] + [1] + [0]*45
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -340,7 +340,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 7*[0] + [1] + [0]*44
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -362,7 +362,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 9*[0] + [1] + [0]*42
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -383,7 +383,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 10*[0] + [1] + [0]*41
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -404,7 +404,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 11*[0] + [1] + [0]*40
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -425,7 +425,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 12*[0] + [1] + [0]*39
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -447,7 +447,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bitstream = [0] + 6*[0] + 13*[0] + [1] + [0]*38
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Decoded & computed Hamming weights match for " + \
                     "bits 21-58: 0 == 0.0.\n" + \
                     "07-12: All zero.\n" + \
@@ -471,7 +471,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 16!\n" + \
                     "07-12: All zero.\n" + \
@@ -493,7 +493,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 15!\n" + \
                     "03-06: Error: Hamming weight for bits 21-58 is not " + \
@@ -517,7 +517,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 17!\n" + \
                     "03-06: Error: Hamming weight for bits 21-58 is " + \
@@ -541,7 +541,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 20!\n" + \
                     "07-12: All zero.\n" + \
@@ -565,7 +565,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 18!\n" + \
                     "07-12: All zero.\n" + \
@@ -588,7 +588,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 16!\n" + \
                     "07-12: All zero.\n" + \
@@ -611,7 +611,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 16!\n" + \
                     "07-12: All zero.\n" + \
@@ -634,7 +634,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 14!\n" + \
                     "07-12: All zero.\n" + \
@@ -657,7 +657,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 14!\n" + \
                     "07-12: All zero.\n" + \
@@ -680,7 +680,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 16!\n" + \
                     "07-12: All zero.\n" + \
@@ -704,7 +704,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 10!\n" + \
                     "07-12: All zero.\n" + \
@@ -714,7 +714,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "28: Even parity of minutes successful.\n" + \
                     "35: Even parity of hours successful.\n" + \
                     "21-27 & 29-34: Time: 00:00h.\n" + \
-                    "Corrected single error at 43.\n" + \
+                    "Corrected single error at 44.\n" + \
                     "36-41 & 45-57: Date: 13.05.23.\n" + \
                     "42-44: Weekday: Friday.\n" + \
                     "58: Parity of date and weekdays successful.\n"
@@ -727,7 +727,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 11!\n" + \
                     "03-06: Error: Hamming weight for bits 21-58 " + \
@@ -751,7 +751,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 16!\n" + \
                     "07-12: All zero.\n" + \
@@ -759,7 +759,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "17-18: CEST - summer time.\n" + \
                     "20: Begin of time information.\n" + \
                     "28: Even parity of minutes successful.\n" + \
-                    "Corrected single error at 31.\n" + \
+                    "Corrected single error at 32.\n" + \
                     "21-27 & 29-34: Time: 11:52h.\n" + \
                     "36-41 & 45-57: Date: 13.05.23.\n" + \
                     "42-44: Weekday: Saturday.\n" + \
@@ -773,14 +773,14 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 18!\n" + \
                     "07-12: All zero.\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time.\n" + \
                     "20: Begin of time information.\n" + \
-                    "Corrected single error at 23.\n" + \
+                    "Corrected single error at 24.\n" + \
                     "35: Even parity of hours successful.\n" + \
                     "21-27 & 29-34: Time: 15:52h.\n" + \
                     "36-41 & 45-57: Date: 13.05.23.\n" + \
@@ -795,20 +795,20 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is ?.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 18!\n" + \
                     "07-12: All zero.\n" + \
                     "16: No clock change\n" + \
                     "17-18: CEST - summer time.\n" + \
                     "20: Begin of time information.\n" + \
-                    "Corrected single error at 23.\n" + \
+                    "Corrected single error at 24.\n" + \
                     "35: Even parity of hours successful.\n" + \
                     "21-27 & 29-34: Time: 15:52h.\n" + \
                     "36-41 & 45-57: Date: 13.05.23.\n" + \
                     "42-44: Weekday: Saturday.\n" + \
                     "58: Parity of date and weekdays successful.\n" + \
-                    "# Bit errors: 1 => at positions: [0].\n"
+                    "# Bit errors: 1 => at positions: [1].\n"
         self.assertEqual(objective, result)
 
         # negative test: - invalid day 1*digit
@@ -818,7 +818,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [1]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 12!\n" + \
                     "07-12: All zero.\n" + \
@@ -841,7 +841,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [1]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 14!\n" + \
                     "07-12: All zero.\n" + \
@@ -864,7 +864,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 10!\n" + \
                     "07-12: All zero.\n" + \
@@ -887,7 +887,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,0,0,0,1,0,0] + [1]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 12!\n" + \
                     "07-12: All zero.\n" + \
@@ -910,7 +910,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,1,1,0,0,0,0] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 8!\n" + \
                     "07-12: All zero.\n" + \
@@ -933,7 +933,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [0,0,0,0,1,1,1,1] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 8!\n" + \
                     "07-12: All zero.\n" + \
@@ -956,7 +956,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [1,1,1,1,1,1,1,1] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 12!\n" + \
                     "07-12: All zero.\n" + \
@@ -980,7 +980,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     [0, 1, 3, 0, 0, 3, 1, 1] + [0]
         result = self.my_decoder.decode_bitstream(bitstream)
         objective = "\n00: Start-bit is 0.\n" + \
-                    "0-02: No leap second.\n" + \
+                    "01-02: No leap second.\n" + \
                     "03-06: Error: Decoded & computed Hamming weights " + \
                     "missmatch for bits 21-58: 30 != 7!\n" + \
                     "03-06: Error: Hamming weight for bits 21-58 " + \
@@ -996,7 +996,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                     "36-41 & 45-57: Date: 01.01.??.\n" + \
                     "42-44: Weekday: Saturday.\n" + \
                     "58: Parity of date and weekdays failed.\n" + \
-                    "# Bit errors: 2 => at positions: [52, 55].\n"
+                    "# Bit errors: 2 => at positions: [53, 56].\n"
         self.assertEqual(objective, result)
 
     def _mock_send_msg(self, msg):
@@ -1149,7 +1149,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
             objective += f"decoded bit at {i:02d}: 0 at position: {i:02d}\n"
         objective += "decoded bit at 60: 2 at position: 00\n" + \
                      "\n00: Start-bit is 0.\n" + \
-                     "0-02: No leap second.\n" + \
+                     "01-02: No leap second.\n" + \
                      "03-06: Decoded & computed Hamming weights match for " + \
                      "bits 21-58: 0 == 0.0.\n" + \
                      "07-12: All zero.\n" + \
@@ -1211,7 +1211,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
                      "42-44: Weekday: Monday.\n" + \
                      "58: Parity of date and weekdays successful.\n" + \
                      "# Bit errors: 10 => at positions: " + \
-                     "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].\n\n"
+                     "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].\n\n"
         self.assertEqual(objective, result.getvalue())
 
         # full clean-up of decoder
