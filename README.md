@@ -96,9 +96,10 @@ The ALS162 receiver was tested with:
 
 
 ### REMARKS
++ :warning: Please note that the ALS162 transmitter in Allouis, France, is __sometimes offline due to maintenance work, e.g. every Tuesday morning from 08:00 to 12:00__.
 + This project has __not__ been tested with other SDR receivers.
 + This project has __not__ been tested with a receiver setup using a sound card.
 + This project has __not__ been tested with other antennas (e.g. a ferrite antenna).
 + A Low Noise Amplifier (LNA) is not needed.
-+ The simulation of transmitter channel and receiver does __not__ run the same speed as ordinary seconds, but rather a little bit faster.
++ The simulation of the transmitter channel and receiver does __not__ run at the same speed as ordinary seconds, but rather a little bit faster.
 + The SDR project provides the decoded ALS162 signal more or less in real-time, but it is probably __not__ accurate in terms of milliseconds and it is also delayed by approximately 2 seconds.
