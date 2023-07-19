@@ -531,19 +531,25 @@ class Class_DecodeALS162():
             if (not (received_msg[0] == "0" or
                      received_msg[0] == "1" or
                      received_msg[0] == "2" or
-                     received_msg[0] == "3")):
+                     received_msg[0] == "3" or
+                     received_msg[0] == "E")):
                 print(f"ERROR: received message \"{received_msg[0]}\" " +
                       "for time codeword is not permitted!")
                 continue
 
             regex = "\d{2}"
             match = re.findall(regex, received_msg[3:5])
-            if not match:
+            if (not match) and (not received_msg[3:5] == "EE"):
                 print(f"ERROR: received message \"{received_msg[3:5]}\" " +
                       "for position codeword is not permitted!")
                 continue
 
-            position = int(received_msg[3:5], 10)
+            if match:
+                position = int(received_msg[3:5], 10)
+            elif received_msg[3:5] == "EE":
+                # TODO as soon as multiple bits are lost this position might
+                #      be false. The decoder should include this knowledge.
+                position = count
 
             # fill up error symbols
             if count < position:
@@ -558,6 +564,10 @@ class Class_DecodeALS162():
 
             elif received_msg[0] == "1":
                 bitstream.append(1)
+                count = position
+
+            elif received_msg[0] == "E":
+                bitstream.append(3)
                 count = position
 
             # derive current time and date from the bitstream

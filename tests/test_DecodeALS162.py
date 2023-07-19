@@ -984,6 +984,56 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         # full clean-up of decoder
         del t_decoder
 
+        # positive test - received errors in time-symbol
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send_msg("E, 01")
+        self._mock_send_msg("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 01: E at position: 01\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean-up of decoder
+        del t_decoder
+
+        # positive test - received errors in position symbols
+        # Create StringIO object to capture any print-outputs on stdout
+        result = StringIO()
+        sys.stdout = result
+
+        # run ALS162 decoder in a separate thread and start it
+        t_decoder = threading.Thread(target=self.my_decoder.consumer,
+                                     name='Thread-consumer')
+        t_decoder.start()
+
+        # send desired messages and exit-signal
+        self._mock_send_msg("0, 01")
+        self._mock_send_msg("1, EE")
+        self._mock_send_msg("0, 03")
+        self._mock_send_msg("___EOT")
+
+        # wait for decoder-thread to be completed
+        t_decoder.join()
+
+        objective = "decoded bit at 01: 0 at position: 01\n" + \
+                    "decoded bit at 02: 1 at position: EE\n" + \
+                    "decoded bit at 03: 0 at position: 03\n"
+        self.assertEqual(objective, result.getvalue())
+
+        # full clean-up of decoder
+        del t_decoder
+
 if __name__ == '__main__':
     testInstance = Test_Class_DecodeALS162()
     unittest.main()
