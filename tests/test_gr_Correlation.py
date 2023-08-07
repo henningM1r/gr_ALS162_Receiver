@@ -1,12 +1,12 @@
 import sys
 
 import numpy as np
-import time
 import pmt
 from gnuradio import gr, gr_unittest
 
 sys.path.append('..')
-from examples.ALS162_Receiver import ALS162_Receiver_epy_block_2 as ALS162_Correlation
+from examples.ALS162_Receiver \
+    import ALS162_Receiver_epy_block_2 as ALS162_Correlation
 
 
 class test_gr_Correlation(gr_unittest.TestCase):
@@ -122,8 +122,7 @@ class test_gr_Correlation(gr_unittest.TestCase):
         self.setUp_Block()
         objective_msg = "E, EE"
         objective_window = ([-1,+1,-2,-1,-1,+2,+1,0,0,0,
-                            +1,-1,-1,+1,-2,+2,0,0] +
-                            16*[-1,+1])
+                            +1,-1,-1,+1,-2,+2,0,0] + 16*[-1,+1])
         msg = "+1,-1,-1,+1,0,+2,-2,0,+1," + \
               "+1,+1,-1,-1,+1,+1,-1,0,-1,-1,+1," + \
               "-2,+1,0,-1,+2,-1,-1,+2,2,-1," + \
@@ -201,8 +200,8 @@ class test_gr_Correlation(gr_unittest.TestCase):
         self.setUp_Block()
         objective_min_dist = 0
         objective_min_dist_idx = 0
-        objective_pos_key = ( 0,+1,-1, 0, 0, 0,+1,-1, 0, 0, 0, 0, 0, 0, 0,-1,
-                              0,+2, 0,-2, 0,+2, 0,-2, 0,+1, 0, 0, 0, 0, 0, 0)
+        objective_pos_key = (0,+1,-1, 0, 0, 0,+1,-1, 0, 0, 0, 0, 0, 0, 0,-1,
+                             0,+2, 0,-2, 0,+2, 0,-2, 0,+1, 0, 0, 0, 0, 0, 0)
         objective_dictionary = self.test_block.position_code_swap_dict.copy()
         objective_error = False
         window = [0,+1,-1, 0, 0, 0,+1,-1, 0, 0, 0, 0, 0, 0, 0,-1,
@@ -293,8 +292,8 @@ class test_gr_Correlation(gr_unittest.TestCase):
                              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         objective_dictionary = self.test_block.position_code_swap_dict.copy()
         objective_error = True
-        window = [+2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2,
-                  +2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2, +2, -2]
+        window = [+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,
+                  +2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2,+2,-2]
         [min_dist, min_dist_idx, pos_key, dictionary, error] = \
             self.test_block.compare_position_code(
                 self.test_block.position_code_swap_dict.copy(),
@@ -352,6 +351,7 @@ class test_gr_Correlation(gr_unittest.TestCase):
         self.assertEqual(objective_error, error)
 
         self.tearDown()
+
 
 if __name__ == '__main__':
     gr_unittest.run(test_gr_Correlation.test_gr_handle_msg())
