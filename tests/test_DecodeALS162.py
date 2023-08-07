@@ -339,7 +339,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         bits = [3, 0]
         result = self.my_decoder.decode_summertime(bits)
-        objective =  "17-18: ERROR: CET/CEST contains errors\n"
+        objective = "17-18: ERROR: CET/CEST contains errors\n"
         self.assertEqual(objective, result)
 
     def test_decode_bitstream(self):
@@ -526,12 +526,12 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         bits = [1, 0, 0]
         result = self.my_decoder.decode_weekday(bits)
-        objective = f"42-44: Weekday: Monday.\n"
+        objective = "42-44: Weekday: Monday.\n"
         self.assertEqual(objective, result)
 
         bits = [1, 1, 1]
         result = self.my_decoder.decode_weekday(bits)
-        objective = f"42-44: Weekday: Sunday.\n"
+        objective = "42-44: Weekday: Sunday.\n"
         self.assertEqual(objective, result)
 
         bits = [1, 3, 0]
@@ -600,7 +600,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         bits = [3, 0, 0, 0, 0, 0, 0, 0]
         [result, min_1, min_10] = self.my_decoder.decode_minutes(bits)
-        objective = f"Corrected single error at 21.\n"
+        objective = "Corrected single error at 21.\n"
         self.assertEqual(objective, result)
         objective = 0
         self.assertEqual(objective, min_1)
@@ -688,7 +688,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         bits = [3, 0, 0, 0, 0, 0, 1]
         [result, min_1, min_10] = self.my_decoder.decode_hours(bits)
-        objective = f"Corrected single error at 30.\n"
+        objective = "Corrected single error at 30.\n"
         self.assertEqual(objective, result)
         objective = 1
         self.assertEqual(objective, min_1)
@@ -725,7 +725,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bits = [3, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
         result = self.my_decoder.decode_date_weekday(bits)
-        objective = f"Corrected single error at 37.\n" + \
+        objective = "Corrected single error at 37.\n" + \
                     "36-41 & 45-57: Date: 01.01.00.\n" + \
                     "42-44: Weekday: Monday.\n" + \
                     "58: Parity of date and weekdays successful.\n"
@@ -734,7 +734,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         bits = [3, 3, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
         result = self.my_decoder.decode_date_weekday(bits)
-        objective = f"ERROR: Day is ?.\n" + \
+        objective = "ERROR: Day is ?.\n" + \
                     "36-41 & 45-57: Date: ??.01.00.\n" + \
                     "42-44: Weekday: Monday.\n" + \
                     "58: ERROR: Parity of date and weekdays is ?.\n"
@@ -939,7 +939,8 @@ class Test_Class_DecodeALS162(unittest.TestCase):
         objective += "decoded bit at 60: 2 at position: 00\n" + \
                      "\n00: ERROR: Start-bit is ?.\n" + \
                      "01-02: ERROR: Leap second is ?.\n" + \
-                     "03-06: ERROR: Hamming weight contains erroneous bits.\n" + \
+                     "03-06: ERROR: Hamming weight contains " +\
+                     "erroneous bits.\n" + \
                      "07-12: ERROR: Contains errors.\n" + \
                      "14: The current day is a holiday.\n" + \
                      "16: No clock change\n" + \
@@ -1033,6 +1034,7 @@ class Test_Class_DecodeALS162(unittest.TestCase):
 
         # full clean-up of decoder
         del t_decoder
+
 
 if __name__ == '__main__':
     testInstance = Test_Class_DecodeALS162()

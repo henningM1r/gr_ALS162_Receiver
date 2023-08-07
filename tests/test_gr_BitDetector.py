@@ -7,7 +7,8 @@ from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 
 sys.path.append('..')
-from examples.ALS162_Receiver import ALS162_Receiver_epy_block_0 as ALS162_BitDetector
+from examples.ALS162_Receiver \
+    import ALS162_Receiver_epy_block_0 as ALS162_BitDetector
 import msg_test_block
 
 
@@ -15,7 +16,6 @@ class test_gr_bitDetector(gr_unittest.TestCase):
 
     def setUp(self):
         self.tb = gr.top_block()
-        #self.maxDiff = None
 
     def setUp_Block(self):
         # NOTE the vector is just simple default value for the instantiation
@@ -48,7 +48,8 @@ class test_gr_bitDetector(gr_unittest.TestCase):
         self.tb.connect(src_sig5, (self.test_block, 4))
 
         self.tb.connect((self.test_block, 0), self.snk_sig)
-        self.tb.msg_connect((self.test_block, 'msg_out'), (self.snk_msg, "msg_in"))
+        self.tb.msg_connect((self.test_block, 'msg_out'),
+                            (self.snk_msg, "msg_in"))
 
         self.tb.run()
 
@@ -76,9 +77,10 @@ class test_gr_bitDetector(gr_unittest.TestCase):
         vout = [vin.copy().tolist()]
         # TODO verify 2 is indeed to be expected
         objective = 2
-        result = self.test_block.work(input_items=[vin_p1.copy(), vin_m1.copy(),
-                                                   vin_z0.copy(), vin_p2.copy(),
-                                                   vin_m2.copy()], output_items=vout)
+        result = self.test_block.work(
+            input_items=[vin_p1.copy(),vin_m1.copy(),
+                         vin_z0.copy(), vin_p2.copy(),
+                         vin_m2.copy()], output_items=vout)
         self.assertEqual(objective, result)
 
         # check default sample_rate
@@ -313,6 +315,9 @@ class test_gr_bitDetector(gr_unittest.TestCase):
         del self.test_block
         self.tearDown()
 
+
 if __name__ == '__main__':
-    gr_unittest.run(test_gr_bitDetector.test_gr_work(), "test_gr_BitDetector.xml")
-    gr_unittest.run(test_gr_bitDetector.test_gr_bitDetector_p2(), "test_gr_BitDetector.xml")
+    gr_unittest.run(test_gr_bitDetector.test_gr_work(),
+                    "test_gr_BitDetector.xml")
+    gr_unittest.run(test_gr_bitDetector.test_gr_bitDetector_p2(),
+                    "test_gr_BitDetector.xml")

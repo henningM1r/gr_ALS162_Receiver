@@ -207,7 +207,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [72, 1212.0]
+    coordinate: [72, 1148.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_2
@@ -231,7 +231,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 1076.0]
+    coordinate: [480, 1012.0]
     rotation: 0
     state: enabled
 - name: blocks_add_xx_0
@@ -273,7 +273,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [304, 1248.0]
+    coordinate: [304, 1184.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0
@@ -283,7 +283,12 @@ blocks:
     alias: ''
     comment: 'normalize signal
 
-      to range [-1, 1]'
+      to range [-1, 1]
+
+
+      =(subframes_minute/samp_rate)
+
+      =40/(192k)'
     const: subframes_minute/samp_rate
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -293,7 +298,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 780.0]
+    coordinate: [728, 780.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0
@@ -311,7 +316,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 1232.0]
+    coordinate: [736, 1168.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -395,7 +400,9 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: repeat time bits
+    comment: '40 repeat time bits
+
+      for each full second'
     interp: subframes_minute
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -514,7 +521,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 356.0]
+    coordinate: [408, 380.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0_0_0_0
@@ -534,7 +541,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 460.0]
+    coordinate: [408, 484.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0_0_0_0_0
@@ -556,7 +563,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [408, 564.0]
+    coordinate: [400, 588.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0_0_0_0_0_0
@@ -731,7 +738,14 @@ blocks:
 
       to the corresponding
 
-      symbol 0, 1 or 2'
+      symbol 0, 1 or 2
+
+
+      to fill up the first
+
+      8 time slices
+
+      (+ 32 zeros)'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
@@ -808,7 +822,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 1236.0]
+    coordinate: [912, 1172.0]
     rotation: 0
     state: enabled
 - name: note_0
@@ -1290,7 +1304,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 852.0]
+    coordinate: [976, 852.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1303,7 +1317,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 780.0]
+    coordinate: [976, 780.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_1
@@ -1342,7 +1356,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [72, 1276.0]
+    coordinate: [72, 1212.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1

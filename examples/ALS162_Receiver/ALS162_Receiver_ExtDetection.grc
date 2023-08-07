@@ -240,7 +240,7 @@ blocks:
     start: '0.00000'
     step: '0.00001'
     stop: '0.00350'
-    value: '0.00100'
+    value: '0.00030'
     widget: counter_slider
   states:
     bus_sink: false
@@ -1114,7 +1114,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: positive values
+    comment: scale this signal
     const: diff_gain
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -1436,7 +1436,7 @@ blocks:
     bus_structure: null
     coordinate: [584, 796.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_multiply_const_vxx_6
   id: blocks_multiply_const_vxx
   parameters:
@@ -2453,7 +2453,7 @@ blocks:
     bus_structure: null
     coordinate: [472, 508.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: freq_xlating_fir_filter_xxx_0_0
   id: freq_xlating_fir_filter_xxx
   parameters:
@@ -2473,9 +2473,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 772.0]
+    coordinate: [304, 772.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: import_0
   id: import
   parameters:
@@ -2552,7 +2552,7 @@ blocks:
     bus_structure: null
     coordinate: [72, 764.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: note_0
   id: note
   parameters:
@@ -3032,7 +3032,7 @@ blocks:
     bus_structure: null
     coordinate: [136, 420.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: phase_shift_fct
   id: epy_module
   parameters:
