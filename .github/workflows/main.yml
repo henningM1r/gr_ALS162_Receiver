@@ -19,4 +19,4 @@ jobs:
         run: python -m pip install flake8
 
       - name: linting tests
-        run: flake8 ./tests/ --append-config ./tests/setup.cfg
+        run: flake8 ./tests/ --ignore=E231,E402,E226 --count --statistics
