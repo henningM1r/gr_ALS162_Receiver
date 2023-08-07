@@ -1,0 +1,14 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: install dependencies
+      - run: python3 -m pip3 install flake8
+
+      - name: linting
+      - run: flake8
