@@ -7,10 +7,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
-
       - name: install dependencies
-      - run: python3 -m pip3 install flake8
+        run: python3 -m pip3 install flake8
 
       - name: linting
-      - run: flake8
+        run: flake8
