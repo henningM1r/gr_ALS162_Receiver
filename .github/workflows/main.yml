@@ -10,6 +10,8 @@ jobs:
         python-version: ["3.10", "3.11"]
 
     steps:
+      - uses: daniestevez/gr-satellites-ci-action@v2.0.6
+
       - name: Check out source repository
         uses: actions/checkout@v3
 
