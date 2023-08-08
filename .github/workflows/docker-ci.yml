@@ -20,7 +20,6 @@ jobs:
         
       - name: unit testing in docker container
         run: |
-          docker run --name container_gnuradio -d -i -t docker_gnuradio /bin/sh
           docker exec -it container_gnuradio sh
           cd gr_ALS162_Receiver/tests/
           python3 -m unittest discover
