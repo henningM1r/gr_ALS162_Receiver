@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Check out source repository
         uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
       
       - name: build docker image
         run: docker build . --file tests/Dockerfile --tag docker_gnuradio
