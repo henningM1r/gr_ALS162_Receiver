@@ -1,0 +1,19 @@
+name: Docker-CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+      
+      - name: build docker image
+        run: docker build . --file tests/Dockerfile --tag docker_gnuradio
