@@ -16,7 +16,7 @@ jobs:
       - name: build docker image
         run: |
           docker build . --file tests/Dockerfile --tag docker_gnuradio
-          docker run --name container_gnuradio -d -i -t docker_gnuradio /bin/sh
+          docker run --name container_gnuradio -d -i docker_gnuradio /bin/sh
         
       - name: unit testing in docker container
         run: |
