@@ -1,5 +1,5 @@
 # gr_ALS162_Receiver
-![Pipeline](https://github.com/henningM1r/gr_ALS162_Receiver/actions/workflows/main.yml/badge.svg)
+![Pipeline](https://github.com/henningM1r/gr_ALS162_Receiver/actions/workflows/docker-ci.yml/badge.svg)
 
 This is a basic ALS162 time signal receiver for GNURadio, containing:
 1. signal demodulation and detection of the ALS162 signal with an SDR using GNURadio (and Python modules)

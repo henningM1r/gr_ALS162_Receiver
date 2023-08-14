@@ -51,7 +51,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 12.0]
+    coordinate: [344, 12.0]
     rotation: 0
     state: true
 - name: c
@@ -63,7 +63,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [656, 12.0]
+    coordinate: [824, 16.0]
     rotation: 0
     state: true
 - name: fading_freq
@@ -86,7 +86,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 12.0]
+    coordinate: [512, 12.0]
     rotation: 0
     state: true
 - name: fading_toggle_button
@@ -111,7 +111,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [344, 340.0]
+    coordinate: [392, 364.0]
     rotation: 0
     state: true
 - name: impulse_thres
@@ -138,7 +138,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 12.0]
+    coordinate: [1128, 12.0]
     rotation: 0
     state: true
 - name: interference_gain
@@ -161,7 +161,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 12.0]
+    coordinate: [1320, 12.0]
     rotation: 0
     state: true
 - name: interference_toggle_button
@@ -186,7 +186,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 620.0]
+    coordinate: [392, 660.0]
     rotation: 0
     state: true
 - name: range_uniform
@@ -209,7 +209,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [752, 12.0]
+    coordinate: [936, 12.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -221,7 +221,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 12.0]
+    coordinate: [224, 16.0]
     rotation: 0
     state: enabled
 - name: v
@@ -233,7 +233,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 12.0]
+    coordinate: [680, 16.0]
     rotation: 0
     state: true
 - name: analog_fastnoise_source_x_0
@@ -253,7 +253,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [624, 692.0]
+    coordinate: [720, 732.0]
     rotation: 0
     state: true
 - name: analog_random_uniform_source_x_0
@@ -296,7 +296,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 1356.0]
+    coordinate: [248, 1348.0]
     rotation: 0
     state: enabled
 - name: analog_sig_source_x_1
@@ -318,7 +318,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 468.0]
+    coordinate: [112, 500.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0
@@ -336,7 +336,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 392.0]
+    coordinate: [1024, 392.0]
     rotation: 0
     state: enabled
 - name: blocks_int_to_float_0
@@ -353,7 +353,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 1084.0]
+    coordinate: [304, 1088.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_1_0
@@ -373,7 +373,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 1084.0]
+    coordinate: [944, 1088.0]
     rotation: 0
     state: true
 - name: blocks_multiply_xx_1
@@ -391,7 +391,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 1264.0]
+    coordinate: [792, 1264.0]
     rotation: 0
     state: enabled
 - name: blocks_null_sink_0
@@ -408,7 +408,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 1552.0]
+    coordinate: [440, 1584.0]
     rotation: 0
     state: enabled
 - name: blocks_null_source_0
@@ -427,7 +427,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [48, 1552.0]
+    coordinate: [56, 1584.0]
     rotation: 0
     state: enabled
 - name: blocks_selector_0
@@ -450,7 +450,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 512.0]
+    coordinate: [736, 552.0]
     rotation: 0
     state: true
 - name: blocks_selector_0_0
@@ -473,7 +473,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 184.0]
+    coordinate: [752, 192.0]
     rotation: 0
     state: true
 - name: blocks_stream_to_vector_0
@@ -491,7 +491,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [224, 1264.0]
+    coordinate: [240, 1264.0]
     rotation: 0
     state: enabled
 - name: blocks_stream_to_vector_0_0
@@ -509,7 +509,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 1400.0]
+    coordinate: [536, 1400.0]
     rotation: 0
     state: enabled
 - name: blocks_threshold_ff_0
@@ -527,7 +527,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 1068.0]
+    coordinate: [480, 1068.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0
@@ -546,7 +546,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 1548.0]
+    coordinate: [240, 1576.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_to_stream_0
@@ -564,7 +564,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1256, 1280.0]
+    coordinate: [1360, 1280.0]
     rotation: 0
     state: enabled
 - name: channels_fading_model_0
@@ -610,7 +610,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1472, 1252.0]
+    coordinate: [1600, 1244.0]
     rotation: 0
     state: enabled
 - name: fft_vxx_0
@@ -631,7 +631,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [440, 1228.0]
+    coordinate: [472, 1220.0]
     rotation: 0
     state: enabled
 - name: fft_vxx_0_0
@@ -652,7 +652,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [976, 1244.0]
+    coordinate: [1048, 1236.0]
     rotation: 0
     state: enabled
 - name: filter_fft_low_pass_filter_0
@@ -676,7 +676,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 1028.0]
+    coordinate: [688, 1024.0]
     rotation: 0
     state: true
 - name: network_tcp_sink_0
@@ -694,7 +694,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 412.0]
+    coordinate: [1176, 408.0]
     rotation: 0
     state: enabled
 - name: network_tcp_source_0
@@ -725,7 +725,7 @@ blocks:
 
       impulsive interference
 
-      (roughly  a sine cardinale
+      (roughly a sine cardinale
 
       waveform)'
     note: ''
@@ -733,7 +733,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 932.0]
+    coordinate: [24, 944.0]
     rotation: 0
     state: true
 - name: virtual_sink_0
@@ -746,7 +746,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1840, 1276.0]
+    coordinate: [2024, 1272.0]
     rotation: 0
     state: true
 - name: virtual_sink_0_0
@@ -759,7 +759,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1120, 1084.0]
+    coordinate: [1160, 1088.0]
     rotation: 0
     state: true
 - name: virtual_source_0
@@ -772,7 +772,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 540.0]
+    coordinate: [432, 576.0]
     rotation: 0
     state: true
 - name: virtual_source_0_0
@@ -785,7 +785,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 1260.0]
+    coordinate: [24, 1256.0]
     rotation: 0
     state: true
 
